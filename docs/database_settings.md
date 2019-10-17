@@ -13,6 +13,7 @@
 | address      | char      | required | 기업 상세주소                                           |
 | lat          | int       | required | latitude, 위도                                          |
 | lng          | int       | required | longitude, 경도                                         |
+| place_id     | int       | required | google map place id                                     |
 | Ind_code     | int       | required | 업종 코드(**하단 참고**)                                |
 | Ind_name     | char      | required | 업종                                                    |
 | Ind_key_code | char      | required | 업종 키워드 코드 (쉼표로 구분, **하단 참고**)           |
@@ -28,14 +29,15 @@
 
 ### Station
 
-| field   | type | required | feature         |
-| ------- | ---- | -------- | --------------- |
-| id      | int  | required | primary key     |
-| name    | char | required | 역명            |
-| line    | int  | required | 노선 번호       |
-| address | char | required | 역 상세주소     |
-| lat     | int  | required | latitude, 위도  |
-| lng     | int  | required | longitude, 경도 |
+| field    | type | required | feature             |
+| -------- | ---- | -------- | ------------------- |
+| id       | int  | required | primary key         |
+| name     | char | required | 역명                |
+| line     | int  | required | 노선 번호           |
+| address  | char | required | 역 상세주소         |
+| lat      | int  | required | latitude, 위도      |
+| lng      | int  | required | longitude, 경도     |
+| place_id | int  | required | google map place id |
 
 
 
