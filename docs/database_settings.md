@@ -13,9 +13,9 @@
 | address      | char      | required | 기업 상세주소                                           |
 | lat          | int       | required | latitude, 위도                                          |
 | lng          | int       | required | longitude, 경도                                         |
-| Ind_code     | int       | required | 업종 코드(**하단 참고**)                                |
-| Ind_name     | char      | required | 업종                                                    |
-| Ind_key_code | char      | required | 업종 키워드 코드 (쉼표로 구분, **하단 참고**)           |
+| ind_code     | int       | required | 업종 코드(**하단 참고**)                                |
+| ind_name     | char      | required | 업종                                                    |
+| ind_key_code | char      | required | 업종 키워드 코드 (쉼표로 구분, **하단 참고**)           |
 | job          | char      | required | 직종                                                    |
 | exp_min      | int       | required | 최소 경력                                               |
 | exp_max      | int       | required | 최대 경력                                               |
