@@ -4,40 +4,51 @@ import os
 
 
 class Maps:
-    def __init__(self, key):
-        self.api_key = key
+    api_key = os.environ.get("GOOGLE_MAPS_KEY")
 
-    def directions(self, origin, destination):
-        URL = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:{}&destination=place_id:{}&mode=transit&arrival_time=1571097600&key={}".format(
-            origin, destination, self.api_key)
-        res = requests.get(URL).json()
-        # json data save
-        with open("directions/{}&{}.json".format(
-                origin, destination), 'w', encoding='utf-8') as f:
-            json.dump(res, f, indent="\t")
-        if res["status"] == "OK":
-            return res["routes"][0]["legs"][0]["duration"]["text"]
+    @classmethod
+    def directions(cls, origin, destination):
+        path = "directions/{}&{}.json".format(origin, destination)
+        if os.path.isfile(path):  # 기존에 검색한 이력이 있을 때
+            with open(path) as f:
+                res = json.load(f)
         else:
-            print(res["status"])
-
-    def places(self, place):
-        URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input={}&inputtype=textquery&fields=formatted_address,name,geometry,place_id&key={}".format(
-            place, self.api_key)
-        res = requests.get(URL).json()
+            URL = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:{}&destination=place_id:{}&mode=transit&arrival_time=1571097600&key={}".format(
+                origin, destination, cls.api_key)
+            print(URL)
+            res = requests.get(URL).json()
         # json data save
-        with open("places/{}.json".format(res["candidates"][0]["place_id"]), 'w', encoding='utf-8') as f:
-            json.dump(res, f, indent="\t")
+            if res["status"] == "OK":
+                with open(path, 'w', encoding='UTF-8') as f:
+                    json.dump(res, f, indent="\t")
+            else:
+                print(res["status"])
+                return False
+        return res["routes"][0]["legs"][0]["duration"]["text"]
+
+    @classmethod
+    def places(cls, place):
+        path = "places/{}.json".format(place)
+        if os.path.isfile(path):  # 기존에 검색한 이력이 있을 때
+            with open(path) as f:
+                res = json.load(f)
+        else:
+            URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input={}&inputtype=textquery&fields=formatted_address,name,geometry,place_id&key={}".format(
+                place, cls.api_key)
+            res = requests.get(URL).json()
+        # json data save
         if res["status"] == "OK":
+            with open(path, 'w', encoding='UTF-8') as f:
+                json.dump(res, f, indent="\t")
             return res["candidates"][0]
-            # output shape = {name, formatted_address, geomtry: {viewport: {southwest, northeast}, location, place_id}}
+            # output shape = {name, formatted_address,location, place_id, geometry: {viewport: {southwest, northeast}}}
         else:
             print(res["status"])
+            return False
 
 
-key = os.environ.get("GOOGLE_MAPS_KEY")
-maps = Maps(key)
-station = maps.places("명일역")  # Station data
+station = Maps.places("명일역")  # Station data
 # TODO station data save
-company = maps.places("네이버 본사")  # Company data
+company = Maps.places("경기 성남시 분당구 불정로 6")  # Company data
 # TODO company data save
-print(maps.directions(station["place_id"], company["place_id"]))
+print(Maps.directions(station["place_id"], company["place_id"]))

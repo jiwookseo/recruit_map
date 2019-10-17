@@ -1,3 +1,6 @@
 # data json file
 directions/
 places/
+
+# python
+__pycache__
