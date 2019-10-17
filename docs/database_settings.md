@@ -4,26 +4,44 @@
 
 ### Company
 
-| field        | type      | required | feature                                                 |
-| ------------ | --------- | -------- | ------------------------------------------------------- |
-| id           | int       | required | primary key                                             |
-| name         | char      | required | 기업명                                                  |
-| href         | url       | option   | 홈페이지 주소                                           |
-| salary       | int       | required | 연봉, \* 만원                                           |
-| address      | char      | required | 기업 상세주소                                           |
-| lat          | int       | required | latitude, 위도                                          |
-| lng          | int       | required | longitude, 경도                                         |
-| place_id     | int       | required | google map place id                                     |
-| ind_code     | int       | required | 업종 코드(**하단 참고**)                                |
-| ind_name     | char      | required | 업종                                                    |
-| ind_key_code | char      | required | 업종 키워드 코드 (쉼표로 구분, **하단 참고**)           |
+| field        | type  | required | feature                                       |
+| ------------ | ----- | -------- | --------------------------------------------- |
+| id           | int   | required | primary key                                   |
+| name         | char  | required | 기업명                                        |
+| href         | url   | option   | 홈페이지 주소                                 |
+| saram_url    | url   | required | 사람인 기업 정보 url                          |
+| salary       | int   | required | 연봉, \* 만원                                 |
+| address      | char  | required | 기업 상세주소                                 |
+| lat          | float | required | latitude, 위도                                |
+| lng          | float | required | longitude, 경도                               |
+| vp_ne_lat    | float | required | viewport north-east latitude                  |
+| vp_ne_lng    | float | required | viewport north-east longitude                 |
+| vp_sw_lat    | float | required | viewport south-west latitude                  |
+| vp_sw_lng    | float | required | viewport south-west longitude                 |
+| place_id     | int   | required | google map place id                           |
+| ind_code     | int   | required | 업종 코드(**하단 참고**)                      |
+| ind_name     | char  | required | 업종                                          |
+| ind_key_code | char  | required | 업종 키워드 코드 (쉼표로 구분, **하단 참고**) |
+
+&nbsp;
+
+
+### Job
+
+| field | type | required | feature     |
+| ----- | ---- | -------- | ----------- |
+| id    | int  | required | primary key |
+| title | char | required | 채용 공고 제목 |
 | job          | char      | required | 직종                                                    |
 | exp_min      | int       | required | 최소 경력                                               |
 | exp_max      | int       | required | 최대 경력                                               |
-| edu          | char      | required | 학력 코드(쉼표로 구분, **하단 참고**)                   |
+| edu_code     | char      | required | 학력 코드(쉼표로 구분, **하단 참고**)                   |
+| edu_name     | char      | required | 학력                                                    |
 | open         | timestamp | required | 접수 시작일                                             |
 | close        | timestamp | required | 접수 마감일                                             |
 | close_type   | int       | required | 1: 접수 마감일<br />2: 채용시<br />3: 상시<br />4: 수시 |
+
+&nbsp;
 
 ### Station
 
@@ -37,6 +55,8 @@
 | lng      | int  | required | longitude, 경도     |
 | place_id | int  | required | google map place id |
 
+&nbsp;
+
 ### User
 
 | field           | type         | required | feature                            |
@@ -46,6 +66,8 @@
 | email           | email        | required | 이메일                             |
 | liked_companies | many to many |          | 찜한 기업, related_name=like_users |
 
+&nbsp;
+
 ### Route
 
 | field   | type        | required | feature                      |
@@ -54,6 +76,8 @@
 | time    | int         | required | 역에서 기업까지 소요시간(분) |
 | company | foreign key | required |                              |
 | station | foreign key | required |                              |
+
+&nbsp;
 
 ## Code Table
 
@@ -73,6 +97,8 @@
   | 7    | 대학졸업(2,3년)이상 |
   | 8    | 대학교졸업(4년)이상 |
   | 9    | 석사졸업이상        |
+
+&nbsp;
 
 ### 산업/업종
 
