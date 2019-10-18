@@ -20,7 +20,7 @@ class Maps:
         # json data save
             if res["status"] == "OK":
                 with open(path, 'w', encoding='UTF-8') as f:
-                    json.dump(res, f, indent="\t", ensure_ascii=False)
+                    json.dump(res, f, indent="  ", ensure_ascii=False)
             else:
                 print(res["status"])
                 return False
@@ -39,11 +39,11 @@ class Maps:
         # json data save
         if res["status"] == "OK":
             with open(path, 'w', encoding='UTF-8') as f:
-                json.dump(res, f, indent="\t", ensure_ascii=False)
+                json.dump(res, f, indent="  ", ensure_ascii=False)
             return res["candidates"][0]
             # output shape = {name, formatted_address,location, place_id, geometry: {viewport: {southwest, northeast}}}
         else:
-            print(res["status"])
+            # print(res["status"])
             return False
 
 
