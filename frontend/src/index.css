@@ -1,3 +1,30 @@
+html, body, div, span, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre, a,
+del, em, img, ins, q, s, 
+small, strike, strong, sub, sup, 
+b, u, i, center, dl, dt, dd, ol, ul, li,
+fieldset, form, label,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header,
+menu, nav, section, summary {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+a, a:hover {
+	color: initial;
+	text-decoration: none;
+}
+div:before, div:after, span:before, span:after {
+  content: "";
+}
+ol, ul {
+  list-style: none;
+}
+
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -5,9 +32,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%; height: 100vh;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#root, .App {
+  width: 100%; height: 100%;
 }

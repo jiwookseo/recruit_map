@@ -1,5 +1,5 @@
 import React from 'react';
-import Maps from './Maps/index.js'
+import Maps from './Maps'
 
 function App() {
   return (
