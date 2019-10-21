@@ -4,6 +4,7 @@
 *.pot
 *.pyc
 __pycache__/
+migrations/
 
 venv/
 
