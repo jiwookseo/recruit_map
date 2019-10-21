@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'api',
     'users',
+    'jsonfield'
 ]
 
 MIDDLEWARE = [
@@ -87,6 +88,9 @@ DATABASES = {
         'PASSWORD': os.getenv('MYSQL_PASSWORD'),
         'HOST': 'nonamed.cf94mqktvsr3.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
+        'OPTIONS': {
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'"
+        }
     }
 }
 
