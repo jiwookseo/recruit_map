@@ -1,7 +1,11 @@
 import colors from 'vuetify/es5/util/colors'
+require('dotenv').config()
 
 export default {
   mode: 'universal',
+  env: {
+    GOOGLE_MAP: process.env.GOOGLE_MAP
+  },
   /*
    ** Headers of the page
    */
@@ -26,18 +30,19 @@ export default {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ['assets/main.css'],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [{ src: '~/plugins/google-maps', ssr: true }],
   /*
    ** Nuxt.js dev-modules
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/dotenv'
   ],
   /*
    ** Nuxt.js modules
@@ -80,6 +85,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    transpile: [/^vue2-google-maps($|\/)/],
     extend(config, ctx) {}
   }
 }
