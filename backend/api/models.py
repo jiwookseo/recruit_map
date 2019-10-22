@@ -58,3 +58,11 @@ class Station(models.Model):
     @property
     def line_array(self):
         return self.line.split(",")
+
+
+class Route(models.Model):
+    time = models.IntegerField(_("transit time"))
+    company = models.ForeignKey(
+        Company, verbose_name=_("destination company"), on_delete=models.CASCADE)
+    station = models.ForeignKey(
+        Station, verbose_name=_("origin station"), on_delete=models.CASCADE)
