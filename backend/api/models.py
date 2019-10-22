@@ -26,6 +26,14 @@ class Company(models.Model):
     ind_key_code = models.CharField(
         _("industry keyword code"), max_length=50, default="", blank=True)
 
+    @property
+    def ind_array(self):
+        return self.ind_code.split(",")
+
+    @property
+    def ind_key_array(self):
+        return self.ind_key_code.split(",")
+
 
 class Job(models.Model):
     company = models.ForeignKey(Company, verbose_name=_(
@@ -58,3 +66,11 @@ class Station(models.Model):
     @property
     def line_array(self):
         return self.line.split(",")
+
+
+class Route(models.Model):
+    time = models.IntegerField(_("transit time"))
+    company = models.ForeignKey(
+        Company, verbose_name=_("destination company"), on_delete=models.CASCADE)
+    station = models.ForeignKey(
+        Station, verbose_name=_("origin station"), on_delete=models.CASCADE)
