@@ -30,6 +30,7 @@
 | field | type | required | feature     |
 | ----- | ---- | -------- | ----------- |
 | id    | int  | required | primary key |
+| company | FK | required | 채용 기업, foreign key |
 | title | char | required | 채용 공고 제목 |
 | saram_url | url | required | 사람인 공고 정보 url |
 | job          | char      | required | 직종                                                    |
