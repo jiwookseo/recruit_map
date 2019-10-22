@@ -26,21 +26,20 @@ for data in res["jobs"]["job"]:
         company["ind_key_code"] = data["position"]["industry-keyword-code"]
 
         # company scrap part
-        res = requests.get(company["saramin_url"])
-        res = requests.get(res.url.replace("view", "view-inner-salary"))
-        soup = BeautifulSoup(res.text, "html.parser")
-        salary_tag = soup.find("p", "average_currency")
-        if salary_tag:
-            salary_str = salary_tag.text.replace(",", "").replace("만원", "")
-            company["avg_salary"] = int(salary_str.strip())
-        else:
-            company["avg_salary"] = 0
-        start_tag = soup.find("p", "salary")
-        if start_tag:
-            salary_str = start_tag.text.replace(",", "").replace("만원", "")
-            company["start_salary"] = int(salary_str.strip())
-        else:
-            company["start_salary"] = 0
+        saramin_url = company.get("saramin_url", False)
+        company["avg_salary"] = company["start_salary"] = 0
+        if saramin_url:
+            res = requests.get(saramin_url)
+            res = requests.get(res.url.replace("view", "view-inner-salary"))
+            soup = BeautifulSoup(res.text, "html.parser")
+            salary_tag = soup.find("p", "average_currency")
+            if salary_tag:
+                salary_str = salary_tag.text.replace(",", "").replace("만원", "")
+                company["avg_salary"] = int(salary_str.strip())
+            start_tag = soup.find("p", "salary")
+            if start_tag:
+                salary_str = start_tag.text.replace(",", "").replace("만원", "")
+                company["start_salary"] = int(salary_str.strip())
         res = requests.get(
             "http://www.jobkorea.co.kr/Search/?stext={}&tabType=corp&Page_No=1".format(company["name"]))
         soup = BeautifulSoup(res.text, "html.parser")
@@ -48,9 +47,6 @@ for data in res["jobs"]["job"]:
         if corp:
             link = corp.find("a")
             if link:
-                # if link.text != company["name"]:
-                #     print("[Warning] Incorrect name :",
-                #           link.text, company["name"])
                 res = requests.get("http://www.jobkorea.co.kr" + link["href"])
                 soup = BeautifulSoup(res.text, "html.parser")
                 keys = soup.find_all("div", "field-label")
