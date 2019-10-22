@@ -26,6 +26,14 @@ class Company(models.Model):
     ind_key_code = models.CharField(
         _("industry keyword code"), max_length=50, default="", blank=True)
 
+    @property
+    def ind_array(self):
+        return self.ind_code.split(",")
+
+    @property
+    def ind_key_array(self):
+        return self.ind_key_code.split(",")
+
 
 class Job(models.Model):
     company = models.ForeignKey(Company, verbose_name=_(
