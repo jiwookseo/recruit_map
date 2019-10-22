@@ -46,26 +46,16 @@
 
 ### Station
 
-| field    | type | required | feature             |
-| -------- | ---- | -------- | ------------------- |
-| id       | int  | required | primary key         |
-| name     | char | required | 역명                |
-| line     | int  | required | 노선 번호           |
-| address  | char | required | 역 상세주소         |
-| lat      | int  | required | latitude, 위도      |
-| lng      | int  | required | longitude, 경도     |
-| place_id | int  | required | google map place id |
-
-&nbsp;
-
-### User
-
-| field           | type         | required | feature                            |
-| --------------- | ------------ | -------- | ---------------------------------- |
-| id              | int          | required | primary key                        |
-| pw              | password     | required | 비밀번호                           |
-| email           | email        | required | 이메일                             |
-| liked_companies | many to many |          | 찜한 기업, related_name=like_users |
+| field    | type | required | feature                                        |
+| -------- | ---- | -------- | ---------------------------------------------- |
+| id       | int  | required | primary key                                    |
+| name     | char | required | 역명                                           |
+| line     | char | required | 노선 번호(쉼표로 구분, **하단 참고**)          |
+| address  | char | required | 역 상세주소                                    |
+| lat      | int  | required | latitude, 위도                                 |
+| lng      | int  | required | longitude, 경도                                |
+| viewport | json | required | {northeast: {lat, lng}, southwest: {lat, lng}} |
+| place_id | int  | required | google map place id                            |
 
 &nbsp;
 
@@ -77,6 +67,17 @@
 | time    | int         | required | 역에서 기업까지 소요시간(분) |
 | company | foreign key | required |                              |
 | station | foreign key | required |                              |
+
+&nbsp;
+
+### User
+
+| field           | type         | required | feature                            |
+| --------------- | ------------ | -------- | ---------------------------------- |
+| id              | int          | required | primary key                        |
+| pw              | password     | required | 비밀번호                           |
+| email           | email        | required | 이메일                             |
+| liked_companies | many to many |          | 찜한 기업, related_name=like_users |
 
 &nbsp;
 
@@ -245,3 +246,26 @@
   | 31412 | Flash게임       |
   | 31413 | 웹게임          |
   | 31414 | 베타테스터      |
+
+&nbsp;
+
+### 지하철
+
+* #### 노선코드
+
+  | 코드  | 노선명       |
+  | ----- | ------------ |
+  | 1 - 9 | 1 - 9 호선   |
+  | A     | 공항철도     |
+  | B     | 분당선       |
+  | E     | 용인경전철   |
+  | G     | 경춘선       |
+  | I1    | 인천1호선    |
+  | I2    | 인천2호선    |
+  | K     | 경의중앙선   |
+  | KK    | 경강선       |
+  | S     | 신분당선     |
+  | SU    | 수인선       |
+  | U     | 의정부경전철 |
+
+  
