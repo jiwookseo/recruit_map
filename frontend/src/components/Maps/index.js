@@ -52,7 +52,7 @@ const GoogleMaps = props => {
         {markers.map(v => v)}
         <InfoWindow onClose={handleClose}>
           <div>
-            <h1>{this.state.selectedPlace.name}</h1>
+            <h1>{}</h1>
           </div>
         </InfoWindow>
       </Map>

@@ -2,8 +2,6 @@ import React from 'react';
 import { Marker } from 'google-maps-react';
 
 const CustomMarker = ({ marker, google }) => {
-  console.log('마커', marker);
-  console.log('구글', google);
   return (
     <Marker
       key={marker.id}
