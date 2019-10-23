@@ -1,10 +1,9 @@
 <template>
   <GmapMarker
-    :options="infWinOptions"
-    :position="infWinPosition"
-    :opened="infWinOpen"
-  >
-  </GmapMarker>
+    :options="optionsContent"
+    :position="position"
+    :opened="open"
+  ></GmapMarker>
 </template>
 
 <script>
@@ -16,11 +15,7 @@ export default {
     info: { type: Object }
   },
   computed: {
-    ...mapGetters({
-      infWinOpen: 'infoWindow/open',
-      infWinPosition: 'infoWindow/position',
-      infWinOptionsContent: 'infoWindow/optionsContent'
-    }),
+    ...mapGetters('infoWindow', ['open', 'position', 'optionsContent']),
     infWinOptions() {
       return {
         content: `<div class="infContainer"><div class="infWindow1">${this.infWinOptionsContent.t1}</div><div class="infWindow2">${this.infWinOptionsContent.t2}</div></div>`,

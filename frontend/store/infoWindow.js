@@ -1,4 +1,4 @@
-const state = {
+export const state = () => ({
   open: true,
   position: {
     lat: 37,
@@ -9,15 +9,15 @@ const state = {
     t1: 'Initial t1',
     t2: 'Initial t2'
   }
-}
+})
 
-const getters = {
+export const getters = {
   open: (state) => state.open,
   position: (state) => state.position,
   optionsContent: (state) => state.optionsContent
 }
 
-const mutations = {
+export const mutations = {
   setOpen: (state, payload) => {
     state.Open = payload
   },
@@ -29,7 +29,7 @@ const mutations = {
   }
 }
 
-const actions = {
+export const actions = {
   setOpen({ commit }, payload) {
     // payload: Boolean value that controls whether or not info window is opened
     commit('setOpen', payload)
