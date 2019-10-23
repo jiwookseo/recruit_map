@@ -19,7 +19,7 @@ class Company(models.Model):
     lat = models.FloatField(_("latitude"))
     lng = models.FloatField(_("longitude"))
     viewport = jsonfield.JSONField(_("viewport geometry"))
-    place_id = models.CharField(_("google map place_id"), max_length=50)
+    place_id = models.CharField(_("google map place_id"), max_length=150)
     ind_code = models.CharField(
         _("industry code"),  max_length=50, default=0, blank=True)
     ind_name = models.CharField(
@@ -43,7 +43,7 @@ class Job(models.Model):
     saramin_url = models.URLField(
         _("saramin info url"), max_length=200, default="", blank=True)
     job = models.CharField(
-        _("job category"), max_length=50, default="", blank=True)
+        _("job category"), max_length=100, default="", blank=True)
     exp_min = models.IntegerField(_("minimum experience"))
     exp_max = models.IntegerField(_("maximum experience"))
     edu_code = models.IntegerField(_("education code"))
@@ -62,7 +62,7 @@ class Station(models.Model):
     lat = models.FloatField(_("latitude"))
     lng = models.FloatField(_("longitude"))
     viewport = jsonfield.JSONField(_("viewport geometry"))
-    place_id = models.IntegerField(_("google map place_id"))
+    place_id = models.CharField(_("google map place_id"), max_length=150)
 
     @property
     def line_array(self):
