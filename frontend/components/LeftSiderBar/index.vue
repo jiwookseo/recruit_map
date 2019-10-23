@@ -1,17 +1,21 @@
 <template>
   <div class="left--side-bar">
-    <h1>Hello World</h1>
-
     <InputDiv />
+    <CompanyInfoDiv />
+    <Recruit />
   </div>
 </template>
 
 <script>
 import InputDiv from './InputDiv'
+import CompanyInfoDiv from './CompanyInfoDiv'
+import Recruit from './Recruit'
 export default {
   name: 'LeftSideBar',
   components: {
-    InputDiv
+    InputDiv,
+    CompanyInfoDiv,
+    Recruit
   }
 }
 </script>
@@ -21,11 +25,10 @@ export default {
   display: flex;
   flex-direction: column;
   width: 350px;
-  height: 160px;
+  height: 300px;
   position: absolute;
   top: 10px;
   left: 10px;
-  background-color: #8774c1;
   z-index: 999999;
   border-radius: 4px;
 }

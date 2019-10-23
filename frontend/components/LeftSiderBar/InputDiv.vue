@@ -1,7 +1,7 @@
 <template>
   <div class="left--side-search-div">
     <div class="left--side-bar-input">
-      <input type="text" placeholder="Input text in here" v-model="searchText" />
+      <input v-model="searchText" type="text" placeholder="Input text in here" />
       <!--
         최근 검색 기록은 5개씩, localStorage에 저장하여 보여주는 것으로 대체한다.
         [
@@ -26,7 +26,7 @@
           }
         ]
       -->
-      <div class="left--side-bar-filterList" v-if="setActivateSearch">
+      <div v-if="setActivateSearch" class="left--side-bar-filterList">
         <p v-for="idx in 5" :key="idx">카카카</p>
       </div>
     </div>
@@ -55,28 +55,49 @@ export default {
 </script>
 <style lang="scss">
 .left--side-bar-input {
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  outline: none;
   input[type='text'] {
     background-color: #fff;
     border: none;
     outline: none;
     width: 100%;
     min-height: 50px;
+    padding-left: 20px;
+    font-weight: 600;
     &::placeholder {
-      font-size: 24px;
+      font-size: 18px;
+      font-weight: 400;
+    }
+    &:focus {
+      border: 2px solid #755eb5;
     }
   }
 }
 
 .left--side-bar-filterList {
+  background-color: #fff;
+  box-sizing: border-box;
+  border-radius: 0 0 10px 10px;
+  border: 2px solid #8774c1;
+  z-index: 10;
+  padding: 0 1px;
   p {
+    box-sizing: border-box;
     height: 58px;
-    background-color: #8774c1;
-    color: #fff;
+    color: #181818;
     font-size: 18px;
     font-weight: 500;
     padding: 15px 0 15px 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: #eee;
+    }
+    &:last-child {
+      border-radius: 0 0 10px 10px;
+    }
   }
 }
 </style>
