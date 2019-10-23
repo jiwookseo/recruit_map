@@ -4,7 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Company(models.Model):
-    name = models.CharField(_("name"), max_length=50)
+    name = models.CharField(_("name"), max_length=50, unique=True)
     href = models.URLField(
         _("homepage url"), max_length=200, default="", blank=True)
     saramin_url = models.URLField(
@@ -19,7 +19,7 @@ class Company(models.Model):
     lat = models.FloatField(_("latitude"))
     lng = models.FloatField(_("longitude"))
     viewport = jsonfield.JSONField(_("viewport geometry"))
-    place_id = models.IntegerField(_("google map place_id"))
+    place_id = models.CharField(_("google map place_id"), max_length=50)
     ind_code = models.IntegerField(_("industry code"), default=0, blank=True)
     ind_name = models.CharField(
         _("industry name"), max_length=50, default="", blank=True)
