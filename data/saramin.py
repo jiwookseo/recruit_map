@@ -4,6 +4,10 @@ import json
 from bs4 import BeautifulSoup
 from googleMaps import Maps
 from pprint import pprint as pp
+from datetime import datetime
+
+NODE_ENV = os.environ.get("NODE_ENV", "develop")
+API_URL = "http://52.78.29.170:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
 
 apiKey = os.environ.get("SARAMIN_KEY")
 URL = "http://oapi.saramin.co.kr/job-search/?access-key={}&sr=directhire&loc_cd=101000, 102000&ind_cd=3&bbs_gb=1&job_type=1,11&count=110&fields=keyword-code".format(
@@ -13,7 +17,10 @@ print(res["jobs"]["total"] + "개 공고가 있습니다.")
 for data in res["jobs"]["job"]:
     path = "companies/{}.json".format(
         data["company"]["detail"]["name"])
-    if not os.path.isfile(path):  # if no data
+    if os.path.isfile(path):
+        with open(path, encoding='UTF8') as f:
+            company = json.load(f)
+    else:
         # init company dictionary
         company = {}
 
@@ -68,6 +75,8 @@ for data in res["jobs"]["job"]:
                 company["scale"] = scrap.get("기업구분", "")
                 company["address"] = scrap.get("주소 ", "")
                 company["href"] = scrap.get("홈페이지", "")
+                if company["href"] == "-":
+                    company["href"] = ""
                 res = requests.get(res.url[:-4] + "Salary")
                 soup = BeautifulSoup(res.text, "html.parser")
                 salary_tag = soup.find("div", "salary")
@@ -112,6 +121,14 @@ for data in res["jobs"]["job"]:
                   company["name"], company.get("address"))
             continue
 
+        # create request
+        req = requests.post(API_URL + "companies/", company)
+        res = req.json()
+        if req.status_code != 201:
+            pp(res)
+            pp(company)
+        company["id"] = res["id"]
+
         # json data save
         with open(path, 'w', encoding="UTF-8") as f:
             json.dump(company, f, indent="  ", ensure_ascii=False)
@@ -124,13 +141,28 @@ for data in res["jobs"]["job"]:
         job = {}
         job["saramin_url"] = data["url"]
         job["title"] = data["position"]["title"]
-        job["job"] = data["position"]["job-category"]["name"]
+        category = data["position"]["job-category"]["name"]
+        category = ",".join(category.split(",")[:5])
+        job["job"] = category
         job["exp_min"] = data["position"]["experience-level"]["min"]
         job["exp_max"] = data["position"]["experience-level"]["max"]
         job["edu_code"] = data["position"]["required-education-level"]["code"]
         job["edu_name"] = data["position"]["required-education-level"]["name"]
-        job["open"] = data["opening-timestamp"]
-        job["close"] = data["expiration-timestamp"]
+        job["open"] = datetime.fromtimestamp(
+            float(data["opening-timestamp"])).strftime("%Y-%m-%dT%H:%M")
+        job["close"] = datetime.fromtimestamp(
+            float(data["expiration-timestamp"])).strftime("%Y-%m-%dT%H:%M")
         job["close_type"] = data["close-type"]["code"]
+        job["company"] = company["id"]
+
+        # create request
+        req = requests.post(API_URL + "jobs/", job)
+        res = req.json()
+        if req.status_code != 201:
+            pp(res)
+            pp(job)
+        job["id"] = res["id"]
+
+        # json data save
         with open(path, 'w', encoding="UTF-8") as f:
             json.dump(job, f, indent="  ", ensure_ascii=False)
