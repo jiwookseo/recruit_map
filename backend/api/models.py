@@ -20,9 +20,10 @@ class Company(models.Model):
     lng = models.FloatField(_("longitude"))
     viewport = jsonfield.JSONField(_("viewport geometry"))
     place_id = models.CharField(_("google map place_id"), max_length=50)
-    ind_code = models.IntegerField(_("industry code"), default=0, blank=True)
+    ind_code = models.CharField(
+        _("industry code"),  max_length=50, default=0, blank=True)
     ind_name = models.CharField(
-        _("industry name"), max_length=50, default="", blank=True)
+        _("industry name"), max_length=100, default="", blank=True)
     ind_key_code = models.CharField(
         _("industry keyword code"), max_length=50, default="", blank=True)
 
