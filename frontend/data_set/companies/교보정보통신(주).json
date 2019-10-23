@@ -1,0 +1,25 @@
+{
+  "ind_key_code": "30101",
+  "viewport": {
+    "northeast": {
+      "lng": 126.9861181298927,
+      "lat": 37.59768852989272
+    },
+    "southwest": {
+      "lng": 126.9834184701073,
+      "lat": 37.59498887010728
+    }
+  },
+  "ind_code": "301",
+  "address": "대한민국 서울특별시 성북구 성북동 대사관로 4",
+  "start_salary": 0,
+  "lat": 37.5963387,
+  "href": "http://www.kico.co.kr",
+  "place_id": "ChIJ8R0dijG9fDURXoY_jo9prYE",
+  "saramin_url": "http://www.saramin.co.kr/zf_user/company-info/view?csn=2098101546&utm_source=job-search-api&utm_medium=api&utm_campaign=saramin-job-search-api",
+  "lng": 126.9847683,
+  "avg_salary": 0,
+  "ind_name": "솔루션·SI·ERP·CRM",
+  "scale": "대기업",
+  "name": "교보정보통신(주)"
+}

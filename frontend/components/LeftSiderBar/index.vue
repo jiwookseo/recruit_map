@@ -24,7 +24,7 @@ export default {
 .left--side-bar {
   display: flex;
   flex-direction: column;
-  width: 350px;
+  width: 380px;
   height: 300px;
   position: absolute;
   top: 10px;

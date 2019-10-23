@@ -1,0 +1,25 @@
+{
+  "ind_key_code": "30118",
+  "viewport": {
+    "northeast": {
+      "lng": 127.0110403298927,
+      "lat": 37.50194882989273
+    },
+    "southwest": {
+      "lng": 127.0083406701073,
+      "lat": 37.49924917010728
+    }
+  },
+  "ind_code": "301",
+  "address": "대한민국 서울특별시 금천구 반포동 가산디지털1로",
+  "start_salary": 3479,
+  "lat": 37.500599,
+  "href": "http://www.selvas.com",
+  "place_id": "ChIJ0yoibWWhfDURFZjbVtffrdw",
+  "saramin_url": "http://www.saramin.co.kr/zf_user/company-info/view?csn=2208143747&utm_source=job-search-api&utm_medium=api&utm_campaign=saramin-job-search-api",
+  "lng": 127.0096905,
+  "avg_salary": 4988,
+  "ind_name": "솔루션·SI·ERP·CRM",
+  "scale": "중소기업",
+  "name": "(주)인프라웨어"
+}
