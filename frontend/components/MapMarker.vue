@@ -1,7 +1,6 @@
 <template>
   <GmapMarker
     :position="{ lat: marker.lat, lng: marker.lng }"
-    :title="marker.name"
     :icon="markerOptions"
     @mouseover="enableInfoWindow(marker)"
     @mouseout="disableInfoWindow"
@@ -18,9 +17,11 @@ export default {
   computed: {
     // Control marker shape (according to marker values)
     iconURL() {
-      let url = 'https://maps.google.com/mapfiles/kml/shapes/library_maps.png'
-      if (this.marker.label) {
-        url = 'https://maps.google.com/mapfiles/kml/shapes/parking_lot_maps.png'
+      let url =
+        'https://img.pngio.com/surrounding-environment-svg-png-icon-free-download-377100-png-icon-980_932.png'
+      if (this.marker.avg_salary > 4000) {
+        url =
+          'https://img.pngio.com/an-crown-crown-glasses-icon-with-png-and-vector-format-for-free-crown-icon-png-512_365.png'
       }
       return url
     },
@@ -40,7 +41,7 @@ export default {
       })
       this.$store.dispatch('infoWindow/setOptionsContent', {
         name: marker.name,
-        time: marker.label
+        time: marker.avg_salary
       })
       this.$store.dispatch('infoWindow/setOpen', true)
     },
