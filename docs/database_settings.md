@@ -33,7 +33,7 @@
 | company | FK | required | 채용 기업, foreign key |
 | title | char | required | 채용 공고 제목 |
 | saram_url | url | required | 사람인 공고 정보 url |
-| job          | char      | required | 직종                                                    |
+| job          | char      | required | 직종(쉼표로 구분)                                            |
 | exp_min      | int       | required | 최소 경력                                               |
 | exp_max      | int       | required | 최대 경력                                               |
 | edu_code     | char      | required | 학력 코드(쉼표로 구분, **하단 참고**)                   |
@@ -55,7 +55,7 @@
 | lat      | int  | required | latitude, 위도                                 |
 | lng      | int  | required | longitude, 경도                                |
 | viewport | json | required | {northeast: {lat, lng}, southwest: {lat, lng}} |
-| place_id | int  | required | google map place id                            |
+| place_id | char | required | google map place id                            |
 
 &nbsp;
 
