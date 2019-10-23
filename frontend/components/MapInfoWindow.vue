@@ -1,10 +1,6 @@
 <template>
-  <GmapMarker
-    :options="infWinOptions"
-    :position="infWinPosition"
-    :opened="infWinOpen"
-  >
-  </GmapMarker>
+  <GmapInfoWindow :options="options" :position="position" :opened="open">
+  </GmapInfoWindow>
 </template>
 
 <script>
@@ -12,18 +8,15 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'MapInfoWindow',
-  props: {
-    info: { type: Object }
-  },
   computed: {
     ...mapGetters({
-      infWinOpen: 'infoWindow/open',
-      infWinPosition: 'infoWindow/position',
-      infWinOptionsContent: 'infoWindow/optionsContent'
+      open: 'infoWindow/open',
+      position: 'infoWindow/position',
+      optionsContent: 'infoWindow/optionsContent'
     }),
-    infWinOptions() {
+    options() {
       return {
-        content: `<div class="infContainer"><div class="infWindow1">${this.infWinOptionsContent.t1}</div><div class="infWindow2">${this.infWinOptionsContent.t2}</div></div>`,
+        content: `<div class="infWinContainer"><div class="r1">${this.optionsContent.name}</div><div class="r2">${this.optionsContent.time}분</div></div>`,
         pixelOffset: {
           width: 0,
           height: -35
@@ -34,4 +27,39 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss">
+//// Global CSS Styling /////
+
+// 1) Override default info window styles
+.gm-style .gm-style-iw-c {
+  width: 180px !important;
+  height: auto !important;
+  background: white;
+  padding: 0 !important;
+  border-radius: 3px !important;
+  button {
+    display: none !important;
+  }
+  & > .gm-style-iw-d,
+  & > .gm-style-iw-d > div {
+    width: 180px !important;
+    height: auto !important;
+    overflow-x: hidden !important;
+  }
+}
+
+// 2) Control internal content styles, i.e options.content
+.infWinContainer {
+  width: 100%;
+  height: auto;
+  background: white;
+  padding: 10px;
+  & > .r1 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  & > .r2 {
+  }
+}
+</style>

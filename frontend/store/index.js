@@ -1,10 +1,3 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import infoWindow from './modules/infoWindow'
-Vue.use(Vuex)
+export const state = () => ({})
 
-export default new Vuex.Store({
-  modules: {
-    infoWindow
-  }
-})
+export const getters = {}

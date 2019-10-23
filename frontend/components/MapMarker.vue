@@ -3,6 +3,8 @@
     :position="{ lat: marker.lat, lng: marker.lng }"
     :title="marker.name"
     :icon="markerOptions"
+    @mouseover="enableInfoWindow(marker)"
+    @mouseout="disableInfoWindow"
   >
   </GmapMarker>
 </template>
@@ -13,7 +15,6 @@ export default {
   props: {
     marker: { type: Object }
   },
-  data: () => ({}),
   computed: {
     // Control marker shape (according to marker values)
     iconURL() {
@@ -30,16 +31,26 @@ export default {
         scaledSize: { width: 30, height: 30, f: 'px', b: 'px' }
       }
     }
+  },
+  methods: {
+    enableInfoWindow(marker) {
+      this.$store.dispatch('infoWindow/setPosition', {
+        lat: marker.lat,
+        lng: marker.lng
+      })
+      this.$store.dispatch('infoWindow/setOptionsContent', {
+        name: marker.name,
+        time: marker.label
+      })
+      this.$store.dispatch('infoWindow/setOpen', true)
+    },
+    disableInfoWindow() {
+      setTimeout(() => {
+        this.$store.dispatch('infoWindow/setOpen', false)
+      }, 200)
+    }
   }
 }
 </script>
 
-<style lang="scss">
-.infWindowBox {
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  bottom: 100%;
-  background: white;
-}
-</style>
+<style lang="scss"></style>
