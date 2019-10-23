@@ -29,7 +29,7 @@ for name, v in stations.items():
         place = Maps.places(name + "역")
     if place:
         station["place_id"] = place["place_id"]
-        station["address"] = "{} {}역".format(place["formatted_address"], name)
+        station["address"] += " {}역".format(name)
         station["viewport"] = place["geometry"]["viewport"]
         station["lat"] = place["geometry"]["location"]["lat"]
         station["lng"] = place["geometry"]["location"]["lng"]
@@ -42,3 +42,6 @@ for name, v in stations.items():
     if req.status_code != 201:
         pp(res)
         pp(station)
+
+# with open("stations/objects.json", 'w', encoding="UTF-8") as f:
+#     json.dump(stations, f, indent="  ", ensure_ascii=False)
