@@ -18,8 +18,10 @@ for data in res["jobs"]["job"]:
     path = "companies/{}.json".format(
         data["company"]["detail"]["name"])
     if os.path.isfile(path):
-        with open(path, encoding='UTF8') as f:
-            company = json.load(f)
+        req = requests.get(API_URL + "companies/?name=" +
+                           data["company"]["detail"]["name"])
+        res = req.json()["results"][0]
+        company = {"id": res["id"]}
     else:
         # init company dictionary
         company = {}
@@ -111,7 +113,6 @@ for data in res["jobs"]["job"]:
             if not place:
                 place = Maps.places(company["address"].split("(")[0])
         if place:
-            company["address"] = place["formatted_address"]
             company["lat"] = place["geometry"]["location"]["lat"]
             company["lng"] = place["geometry"]["location"]["lng"]
             company["viewport"] = place["geometry"]["viewport"]
@@ -125,8 +126,8 @@ for data in res["jobs"]["job"]:
         req = requests.post(API_URL + "companies/", company)
         res = req.json()
         if req.status_code != 201:
-            pp(res)
-            pp(company)
+            req = requests.get(API_URL + "companies/?name=" + company["name"])
+            res = req.json()["results"][0]
         company["id"] = res["id"]
 
         # json data save
@@ -158,11 +159,11 @@ for data in res["jobs"]["job"]:
         # create request
         req = requests.post(API_URL + "jobs/", job)
         res = req.json()
-        if req.status_code != 201:
+        if req.status_code == 201:
+            job["id"] = res["id"]
+            # json data save
+            with open(path, 'w', encoding="UTF-8") as f:
+                json.dump(job, f, indent="  ", ensure_ascii=False)
+        else:
             pp(res)
             pp(job)
-        job["id"] = res["id"]
-
-        # json data save
-        with open(path, 'w', encoding="UTF-8") as f:
-            json.dump(job, f, indent="  ", ensure_ascii=False)
