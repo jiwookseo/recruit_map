@@ -1,23 +1,17 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
+from rest_framework.routers import DefaultRouter
 
 app_name = 'api'
 
+
+router = DefaultRouter()
+router.register('companies', views.CompanyViewSet)
+router.register('jobs', views.JobViewSet)
+router.register('stations', views.StationViewSet)
+router.register('routes', views.RouteViewSet)
+
+
 urlpatterns = [
-    path("companies/",
-         views.CompaniesList.as_view(), name="companies_list"),
-    path("companies/<int:pk>/",
-         views.CompaniesDetail.as_view(), name="companies_detail"),
-    # path("jobs/",
-    #      views.jobs_list, name="jobs_list"),
-    # path("jobs/<int:id>/",
-    #      views.jobs_detail, name="jobs_detail"),
-    # path("stations/",
-    #      views.stations_list, name="stations_list"),
-    # path("stations/<int:id>/",
-    #      views.stations_detail, name="stations_detail"),
-    # path("routes/",
-    #      views.routes_list, name="routes_list"),
-    # path("routes/<int:station_id>/<int:company_id>/",
-    #      views.routes_detail, name="routes_detail"),
+    path('', include(router.urls)),
 ]

@@ -1,19 +1,26 @@
 # model
 from .models import Company, Job, Station, Route
 from .serializers import CompanySerializer, JobSerializer, StationSerializer, RouteSerializer
-from django.shortcuts import get_object_or_404
 
 # rest_framework
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework import viewsets
 
 
-class CompaniesList(ListCreateAPIView):
+class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
 
 
-class CompaniesDetail(RetrieveUpdateDestroyAPIView):
-    queryset = Company.objects.all()
-    serializer_class = CompanySerializer
+class JobViewSet(viewsets.ModelViewSet):
+    queryset = Job.objects.all()
+    serializer_class = JobSerializer
+
+
+class StationViewSet(viewsets.ModelViewSet):
+    queryset = Station.objects.all()
+    serializer_class = StationSerializer
+
+
+class RouteViewSet(viewsets.ModelViewSet):
+    queryset = Route.objects.all()
+    serializer_class = RouteSerializer
