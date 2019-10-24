@@ -1,7 +1,7 @@
 <template>
   <div>
     <LeftSideBar />
-    <GmapMap
+    <GmapMapls
       :center="{ lat: 37.5012, lng: 127.0396 }"
       :zoom="17"
       map-type-id="roadmap"
