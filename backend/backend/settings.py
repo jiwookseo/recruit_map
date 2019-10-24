@@ -28,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1", "52.78.29.170", "localhost"]
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ['http://52.78.29.170',
+                         'http://localhost:3000',
+                         'http://127.0.0.1:3000', ]
 
 # Application definition
 
@@ -39,16 +43,27 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+
+    # apps
     'api',
     'users',
+
+    # model
     'jsonfield',
+
+    # drf
     'rest_framework',
     'filters',
+
+    # cors
+    "corsheaders"
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # cors
+    "corsheaders.middleware.CorsMiddleware",
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
