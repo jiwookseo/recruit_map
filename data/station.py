@@ -1,8 +1,13 @@
 from googleMaps import Maps
 import json
+import os
+import requests
 from pprint import pprint as pp
 
-with open("stations/data.json", encoding='UTF8') as f:
+NODE_ENV = os.environ.get("NODE_ENV", "develop")
+API_URL = "http://52.78.29.170:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
+
+with open("stations/data.json", encoding="UTF8") as f:
     raw = json.load(f)["DATA"]
 data = []
 stations = {}
@@ -16,6 +21,7 @@ for obj in raw:
 # print(len(stations))
 for name, v in stations.items():
     station = stations[name]
+    station["name"] = name
     # reference : db settings document / line code table
     station["line"] = ",".join(sorted(v["line"]))
     place = Maps.places(station["address"])
@@ -23,10 +29,19 @@ for name, v in stations.items():
         place = Maps.places(name + "역")
     if place:
         station["place_id"] = place["place_id"]
-        station["address"] = "{} {}역".format(place["formatted_address"], name)
+        station["address"] += " {}역".format(name)
         station["viewport"] = place["geometry"]["viewport"]
         station["lat"] = place["geometry"]["location"]["lat"]
         station["lng"] = place["geometry"]["location"]["lng"]
     else:
         print(name, station["address"])
-pp(stations)
+
+    # create request
+    req = requests.post(API_URL + "stations/", station)
+    res = req.json()
+    if req.status_code != 201:
+        pp(res)
+        pp(station)
+
+# with open("stations/objects.json", 'w', encoding="UTF-8") as f:
+#     json.dump(stations, f, indent="  ", ensure_ascii=False)

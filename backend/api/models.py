@@ -41,7 +41,7 @@ class Job(models.Model):
         "company foreign key"), on_delete=models.CASCADE)
     title = models.CharField(_("title"), max_length=50)
     saramin_url = models.URLField(
-        _("saramin info url"), max_length=200, default="", blank=True)
+        _("saramin info url"), max_length=200, default="", blank=True, unique=True)
     job = models.CharField(
         _("job category"), max_length=100, default="", blank=True)
     exp_min = models.IntegerField(_("minimum experience"))
@@ -56,7 +56,7 @@ class Job(models.Model):
 
 
 class Station(models.Model):
-    name = models.CharField(_("name"), max_length=50)
+    name = models.CharField(_("name"), max_length=50, unique=True)
     line = models.CharField(_("line list"), max_length=50)
     address = models.CharField(_("detail address"), max_length=250)
     lat = models.FloatField(_("latitude"))
