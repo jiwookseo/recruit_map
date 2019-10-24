@@ -1,13 +1,13 @@
 export const state = () => ({
-  open: true,
+  open: false,
   position: {
-    lat: 37,
-    lng: 127
+    lat: 37.5012,
+    lng: 127.0396
   },
   // Info Window Content => Store each part into separate variables
   optionsContent: {
-    t1: 'Initial t1',
-    t2: 'Initial t2'
+    name: 'Company Name',
+    time: 'Transit Time'
   }
 })
 
@@ -19,13 +19,13 @@ export const getters = {
 
 export const mutations = {
   setOpen: (state, payload) => {
-    state.Open = payload
+    state.open = payload
   },
   setPosition: (state, payload) => {
-    state.Position = payload
+    state.position = payload
   },
   setOptionsContent: (state, payload) => {
-    state.OptionsContent = payload
+    state.optionsContent = payload
   }
 }
 
@@ -39,15 +39,7 @@ export const actions = {
     commit('setPosition', payload)
   },
   setOptionsContent({ commit }, payload) {
-    // payload: Object with t1 and t2 values
+    // payload: Object with name and time values
     commit('setOptionsContent', payload)
   }
-}
-
-export default {
-  namespaced: true,
-  state,
-  getters,
-  mutations,
-  actions
 }
