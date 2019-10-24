@@ -2,6 +2,7 @@
   <GmapMarker
     :position="{ lat: marker.lat, lng: marker.lng }"
     :icon="markerOptions"
+    :label="'can you see it'"
     @mouseover="enableInfoWindow(marker)"
     @mouseout="disableInfoWindow"
   ></GmapMarker>
