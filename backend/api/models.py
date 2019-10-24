@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 import jsonfield
 from django.utils.translation import ugettext_lazy as _
@@ -35,6 +36,10 @@ class Company(models.Model):
     @property
     def ind_key_array(self):
         return self.ind_key_code.split(",")
+
+    @property
+    def jobs_count(self):
+        return len(self.jobs.filter(close__gt=datetime.now()))
 
 
 class Job(models.Model):
