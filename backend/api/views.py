@@ -1,10 +1,17 @@
+# python built-in module
+import json
+from datetime import datetime
+
 # model
-from django_filters import rest_framework as filters
 from .models import Company, Job, Station, Route
 from .serializers import CompanySerializer, JobSerializer, StationSerializer, RouteSerializer
 
 # rest_framework
+from django_filters import rest_framework as filters
 from rest_framework import viewsets, filters
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.decorators import action
 
 # def-url-filters
 from filters.mixins import FiltersMixin
@@ -16,28 +23,61 @@ class CompanyViewSet(FiltersMixin, viewsets.ModelViewSet):
     filter_backends = (filters.OrderingFilter,)
     ordering_fields = ('start_salary', 'avg_salary', )
     ordering = ('id',)
-
-    # add a mapping of query_params to db_columns(queries)
     filter_mappings = {
         'id': 'id',
         'name': 'name__icontains',
     }
 
-    filter_value_transformations = {
-        'taller_than': lambda val: val / 30.48  # cm to ft
+    @action(detail=True)
+    def jobs(self, request, pk):
+        instance = self.get_object()
+        jobs = instance.jobs.all()
+        serializer = JobSerializer(jobs, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+class JobViewSet(FiltersMixin, viewsets.ModelViewSet):
+    queryset = Job.objects.filter(close__gt=datetime.now())
+    serializer_class = JobSerializer
+    filter_mappings = {
+        'id': 'id',
+        'name': 'name__icontains',
     }
 
 
-class JobViewSet(viewsets.ModelViewSet):
-    queryset = Job.objects.all()
-    serializer_class = JobSerializer
-
-
-class StationViewSet(viewsets.ModelViewSet):
+class StationViewSet(FiltersMixin, viewsets.ModelViewSet):
     queryset = Station.objects.all()
     serializer_class = StationSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering = ('id',)
+    filter_mappings = {
+        'id': 'id',
+        'name': 'name__icontains',
+    }
+
+    @action(detail=True)
+    def routes(self, request, pk):
+        instance = self.get_object()
+        routes = instance.routes.all()
+        serializer = RouteSerializer(routes, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
-class RouteViewSet(viewsets.ModelViewSet):
+class RouteViewSet(FiltersMixin, viewsets.ModelViewSet):
     queryset = Route.objects.all()
     serializer_class = RouteSerializer
+    filter_backends = (filters.OrderingFilter,)
+    ordering = ('company',)
+    filter_mappings = {
+        'id': 'id',
+        'station': 'station',
+    }
+
+    def create(self, request, *args, **kwargs):
+        is_json = isinstance(request.data, str)
+        data = json.loads(request.data) if is_json else request.data
+        serializer = self.get_serializer(data=data, many=is_json)
+        serializer.is_valid()
+        self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)

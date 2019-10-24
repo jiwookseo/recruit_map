@@ -13,18 +13,18 @@ class Maps:
             with open(path, encoding='UTF8') as f:
                 res = json.load(f)
         else:
-            URL = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:{}&destination=place_id:{}&mode=transit&arrival_time=1571097600&language=ko&key={}".format(
+            URL = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:{}&destination=place_id:{}&mode=transit&language=ko&key={}".format(
                 origin, destination, cls.api_key)
-            print(URL)
             res = requests.get(URL).json()
         # json data save
             if res["status"] == "OK":
                 with open(path, 'w', encoding='UTF-8') as f:
                     json.dump(res, f, indent="  ", ensure_ascii=False)
             else:
+                print(URL)
                 print(res["status"])
                 return False
-        return res["routes"][0]["legs"][0]["duration"]["text"]
+        return res["routes"][0]["legs"][0]["duration"]["value"] // 60
 
     @classmethod
     def places(cls, place):
@@ -47,6 +47,6 @@ class Maps:
             return False
 
 
-# station = Maps.places("명일역")  # Station data
-# company = Maps.places("경기 성남시 분당구 불정로 6")  # Company data
+# station = Maps.places("명성교회")  # Station data
+# company = Maps.places("명일엘지아파트")  # Company data
 # print(Maps.directions(station["place_id"], company["place_id"]))
