@@ -8,7 +8,9 @@
       @mouseleave="setOpen(false)"
     >
       <p>
-        <span class="company-info-name">{{item.name}}</span>
+        <nuxt-link :to="'/place/'+item.ind_code">
+          <span class="company-info-name">{{item.name}}</span>
+        </nuxt-link>
         <span
           class="company-info-salary"
         >{{item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'}}</span>
