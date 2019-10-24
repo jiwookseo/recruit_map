@@ -1,6 +1,7 @@
 from django.db import models
 import jsonfield
 from django.utils.translation import ugettext_lazy as _
+from django.core.exceptions import SuspiciousOperation
 
 
 class Company(models.Model):
@@ -38,7 +39,7 @@ class Company(models.Model):
 
 class Job(models.Model):
     company = models.ForeignKey(Company, verbose_name=_(
-        "company foreign key"), on_delete=models.CASCADE)
+        "company foreign key"), on_delete=models.CASCADE, related_name="jobs")
     title = models.CharField(_("title"), max_length=50)
     saramin_url = models.URLField(
         _("saramin info url"), max_length=200, default="", blank=True, unique=True)
@@ -72,6 +73,11 @@ class Station(models.Model):
 class Route(models.Model):
     time = models.IntegerField(_("transit time"))
     company = models.ForeignKey(
-        Company, verbose_name=_("destination company"), on_delete=models.CASCADE)
+        Company, verbose_name=_("destination company"), on_delete=models.CASCADE, related_name="routes")
     station = models.ForeignKey(
-        Station, verbose_name=_("origin station"), on_delete=models.CASCADE)
+        Station, verbose_name=_("origin station"), on_delete=models.CASCADE, related_name="routes")
+
+    def save(self, *args, **kwargs):
+        if self.company.routes.filter(station=self.station):
+            raise SuspiciousOperation("Already exists")
+        super().save(*args, **kwargs)
