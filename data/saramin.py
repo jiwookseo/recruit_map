@@ -125,6 +125,7 @@ for data in res["jobs"]["job"]:
         # create request
         req = requests.post(API_URL + "companies/", company)
         res = req.json()
+        company["ind_key_code"] = company["ind_key_code"].replace("|", ",")
         if req.status_code != 201:
             req = requests.get(API_URL + "companies/?name=" + company["name"])
             res = req.json()["results"][0]
