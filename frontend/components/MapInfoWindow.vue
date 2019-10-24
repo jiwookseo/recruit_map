@@ -9,9 +9,9 @@ export default {
   name: 'MapInfoWindow',
   computed: {
     ...mapGetters({
-      open: 'infoWindow/open',
-      position: 'infoWindow/position',
-      optionsContent: 'infoWindow/optionsContent'
+      open: 'infoWindow/getOpen',
+      position: 'infoWindow/getPosition',
+      optionsContent: 'infoWindow/getOptionsContent'
     }),
     options() {
       return {

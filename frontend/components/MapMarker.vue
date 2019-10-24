@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
 export default {
   name: 'MapMarker',
   props: {
@@ -39,20 +40,19 @@ export default {
     }
   },
   methods: {
+    ...mapMutations('infoWindow', [
+      'setPosition',
+      'setOptionsContent',
+      'setOpen'
+    ]),
     enableInfoWindow(marker) {
-      this.$store.dispatch('infoWindow/setPosition', {
-        lat: marker.lat,
-        lng: marker.lng
-      })
-      this.$store.dispatch('infoWindow/setOptionsContent', {
-        name: marker.name,
-        time: marker.avg_salary
-      })
-      this.$store.dispatch('infoWindow/setOpen', true)
+      this.setPosition({lat: marker.lat, lng: marker.lng})
+      this.setOptionsContent({name: marker.name, time: marker.avg_salary})
+      this.setOpen(true)
     },
     disableInfoWindow() {
       setTimeout(() => {
-        this.$store.dispatch('infoWindow/setOpen', false)
+        this.setOpen(false)
       }, 200)
     }
   },
@@ -70,13 +70,10 @@ export default {
 
 <style lang="scss">
 // Marker Label Styling
-
 #Default > div.vue-map-container > div.vue-map > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div > div > div > div {
   color: white !important;
   font-size: 0.9em !important;
   font-weight: bold;
 }
-
-
 
 </style>
