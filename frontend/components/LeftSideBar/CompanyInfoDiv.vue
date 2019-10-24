@@ -70,6 +70,11 @@ export default {
     &:hover {
       background-color: #aaa;
     }
+    p {
+      a:first-child {
+        color: #181818;
+      }
+    }
   }
 }
 

@@ -1,8 +1,8 @@
 <template>
   <div class="left--side-bar">
     <InputDiv />
-    <CompanyInfoDiv />
-    <Recruit />
+    <CompanyInfoDiv v-if="getDefaultMenu" />
+    <Recruit v-if="getDefaultMenu" />
   </div>
 </template>
 
@@ -10,17 +10,21 @@
 import InputDiv from './InputDiv'
 import CompanyInfoDiv from './CompanyInfoDiv'
 import Recruit from './Recruit'
+import { mapGetters } from 'vuex'
 export default {
   name: 'LeftSideBar',
   components: {
     InputDiv,
     CompanyInfoDiv,
     Recruit
+  },
+  computed: {
+    ...mapGetters('leftSideBar', ['getDefaultMenu'])
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" >
 .left--side-bar {
   display: flex;
   flex-direction: column;
