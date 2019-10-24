@@ -7,15 +7,11 @@ from pprint import pprint as pp
 NODE_ENV = os.environ.get("NODE_ENV", "develop")
 API_URL = "http://52.78.29.170:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
 
-res = requests.get(API_URL + "companies/")
-count = res.json()["count"]
-res = requests.get(API_URL + "companies/?limit={}".format(count))
-companies = res.json()["results"]
+res = requests.get(API_URL + "companies/?all")
+companies = res.json()
 
-res = requests.get(API_URL + "stations/")
-count = res.json()["count"]
-res = requests.get(API_URL + "stations/?limit={}".format(count))
-stations = res.json()["results"]
+res = requests.get(API_URL + "stations/?all")
+stations = res.json()
 
 print("{} stations * {} companies = {} routes"
       .format(len(companies), len(stations), len(companies) * len(stations)))
