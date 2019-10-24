@@ -5,7 +5,21 @@ from .models import Company, Job, Station, Route
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = "__all__"
+        fields = ("name",
+                  "href",
+                  "saramin_url",
+                  "avg_salary",
+                  "start_salary",
+                  "address",
+                  "lat",
+                  "lng",
+                  "viewport",
+                  "ind_array",
+                  "place_id",
+                  "ind_name",
+                  "ind_key_array",
+                  "jobs_count",
+                  )
 
 
 class JobSerializer(serializers.ModelSerializer):
