@@ -18,7 +18,7 @@ export default {
         content: `<div class="infWinContainer"><div class="r1">${this.optionsContent.name}</div><div class="r2">${this.optionsContent.time}분</div></div>`,
         pixelOffset: {
           width: 0,
-          height: -35
+          height: -60
         }
       }
     }
