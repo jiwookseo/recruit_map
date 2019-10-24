@@ -1,0 +1,25 @@
+{
+  "ind_key_code": "30701",
+  "viewport": {
+    "northeast": {
+      "lng": 127.0376902298927,
+      "lat": 37.52332542989273
+    },
+    "southwest": {
+      "lng": 127.0349905701073,
+      "lat": 37.52062577010728
+    }
+  },
+  "ind_code": "307",
+  "address": "대한민국 서울특별시 강남구 논현동 92번지",
+  "start_salary": 2951,
+  "lat": 37.5219756,
+  "href": "http://www.chunghocomnet.com",
+  "place_id": "ChIJcbkq34ujfDURY30t_kRThNM",
+  "saramin_url": "http://www.saramin.co.kr/zf_user/company-info/view?csn=2088107756&utm_source=job-search-api&utm_medium=api&utm_campaign=saramin-job-search-api",
+  "lng": 127.0363404,
+  "avg_salary": 4239,
+  "ind_name": "하드웨어·장비",
+  "scale": "중소기업",
+  "name": "(주)청호컴넷"
+}

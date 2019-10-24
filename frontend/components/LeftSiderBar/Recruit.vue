@@ -1,5 +1,7 @@
 <template>
   <section class="recruit--div">
+    <!-- for 문을 돌 때, Recommended Recruit의 length에 맞게 돌게하고,
+    Button Slider로 하면 좋을거 같음 + 구현 후 자동으로 슬라이딩 되는 것 까지-->
     <article v-for="idx in 5" :key="idx">
       <p>하하하</p>
     </article>
