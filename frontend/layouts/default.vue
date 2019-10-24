@@ -12,6 +12,7 @@
       <MapMarker v-for="m in companyData" :key="m.id" :marker="m" />
       <MapInfoWindow />
     </GmapMap>
+    <LeftSideBar />
     <nuxt />
   </div>
 </template>
@@ -20,10 +21,12 @@
 import MapMarker from '~/components/MapMarker.vue'
 import MapInfoWindow from '~/components/MapInfoWindow.vue'
 import companyData from '~/assets/company_data.js'
+import LeftSideBar from '~/components/LeftSideBar'
 export default {
   components: {
     MapMarker,
-    MapInfoWindow
+    MapInfoWindow,
+    LeftSideBar
   },
   data() {
     return {

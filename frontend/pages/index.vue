@@ -1,14 +1,12 @@
 <template>
-  <div>
-    <LeftSideBar />
-  </div>
+  <div>asd</div>
 </template>
 
 <script>
-import LeftSideBar from '../components/LeftSiderBar'
 export default {
-  components: {
-    LeftSideBar
+  components: {},
+  created() {
+    this.$store.commit('leftSideBar/setDefaultMenu', true)
   }
 }
 </script>

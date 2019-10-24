@@ -3,6 +3,11 @@
 </template>
 
 <script>
+export default {
+  created() {
+    this.$store.commit('leftSideBar/setDefaultMenu', false)
+  }
+}
 </script>
 
 <style lang="scss">
