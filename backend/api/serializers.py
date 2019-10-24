@@ -5,7 +5,8 @@ from .models import Company, Job, Station, Route
 class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields = ("name",
+        fields = ("id",
+                  "name",
                   "href",
                   "saramin_url",
                   "avg_salary",
