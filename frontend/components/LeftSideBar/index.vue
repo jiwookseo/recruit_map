@@ -1,21 +1,21 @@
 <template>
   <div class="left--side-bar">
     <InputDiv />
-    <CompanyInfoDiv v-if="getDefaultMenu" />
-    <Recruit v-if="getDefaultMenu" />
+    <CompanyInfo v-show="getDefaultMenu" />
+    <Recruit v-show="getDefaultMenu" />
   </div>
 </template>
 
 <script>
 import InputDiv from './InputDiv'
-import CompanyInfoDiv from './CompanyInfoDiv'
+import CompanyInfo from './CompanyInfo'
 import Recruit from './Recruit'
 import { mapGetters } from 'vuex'
 export default {
   name: 'LeftSideBar',
   components: {
     InputDiv,
-    CompanyInfoDiv,
+    CompanyInfo,
     Recruit
   },
   computed: {

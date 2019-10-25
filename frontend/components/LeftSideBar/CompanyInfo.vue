@@ -25,7 +25,7 @@
 import CD from '../../data_set/company_data'
 import { mapMutations, mapGetters } from 'vuex'
 export default {
-  name: 'CompanyInfoDiv',
+  name: 'CompanyInfo',
   data() {
     return {
       cd: CD.splice(0, 5)
