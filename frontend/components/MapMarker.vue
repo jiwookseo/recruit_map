@@ -19,7 +19,10 @@ export default {
     // Control marker shape (according to marker values)
     iconURL() {
       let url = 'marker-gray.svg'
-      if (this.marker.avg_salary > 5000) {
+      if (!this.marker.jobs_count) {
+        // If no current job openings
+        url = 'marker-disabled.svg'
+      } else if (this.marker.avg_salary > 5000) {
         url = 'marker-star.svg'
       } else if (this.marker.avg_salary > 3500) {
         url = 'marker-blue.svg'
@@ -43,7 +46,7 @@ export default {
     ]),
     enableInfoWindow(marker) {
       this.setPosition({ lat: marker.lat, lng: marker.lng })
-      this.setOptionsContent({ name: marker.name, time: marker.avg_salary })
+      this.setOptionsContent({ name: marker.name, time: marker.transitTime })
       this.setOpen(true)
     },
     disableInfoWindow() {

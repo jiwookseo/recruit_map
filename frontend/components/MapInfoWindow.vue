@@ -31,7 +31,7 @@ export default {
 
 // 1) Override default info window styles
 .gm-style .gm-style-iw-c {
-  width: 180px !important;
+  min-width: 160px !important;
   height: auto !important;
   background: white;
   padding: 0 !important;
@@ -41,7 +41,7 @@ export default {
   }
   & > .gm-style-iw-d,
   & > .gm-style-iw-d > div {
-    width: 180px !important;
+    min-width: 160px !important;
     height: auto !important;
     overflow-x: hidden !important;
   }
@@ -54,9 +54,10 @@ export default {
   background: white;
   padding: 10px;
   & > .r1 {
-    font-size: 1.5em;
+    font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
+    white-space: nowrap;
   }
   & > .r2 {
   }
