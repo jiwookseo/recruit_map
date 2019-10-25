@@ -4,8 +4,13 @@
 *.pot
 *.pyc
 __pycache__/
+
 migrations/
 
-venv/
 
-db.sqlite3
+venv/
+.python-version
+
+.config/
+.static_root/
+
