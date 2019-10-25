@@ -1,9 +1,16 @@
 <template>
-  <GmapInfoWindow :options="options" :position="position" :opened="open"></GmapInfoWindow>
+  <GmapInfoWindow 
+    :options="options" 
+    :position="position" 
+    :opened="open"
+    @mouseover="enableInfoWindow"
+    @mouseout="disableInfoWindow"
+    @click="test"
+  ></GmapInfoWindow>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   name: 'MapInfoWindow',
@@ -27,6 +34,21 @@ export default {
           height: -60
         }
       }
+    }
+  },
+  methods: {
+    ...mapMutations('infoWindow', ['setOpen']),
+    enableInfoWindow() {
+      console.log("hover infowindow")
+      this.setOpen(true);
+    },
+    disableInfoWindow() {
+      setTimeout(() => {
+        this.setOpen(false)
+      }, 200)
+    },
+    test() {
+      console.log("CLICK TEST")
     }
   }
 }
