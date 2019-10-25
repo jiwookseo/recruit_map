@@ -44,9 +44,14 @@ export default {
       'setOptionsContent',
       'setOpen'
     ]),
+    ...mapMutations('company', ['setHoveredCompany']),
     enableInfoWindow(marker) {
       this.setPosition({ lat: marker.lat, lng: marker.lng })
-      this.setOptionsContent({ name: marker.name, time: marker.transitTime })
+      this.setOptionsContent({
+        name: marker.name,
+        time: marker.transitTime,
+        id: marker.id
+      })
       this.setOpen(true)
     },
     disableInfoWindow() {
