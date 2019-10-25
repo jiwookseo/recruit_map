@@ -1,10 +1,25 @@
 <template>
-  <section class="company--detial-info-div"></section>
+  <section class="company--detial-info-div">
+    <Title />
+  </section>
 </template>
 
 <script>
+import Title from './Title'
+import api from '../../../api/company.js'
 export default {
-  name: 'CompanyDetailInfo'
+  name: 'CompanyDetailInfo',
+  components: {
+    Title
+  },
+  mounted() {
+    let data = api.getCompanyData(this.$route.params.id)
+    data
+      .then((res) => res.data)
+      .then((res) => {
+        this.$store.commit('company/setACompanyDetailInfo', res)
+      })
+  }
 }
 </script>
 

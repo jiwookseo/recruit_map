@@ -8,7 +8,7 @@
       @mouseleave="setOpen(false)"
     >
       <p>
-        <nuxt-link :to="'/place/'+item.ind_code">
+        <nuxt-link :to="`/company/19/`">
           <span class="company-info-name">{{item.name}}</span>
         </nuxt-link>
         <span

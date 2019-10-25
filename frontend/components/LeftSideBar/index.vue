@@ -33,7 +33,7 @@ export default {
   position: absolute;
   top: 10px;
   left: 10px;
-  z-index: 999999;
+  z-index: 98;
   border-radius: 4px;
 }
 </style>
