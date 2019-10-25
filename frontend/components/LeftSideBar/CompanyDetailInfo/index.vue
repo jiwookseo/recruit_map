@@ -17,7 +17,7 @@ export default {
     data
       .then((res) => res.data)
       .then((res) => {
-        this.$store.commit('company/setACompanyDetailInfo', res)
+        this.$store.commit('company/setCompanyDetail', res)
       })
   }
 }

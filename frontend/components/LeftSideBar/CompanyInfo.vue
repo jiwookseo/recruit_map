@@ -2,13 +2,13 @@
   <!-- 5개의 회사 정보를 보여주는 것에 최적화 되어 있읍니다. -->
   <section class="company--info-div">
     <article
-      v-for="item in cd"
-      :key="item.ind_code + item.avg_salary"
+      v-for="item in companiesData"
+      :key="item.id + item.avg_salary"
       @mouseenter="handleMouseEnter(item)"
       @mouseleave="setOpen(false)"
     >
       <p>
-        <nuxt-link :to="`/company/19/`">
+        <nuxt-link :to="`/company/${item.id}/`">
           <span class="company-info-name">{{item.name}}</span>
         </nuxt-link>
         <span
@@ -22,15 +22,9 @@
 </template>
 
 <script>
-import CD from '../../data_set/company_data'
 import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'CompanyInfo',
-  data() {
-    return {
-      cd: CD.splice(0, 5)
-    }
-  },
   methods: {
     ...mapMutations('company', ['setHoveredCompany', 'setSelectedCompany']),
     ...mapMutations('infoWindow', [
@@ -41,12 +35,19 @@ export default {
     handleMouseEnter(payload) {
       this.setHoveredCompany(payload)
       this.setPosition({ lat: payload.lat, lng: payload.lng })
-      this.setOptionsContent({ name: payload.name, time: payload.avg_salary })
+      this.setOptionsContent({ name: payload.name, time: payload.transitTime })
       this.setOpen(true)
     }
   },
   computed: {
-    ...mapGetters('company', ['hoveredCompany', 'selectedCompany'])
+    ...mapGetters('company', [
+      'hoveredCompany',
+      'selectedCompany',
+      'getAllCompanies'
+    ]),
+    companiesData() {
+      return this.getAllCompanies.slice(0, 5)
+    }
   }
 }
 </script>

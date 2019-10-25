@@ -31,7 +31,7 @@ export default {
   name: 'Title',
   computed: {
     ...mapGetters('company', {
-      company: 'getACompanyDetailInfo'
+      company: 'getCompanyDetail'
     })
   }
 }
