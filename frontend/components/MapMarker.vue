@@ -19,23 +19,41 @@ export default {
   computed: {
     // Control marker shape (according to marker values)
     iconURL() {
-      let url = 'marker-gray.svg'
+      let url = 'default.png'
       if (!this.marker.jobs_count) {
         // If no current job openings
-        url = 'marker-disabled.svg'
-      } else if (this.marker.avg_salary > 5000) {
-        url = 'marker-star.svg'
-      } else if (this.marker.avg_salary > 3500) {
-        url = 'marker-blue.svg'
+        url = 'disabled.png'
+      } 
+      else if (this.marker.transitTime <= 30) {
+        if (this.marker.avg_salary >= 5000) {
+          url = 'closest_coin.png'
+        }
+        else {
+          url = 'closest.png'
+        }
       }
+      else if (this.marker.transitTime <= 60) {
+        if (this.marker.avg_salary >= 5000) {
+          url = 'closer_coin.png'
+        }
+        else {
+          url = 'closer.png'
+        }
+      }
+      else {
+        if (this.marker.avg_salary >= 5000) {
+          url = 'default_coin.png'
+        }
+      }
+
       return url
     },
     markerOptions() {
       return {
         url: require(`../static/${this.iconURL}`),
-        size: { width: 80, height: 80, f: 'px', b: 'px' },
-        scaledSize: { width: 80, height: 80, f: 'px', b: 'px' }
-        // labelOrigin: {x: -2, y: 0}
+        size: { width: 58, height: 42, f: 'px', b: 'px' },
+        scaledSize: { width: 58, height: 42, f: 'px', b: 'px' },
+        labelOrigin: {x: 26, y: 27}
       }
     }
   },

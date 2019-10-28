@@ -129,10 +129,10 @@ export default {
           transform: translateY(2px);
         }
         &.closest {
-          color: red;
+          color: #5E5187;
         }
         &.closer {
-          color: blue;
+          color: #8774C1;
         }
       }
     }
