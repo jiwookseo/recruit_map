@@ -1,16 +1,13 @@
 <template>
-  <GmapInfoWindow 
-    :options="options" 
-    :position="position" 
+  <GmapInfoWindow
+    :options="options"
+    :position="position"
     :opened="open"
-    @mouseover="enableInfoWindow"
-    @mouseout="disableInfoWindow"
-    @click="test"
   ></GmapInfoWindow>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MapInfoWindow',
@@ -21,30 +18,34 @@ export default {
       optionsContent: 'infoWindow/getOptionsContent'
     }),
     content_time() {
-      const time = this.optionsContent.time;
-      let className = "default";
+      const time = this.optionsContent.time
+      let className = 'default'
       if (time <= 30) {
-        className = "closest"
-      }
-      else if (time <= 60) {
-        className = "closer"
+        className = 'closest'
+      } else if (time <= 60) {
+        className = 'closer'
       }
       return `<span class="${className}">
                 <i class="material-icons-round">departure_board</i>
-              </span>약 ${time}분`;
+              </span>약 ${time}분`
     },
     content_salary() {
-      const jobs = this.optionsContent.jobs;
+      const jobs = this.optionsContent.jobs
       if (!jobs) {
         return `<div class="noJobs">
                   <i class="material-icons-round">error</i>
                   현재 진행 중인 채용 공고가 없습니다.
                 </div>`
       }
-      const salary = this.optionsContent.salary;
-      let className = "";
-      if (salary > 5000) {
-        className = "high"
+      const salary = this.optionsContent.salary
+      let className = ''
+      if (salary === 0) {
+        return `<div class="salaryInfo">
+                  <i class="material-icons-round">monetization_on</i>
+                  연봉: 회사 내규에 따름
+                </div>`
+      } else if (salary > 5000) {
+        className = 'high'
       }
       return `<div class="salaryInfo">
                 <i class="material-icons-round ${className}">monetization_on</i>
@@ -65,25 +66,10 @@ export default {
                     </div>
                   </div>`,
         pixelOffset: {
-          width: 0,
-          height: -60
+          width: -2.5,
+          height: -45
         }
       }
-    }
-  },
-  methods: {
-    ...mapMutations('infoWindow', ['setOpen']),
-    enableInfoWindow() {
-      console.log("hover infowindow")
-      this.setOpen(true);
-    },
-    disableInfoWindow() {
-      setTimeout(() => {
-        this.setOpen(false)
-      }, 200)
-    },
-    test() {
-      console.log("CLICK TEST")
     }
   }
 }
@@ -125,7 +111,8 @@ export default {
   & > .Detail {
     & > .Time {
       span {
-        width: 10px; height: 10px;
+        width: 10px;
+        height: 10px;
         margin-right: 8px;
         color: gray;
         display: inline-block;
@@ -135,10 +122,10 @@ export default {
           transform: translateY(2px);
         }
         &.closest {
-          color: #5E5187;
+          color: #5e5187;
         }
         &.closer {
-          color: #8774C1;
+          color: #8774c1;
         }
       }
     }
