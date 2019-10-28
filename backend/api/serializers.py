@@ -3,6 +3,7 @@ from .models import Company, Job, Station, Route
 
 
 class CompanySerializer(serializers.ModelSerializer):
+
     class Meta:
         model = Company
         fields = ("id",
@@ -15,12 +16,15 @@ class CompanySerializer(serializers.ModelSerializer):
                   "lat",
                   "lng",
                   "viewport",
+                  "ind_code",
                   "ind_array",
                   "place_id",
                   "ind_name",
+                  "ind_key_code",
                   "ind_key_array",
                   "jobs_count",
                   )
+        read_only_fields = ('ind_array', 'ind_key_array')
 
 
 class JobSerializer(serializers.ModelSerializer):

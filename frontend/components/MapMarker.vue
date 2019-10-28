@@ -5,7 +5,7 @@
     :label="marker.name | truncateLabel"
     @mouseover="enableInfoWindow(marker)"
     @mouseout="disableInfoWindow"
-  ></GmapMarker>
+  />
 </template>
 
 <script>
@@ -18,18 +18,14 @@ export default {
   computed: {
     // Control marker shape (according to marker values)
     iconURL() {
-      let url =
-        'marker-gray.svg'
-      if (!this.marker.jobs_count) {  // If no current job openings
+      let url = 'marker-gray.svg'
+      if (!this.marker.jobs_count) {
+        // If no current job openings
         url = 'marker-disabled.svg'
-      }
-      else if (this.marker.avg_salary > 5000) {
-        url =
-          'marker-star.svg'
-      }
-      else if (this.marker.avg_salary > 3500) {
-        url =
-          'marker-blue.svg'
+      } else if (this.marker.avg_salary > 5000) {
+        url = 'marker-star.svg'
+      } else if (this.marker.avg_salary > 3500) {
+        url = 'marker-blue.svg'
       }
       return url
     },
@@ -37,7 +33,7 @@ export default {
       return {
         url: require(`../static/${this.iconURL}`),
         size: { width: 80, height: 80, f: 'px', b: 'px' },
-        scaledSize: { width: 80, height: 80, f: 'px', b: 'px' },
+        scaledSize: { width: 80, height: 80, f: 'px', b: 'px' }
         // labelOrigin: {x: -2, y: 0}
       }
     }
@@ -49,8 +45,8 @@ export default {
       'setOpen'
     ]),
     enableInfoWindow(marker) {
-      this.setPosition({lat: marker.lat, lng: marker.lng})
-      this.setOptionsContent({name: marker.name, time: marker.transitTime})
+      this.setPosition({ lat: marker.lat, lng: marker.lng })
+      this.setOptionsContent({ name: marker.name, time: marker.transitTime })
       this.setOpen(true)
     },
     disableInfoWindow() {
@@ -61,7 +57,7 @@ export default {
   },
   filters: {
     truncateLabel(label) {
-      label = label.replace("(주)", "")
+      label = label.replace('(주)', '')
       if (label.length > 5) {
         label = label.substring(0, 4) + '...'
       }
@@ -73,10 +69,20 @@ export default {
 
 <style lang="scss">
 // Marker Label Styling
-#Default > div.vue-map-container > div.vue-map > div > div > div:nth-child(1) > div:nth-child(1) > div:nth-child(4) > div > div > div > div {
+#Default
+  > div.vue-map-container
+  > div.vue-map
+  > div
+  > div
+  > div:nth-child(1)
+  > div:nth-child(1)
+  > div:nth-child(4)
+  > div
+  > div
+  > div
+  > div {
   color: white !important;
   font-size: 0.9em !important;
   font-weight: bold;
 }
-
 </style>

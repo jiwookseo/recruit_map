@@ -31,13 +31,14 @@ export default {
     LeftSideBar
   },
   data() {
-    return {
-      markerTestLat: 37.5012,
-      markerTestLng: 127.0396
-    }
+    return {}
   },
   computed: {
-    ...mapGetters('company', ['getAllCompanies', 'getDepartureStationID', 'getRoutesFromStation']),
+    ...mapGetters('company', [
+      'getAllCompanies',
+      'getDepartureStationID',
+      'getRoutesFromStation'
+    ])
   },
   methods: {
     ...mapMutations('company', [
@@ -62,9 +63,9 @@ export default {
   },
   created() {
     // API Base URL
-    const APIBase = "http://52.78.29.170:8000/api/"
+    const APIBase = 'http://52.78.29.170:8000/api/'
 
-    // TODO: Check local storage to see if departure station has been previously set 
+    // TODO: Check local storage to see if departure station has been previously set
     // const localStorageStationID = window.localStorage.getItem("gmapDepartureStation")
 
     // Set departure station => 역삼(961) as default
@@ -72,24 +73,25 @@ export default {
     let stationID = this.getDepartureStationID
 
     // Retrieve routes from above station and store in Vuex
-    axios.get(`${APIBase}stations/${stationID}/routes`)
+    axios
+      .get(`${APIBase}stations/${stationID}/routes`)
       .then((res) => {
-        this.setRoutesFromStation(res.data);
+        this.setRoutesFromStation(res.data)
       })
       .then(() => {
         // Retrieve all company data from DB (including transit time) and store in Vuex
-        axios.get(`${APIBase}companies/?all`)
-          .then((res) => {
-            let companies = res.data;  // Array of companies, WITHOUT transit time
-            const routes = this.getRoutesFromStation;  // Routes with transit time info
-            companies.forEach((c) => {  // c.id = company id
-              const route = routes.find(function(r) {
-                return r.company === c.id
-              });
-              c.transitTime = route.time
+        axios.get(`${APIBase}companies/?all`).then((res) => {
+          let companies = res.data // Array of companies, WITHOUT transit time
+          const routes = this.getRoutesFromStation // Routes with transit time info
+          companies.forEach((c) => {
+            // c.id = company id
+            const route = routes.find(function(r) {
+              return r.company === c.id
             })
-            this.setAllCompanies(companies);
-          });
+            c.transitTime = route.time
+          })
+          this.setAllCompanies(companies)
+        })
       })
   }
 }

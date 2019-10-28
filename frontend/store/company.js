@@ -2,8 +2,9 @@ export const state = () => ({
   hoveredCompany: {},
   selectedCompany: {},
   allCompanies: [],
-  departureStationID: 961, // starting point
-  routesFromStation: [] // transit time info from above specified station
+  routesFromStation: [], // transit time info from specified station
+  companyDetail: {},
+  departureStationID: 961 // starting point
 })
 
 export const getters = {
@@ -12,6 +13,7 @@ export const getters = {
   getAllCompanies: (state) => state.allCompanies,
   getDepartureStationID: (state) => state.departureStationID,
   getRoutesFromStation: (state) => state.routesFromStation,
+  getCompanyDetail: (state) => state.companyDetail
 }
 
 export const mutations = {
@@ -29,6 +31,9 @@ export const mutations = {
   },
   setRoutesFromStation: (state, payload) => {
     state.routesFromStation = payload
+  },
+  setCompanyDetail: (state, payload) => {
+    state.companyDetail = payload
   }
 }
 export const actions = {
@@ -47,4 +52,9 @@ export const actions = {
   }, payload) {
     commit('setRoutesFromStation', payload)
   },
+  setCompanyDetail({
+    commit
+  }, payload) {
+    commit('setCompanyDetail', payload)
+  }
 }
