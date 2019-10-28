@@ -29,7 +29,9 @@
       <span>powered by saramin</span>
     </p>
     <div class="back">
-      <span>&lt;</span>
+      <nuxtLink to="/">
+        <i class="material-icons-round">arrow_left_alt</i>
+      </nuxtLink>
     </div>
   </div>
 </template>
@@ -102,14 +104,12 @@ export default {
 .back {
   position: absolute;
   display: flex;
-  top: 10px;
+  top: 2px;
   font-weight: 700;
-  font-size: 30px;
-  color: #181818;
-  span {
-    padding: 3px;
-    max-width: 40px;
-    max-height: 30px;
+  left: -10px;
+  i {
+    font-size: 70px;
+    color: #181818;
   }
 }
 

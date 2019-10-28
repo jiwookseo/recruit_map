@@ -37,16 +37,24 @@ export const mutations = {
   }
 }
 export const actions = {
-  setAllCompanies({ commit }, payload) {
+  setAllCompanies({
+    commit
+  }, payload) {
     commit('setAllCompanies', payload)
   },
-  setDepartureStationID({ commit }, payload) {
+  setDepartureStationID({
+    commit
+  }, payload) {
     commit('setDepartureStationID', payload)
   },
-  setRoutesFromStation({ commit }, payload) {
+  setRoutesFromStation({
+    commit
+  }, payload) {
     commit('setRoutesFromStation', payload)
   },
-  setCompanyDetail({ commit }, payload) {
+  setCompanyDetail({
+    commit
+  }, payload) {
     commit('setCompanyDetail', payload)
   }
 }

@@ -5,6 +5,7 @@
     :label="marker.name | truncateLabel"
     @mouseover="enableInfoWindow(marker)"
     @mouseout="disableInfoWindow"
+    @click="infoDetail(marker)"
   />
 </template>
 
@@ -44,14 +45,16 @@ export default {
       'setOptionsContent',
       'setOpen'
     ]),
-    ...mapMutations('company', ['setHoveredCompany']),
+    ...mapMutations('company', ['setHoveredCompany', 'setCompanyDetail']),
     enableInfoWindow(marker) {
+      console.log('MARKER', marker)
       console.log('MAPMARKER MOUSE OVER')
       this.setPosition({ lat: marker.lat, lng: marker.lng })
       this.setOptionsContent({
         name: marker.name,
         time: marker.transitTime,
-        id: marker.id
+        salary: marker.avg_salary,
+        jobs: marker.jobs_count
       })
       this.setOpen(true)
     },
@@ -60,6 +63,10 @@ export default {
       setTimeout(() => {
         this.setOpen(false)
       }, 4000)
+    },
+    infoDetail(marker) {
+      this.setCompanyDetail(marker)
+      this.$router.push(`/company/${marker.id}/`)
     }
   },
   filters: {
