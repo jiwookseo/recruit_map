@@ -36,9 +36,11 @@ export default {
   computed: {
     ...mapGetters('company', [
       'getAllCompanies',
+    ]),
+    ...mapGetters('station', [
       'getDepartureStationID',
       'getRoutesFromStation'
-    ])
+    ]),
   },
   created() {
     // API Base URL
@@ -76,9 +78,11 @@ export default {
   methods: {
     ...mapMutations('company', [
       'setAllCompanies',
+    ]),
+    ...mapMutations('station', [
       'setDepartureStationID',
-      'setRoutesFromStation'
-    ])
+      'setRoutesFromStation',
+    ]),
     // center_changed() {
     //   console.log("CenterChanged")
     //   let a = this.$refs.map
