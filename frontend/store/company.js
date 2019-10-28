@@ -2,7 +2,7 @@ export const state = () => ({
   hoveredCompany: {},
   selectedCompany: {},
   allCompanies: [],
-  departureStationID: 600, // starting point
+  departureStationID: 961, // starting point
   routesFromStation: [] // transit time info from above specified station
 })
 

@@ -9,8 +9,6 @@
       :options="{
         streetViewControl: false
       }"
-      @center_changed="center_changed"
-      @bounds_changed="bounds_changed"
     >
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
       <MapInfoWindow />
@@ -34,11 +32,12 @@ export default {
   },
   data() {
     return {
-
+      markerTestLat: 37.5012,
+      markerTestLng: 127.0396
     }
   },
   computed: {
-    ...mapGetters('company', ['getAllCompanies', 'getDepartureStationID', 'getRoutesFromStation'])
+    ...mapGetters('company', ['getAllCompanies', 'getDepartureStationID', 'getRoutesFromStation']),
   },
   methods: {
     ...mapMutations('company', [
@@ -46,23 +45,20 @@ export default {
       'setDepartureStationID',
       'setRoutesFromStation'
     ]),
-    center_changed() {
-      console.log("CenterChanged")
-      let a = this.$refs.map
-      console.log(a)
-    },
-    bounds_changed() {
-      console.log("BoundsChanged")
-    },
+    // center_changed() {
+    //   console.log("CenterChanged")
+    //   let a = this.$refs.map
+    //   console.log(a.$mapObject)
+    // },
+    // bounds_changed() {
+    //   console.log("BoundsChanged")
+    // },
     // geolocate() {  // finds actual location of user
     //   navigator.geolocation.getCurrentPosition(pos => {
     //     console.log("lat: ", pos.coords.latitude);
     //     console.log("lng: ", pos.coords.longitude);
     //   })
     // }
-    getCenter() {
-
-    }
   },
   created() {
     // API Base URL
