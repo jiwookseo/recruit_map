@@ -85,7 +85,7 @@ export default {
    */
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
-    // '@nuxtjs/eslint-module', e
+    '@nuxtjs/eslint-module',
     '@nuxtjs/vuetify',
     '@nuxtjs/dotenv'
   ],

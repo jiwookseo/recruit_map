@@ -5,15 +5,15 @@
 </template>
 
 <script>
-import Title from './Title'
 import api from '../../../api/company.js'
+import Title from './Title'
 export default {
   name: 'CompanyDetailInfo',
   components: {
     Title
   },
   mounted() {
-    let data = api.getCompanyData(this.$route.params.id)
+    const data = api.getCompanyData(this.$route.params.id)
     data
       .then((res) => res.data)
       .then((res) => {

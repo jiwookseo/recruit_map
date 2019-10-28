@@ -9,14 +9,18 @@
     >
       <p>
         <nuxt-link :to="`/company/${item.id}/`">
-          <span class="company-info-name">{{item.name}}</span>
+          <span class="company-info-name">{{ item.name }}</span>
         </nuxt-link>
-        <span
-          class="company-info-salary"
-        >{{item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'}}</span>
-        <a target="_blank" class="company--info-link" :href="item.saramin_url">채용링크</a>
+        <span class="company-info-salary">
+          {{
+            item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
+          }}
+        </span>
+        <a target="_blank" class="company--info-link" :href="item.saramin_url">
+          채용링크
+        </a>
       </p>
-      <p class="company--info-sub">{{item.address}}</p>
+      <p class="company--info-sub">{{ item.address }}</p>
     </article>
   </section>
 </template>
@@ -25,6 +29,16 @@
 import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'CompanyInfo',
+  computed: {
+    ...mapGetters('company', [
+      'hoveredCompany',
+      'selectedCompany',
+      'getAllCompanies'
+    ]),
+    companiesData() {
+      return this.getAllCompanies.slice(0, 5)
+    }
+  },
   methods: {
     ...mapMutations('company', ['setHoveredCompany', 'setSelectedCompany']),
     ...mapMutations('infoWindow', [
@@ -37,16 +51,6 @@ export default {
       this.setPosition({ lat: payload.lat, lng: payload.lng })
       this.setOptionsContent({ name: payload.name, time: payload.transitTime })
       this.setOpen(true)
-    }
-  },
-  computed: {
-    ...mapGetters('company', [
-      'hoveredCompany',
-      'selectedCompany',
-      'getAllCompanies'
-    ]),
-    companiesData() {
-      return this.getAllCompanies.slice(0, 5)
     }
   }
 }

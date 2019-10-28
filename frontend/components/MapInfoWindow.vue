@@ -1,5 +1,9 @@
 <template>
-  <GmapInfoWindow :options="options" :position="position" :opened="open"></GmapInfoWindow>
+  <GmapInfoWindow
+    :options="options"
+    :position="position"
+    :opened="open"
+  ></GmapInfoWindow>
 </template>
 
 <script>
@@ -66,17 +70,12 @@ export default {
   methods: {
     ...mapMutations('infoWindow', ['setOpen']),
     enableInfoWindow() {
-      console.log('hover infowindow')
       this.setOpen(true)
     },
     disableInfoWindow() {
-      console.log('infowindow mouseout')
       setTimeout(() => {
         this.setOpen(false)
       }, 400)
-    },
-    test() {
-      console.log('CLICK TEST')
     }
   }
 }
@@ -129,10 +128,10 @@ export default {
           transform: translateY(2px);
         }
         &.closest {
-          color: #5E5187;
+          color: #5e5187;
         }
         &.closer {
-          color: #8774C1;
+          color: #8774c1;
         }
       }
     }

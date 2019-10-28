@@ -1,17 +1,17 @@
 <template>
   <div class="c-di-t">
-    <h1>{{company.name || '이름'}}</h1>
+    <h1>{{ company.name || '이름' }}</h1>
     <p class="c-di-t-st">
       <span>{{ company.ind_name }}</span>
     </p>
     <hr class="c-di-t-li" />
     <p class="c-di-t-sp">
       신입 평균
-      <span>{{company.start_salary}} 만원</span>
+      <span>{{ company.start_salary }} 만원</span>
     </p>
     <p class="c-di-t-ap">
       직원 평균
-      <span>{{company.avg_salary}} 만원</span>
+      <span>{{ company.avg_salary }} 만원</span>
     </p>
     <p class="c-di-t-cp">
       <a target="_blank" :href="company.href">회사홈페이지 바로 가기</a>
@@ -23,7 +23,7 @@
     </p>
     <p class="c-di-t-jc">
       현재 진행중인 채용 공고 개수
-      <span>{{company.jobs_count}}</span>
+      <span>{{ company.jobs_count }}</span>
     </p>
     <p class="saramin">
       <span>powered by saramin</span>

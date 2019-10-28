@@ -8,7 +8,9 @@
         @change="handleChange()"
       />
       <div v-if="setActivateSearch" class="left--side-bar-filterList">
-        <p v-for="idx in searchedMovie" :key="idx.id+'kaka'">{{idx.name}}</p>
+        <p v-for="idx in searchedMovie" :key="idx.id + 'kaka'">
+          {{ idx.name }}
+        </p>
       </div>
     </div>
     <div class="left--side-bar-filter"></div>
@@ -25,16 +27,15 @@ export default {
       searchedMovie: []
     }
   },
-  methods: {
-    handleChange() {
-      console.log('Change')
-    }
-  },
   computed: {
     setActivateSearch() {
-      return this.searchText.length > 2 ? true : false
+      return this.searchText.length > 2
     },
     ...mapGetters('company', ['getAllCompanyCompanies'])
+  },
+  // search 구현하기
+  methods: {
+    handleChange() {}
   }
 }
 </script>

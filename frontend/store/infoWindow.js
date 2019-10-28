@@ -30,21 +30,15 @@ export const mutations = {
 }
 
 export const actions = {
-  setOpen({
-    commit
-  }, payload) {
+  setOpen({ commit }, payload) {
     // payload: Boolean value that controls whether or not info window is opened
     commit('setOpen', payload)
   },
-  setPosition({
-    commit
-  }, payload) {
+  setPosition({ commit }, payload) {
     // payload: Object with lat and lng values
     commit('setPosition', payload)
   },
-  setOptionsContent({
-    commit
-  }, payload) {
+  setOptionsContent({ commit }, payload) {
     // payload: Object with name and time values
     commit('setOptionsContent', payload)
   }
