@@ -1,13 +1,9 @@
 <template>
-  <GmapInfoWindow
-    :options="options"
-    :position="position"
-    :opened="open"
-  ></GmapInfoWindow>
+  <GmapInfoWindow :options="options" :position="position" :opened="open"></GmapInfoWindow>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'MapInfoWindow',
@@ -39,7 +35,12 @@ export default {
       }
       const salary = this.optionsContent.salary
       let className = ''
-      if (salary > 5000) {
+      if (salary === 0) {
+        return `<div class="salaryInfo">
+                  <i class="material-icons-round">monetization_on</i>
+                  연봉: 회사 내규에 따름
+                </div>`
+      } else if (salary > 5000) {
         className = 'high'
       }
       return `<div class="salaryInfo">
@@ -61,8 +62,8 @@ export default {
                     </div>
                   </div>`,
         pixelOffset: {
-          width: 0,
-          height: -60
+          width: -2.5,
+          height: -45
         }
       }
     }
