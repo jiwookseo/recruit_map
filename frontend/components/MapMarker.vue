@@ -46,6 +46,7 @@ export default {
     ]),
     ...mapMutations('company', ['setHoveredCompany']),
     enableInfoWindow(marker) {
+      console.log('MAPMARKER MOUSE OVER')
       this.setPosition({ lat: marker.lat, lng: marker.lng })
       this.setOptionsContent({
         name: marker.name,
@@ -55,9 +56,10 @@ export default {
       this.setOpen(true)
     },
     disableInfoWindow() {
+      console.log('MAPMARKER MOUSE OUT')
       setTimeout(() => {
         this.setOpen(false)
-      }, 200)
+      }, 4000)
     }
   },
   filters: {

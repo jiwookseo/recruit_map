@@ -1,12 +1,5 @@
 <template>
-  <GmapInfoWindow 
-    :options="options" 
-    :position="position" 
-    :opened="open"
-    @mouseover="enableInfoWindow"
-    @mouseout="disableInfoWindow"
-    @click="test"
-  ></GmapInfoWindow>
+  <GmapInfoWindow :options="options" :position="position" :opened="open"></GmapInfoWindow>
 </template>
 
 <script>
@@ -23,7 +16,11 @@ export default {
     options() {
       return {
         content: `
-        <div class="infWinContainer">
+        <div class="infWinContainer
+          @mousemove="enableInfoWindow"
+          @mouseout="disableInfoWindow"
+          @click="test"
+        ">
           <div class="r1">
             <nuxt-link :to="/company/${this.optionsContent.id}/">${this.optionsContent.name}</nuxt-link>
           </div>
@@ -39,16 +36,17 @@ export default {
   methods: {
     ...mapMutations('infoWindow', ['setOpen']),
     enableInfoWindow() {
-      console.log("hover infowindow")
-      this.setOpen(true);
+      console.log('hover infowindow')
+      this.setOpen(true)
     },
     disableInfoWindow() {
+      console.log('infowindow mouseout')
       setTimeout(() => {
         this.setOpen(false)
-      }, 200)
+      }, 400)
     },
     test() {
-      console.log("CLICK TEST")
+      console.log('CLICK TEST')
     }
   }
 }
@@ -81,6 +79,7 @@ export default {
   height: auto;
   background: white;
   padding: 10px;
+  z-index: 999999999;
   & > .r1 {
     font-size: 18px;
     font-weight: bold;
