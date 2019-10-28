@@ -48,7 +48,7 @@ export default {
       }
       return `<div class="salaryInfo">
                 <i class="material-icons-round ${className}">monetization_on</i>
-                연봉 ${salary}원
+                연봉 ${salary}만원
               </div>`
     },
     options() {
@@ -135,10 +135,10 @@ export default {
           transform: translateY(2px);
         }
         &.closest {
-          color: red;
+          color: #5E5187;
         }
         &.closer {
-          color: blue;
+          color: #8774C1;
         }
       }
     }
