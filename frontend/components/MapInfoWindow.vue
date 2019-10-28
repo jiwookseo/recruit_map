@@ -20,9 +20,50 @@ export default {
       position: 'infoWindow/getPosition',
       optionsContent: 'infoWindow/getOptionsContent'
     }),
+    content_time() {
+      const time = this.optionsContent.time;
+      let className = "default";
+      if (time <= 30) {
+        className = "closest"
+      }
+      else if (time <= 60) {
+        className = "closer"
+      }
+      return `<span class="${className}">
+                <i class="material-icons-round">departure_board</i>
+              </span>약 ${time}분`;
+    },
+    content_salary() {
+      const jobs = this.optionsContent.jobs;
+      if (!jobs) {
+        return `<div class="noJobs">
+                  <i class="material-icons-round">error</i>
+                  현재 진행 중인 채용 공고가 없습니다.
+                </div>`
+      }
+      const salary = this.optionsContent.salary;
+      let className = "";
+      if (salary > 5000) {
+        className = "high"
+      }
+      return `<div class="salaryInfo">
+                <i class="material-icons-round ${className}">monetization_on</i>
+                연봉 ${salary}원
+              </div>`
+    },
     options() {
       return {
-        content: `<div class="infWinContainer"><div class="r1">${this.optionsContent.name}</div><div class="r2">${this.optionsContent.time}분</div></div>`,
+        content: `<div class="infWinContainer">
+                    <div class="Title">${this.optionsContent.name}</div>
+                    <div class="Detail">
+                      <div class="Time">
+                        ${this.content_time}
+                      </div>
+                      <div class="Salary">
+                        ${this.content_salary}
+                      </div>
+                    </div>
+                  </div>`,
         pixelOffset: {
           width: 0,
           height: -60
@@ -75,13 +116,53 @@ export default {
   height: auto;
   background: white;
   padding: 10px;
-  & > .r1 {
+  & > .Title {
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 10px;
     white-space: nowrap;
   }
-  & > .r2 {
+  & > .Detail {
+    & > .Time {
+      span {
+        width: 10px; height: 10px;
+        margin-right: 8px;
+        color: gray;
+        display: inline-block;
+        i {
+          font-size: 1.1em;
+          position: relative;
+          transform: translateY(2px);
+        }
+        &.closest {
+          color: red;
+        }
+        &.closer {
+          color: blue;
+        }
+      }
+    }
+    & > .Salary {
+      & > .noJobs {
+        color: gray;
+        i {
+          font-size: 1.1em;
+          position: relative;
+          transform: translateY(2px);
+        }
+      }
+      & > .salaryInfo {
+        i {
+          font-size: 1.1em;
+          position: relative;
+          transform: translateY(2px);
+          color: gray;
+          &.high {
+            color: gold;
+          }
+        }
+      }
+    }
   }
 }
 </style>

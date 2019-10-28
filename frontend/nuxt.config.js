@@ -12,8 +12,7 @@ export default {
   head: {
     titleTemplate: '%s - ' + process.env.npm_package_name,
     title: process.env.npm_package_name || '',
-    meta: [
-      {
+    meta: [{
         charset: 'utf-8'
       },
       {
@@ -26,11 +25,14 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [
-      {
+    link: [{
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico'
+      },
+      {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Material+Icons+Round'
       }
     ]
   },
@@ -47,12 +49,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    {
-      src: '~/plugins/google-maps',
-      ssr: true
-    }
-  ],
+  plugins: [{
+    src: '~/plugins/google-maps',
+    ssr: true
+  }],
   /*
    ** Nuxt.js dev-modules
    */

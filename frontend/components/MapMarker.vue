@@ -46,7 +46,12 @@ export default {
     ]),
     enableInfoWindow(marker) {
       this.setPosition({ lat: marker.lat, lng: marker.lng })
-      this.setOptionsContent({ name: marker.name, time: marker.transitTime })
+      this.setOptionsContent({ 
+        name: marker.name, 
+        time: marker.transitTime,
+        salary: marker.avg_salary,
+        jobs: marker.jobs_count
+      })
       this.setOpen(true)
     },
     disableInfoWindow() {
