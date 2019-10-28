@@ -10,8 +10,8 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: '%s - ' + process.env.npm_package_name,
-    title: process.env.npm_package_name || '',
+    titleTemplate: '%s - ' + '길잡이',
+    title: '길잡이' || '',
     meta: [
       {
         charset: 'utf-8'
@@ -21,8 +21,31 @@ export default {
         content: 'width=device-width, initial-scale=1'
       },
       {
+        name: 'keywords',
+        content: '취업 취업정보 채용 회사거리'
+      },
+      {
         hid: 'description',
         name: 'description',
+        content: process.env.npm_package_description || ''
+      },
+      {
+        name: 'author',
+        content: 'NoNameD'
+      },
+      {
+        hid: 'og:title',
+        name: 'og:title',
+        content: '길잡이'
+      },
+      {
+        hid: 'og:site_name',
+        name: 'og:site_name',
+        content: '길잡이'
+      },
+      {
+        hid: 'og:description',
+        name: 'og:description',
         content: process.env.npm_package_description || ''
       }
     ],

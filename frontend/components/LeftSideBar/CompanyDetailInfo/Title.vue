@@ -28,9 +28,13 @@
     <p class="saramin">
       <span>powered by saramin</span>
     </p>
+    <div class="back">
+      <span>&lt;</span>
+    </div>
   </div>
 </template>
 
+//TODO og:image
 <script>
 import { mapGetters } from 'vuex'
 export default {
@@ -39,6 +43,33 @@ export default {
     ...mapGetters('company', {
       company: 'getCompanyDetail'
     })
+  },
+  head() {
+    return {
+      title: this.company.name,
+      meta: [
+        {
+          hid: 'description',
+          property: 'description',
+          content: this.company.name
+        },
+        {
+          hid: 'keywords',
+          name: 'keywords',
+          content: `${this.company.name} ${this.company.name}채용 ${this.company.name}연봉 ${this.company.name}거리`
+        },
+        {
+          hid: 'og:title',
+          property: 'og:title',
+          content: this.company.name
+        },
+        {
+          hid: 'og:description',
+          name: 'og:description',
+          content: this.company.name
+        }
+      ]
+    }
   }
 }
 </script>
@@ -51,10 +82,13 @@ export default {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background-color: #fafafa;
+  background-color: #f7f7f7;
   z-index: 100;
   h1 {
-    font-weight: 500;
+    font-weight: 700;
+    margin-left: 30px;
+    display: inline-block;
+    width: calc(100%-40px);
   }
   a {
     text-decoration: none;
@@ -65,8 +99,24 @@ export default {
   }
 }
 
+.back {
+  position: absolute;
+  display: flex;
+  top: 10px;
+  font-weight: 700;
+  font-size: 30px;
+  color: #181818;
+  span {
+    padding: 3px;
+    max-width: 40px;
+    max-height: 30px;
+  }
+}
+
 .c-di-t-st {
   margin-top: 4px !important;
+  font-size: 12px;
+  color: #aaa;
 }
 
 .c-di-t-li {
@@ -110,10 +160,10 @@ export default {
 
 .saramin {
   width: 35%;
-  background-color: #4876ef;
-  color: #fff;
+  color: #bbb;
   padding: 5px;
   text-align: center;
   font-size: 12px;
+  font-weight: 100;
 }
 </style>
