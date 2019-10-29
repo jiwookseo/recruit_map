@@ -2,7 +2,7 @@
   <!-- 5개의 회사 정보를 보여주는 것에 최적화 되어 있읍니다. -->
   <section class="company--info-div">
     <article
-      v-for="item in companiesData"
+      v-for="item in calData"
       :key="item.id + item.avg_salary"
       @mouseenter="handleMouseEnter(item)"
       @mouseleave="setOpen(false)"
@@ -44,17 +44,16 @@ export default {
     },
     // TODO error fix (error during evaluation)
     calData() {
-      const companyArray = []
-      this.getAllcompanies.forEach((v) => {
-        if (
+      const companyArray = this.getAllCompanies.filter(
+        (v) =>
           v.lat >= this.getLatLng[0].lat &&
           v.lat <= this.getLatLng[1].lat &&
           v.lng >= this.getLatLng[0].lng &&
           v.lng <= this.getLatLng[1].lng
-        ) {
-          companyArray.push(v)
-        }
-      })
+      )
+      if (companyArray.length > 5) {
+        return companyArray.splice(0, 5)
+      }
       return companyArray
     }
   },

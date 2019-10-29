@@ -9,12 +9,12 @@ export const getters = {
   getLatLng: (state) => {
     return [
       {
-        lat: parseFloat(state.centerLat - 0.005).toFixed(7),
-        lng: parseFloat(state.centerLng - 0.01).toFixed(7)
+        lat: parseFloat(parseFloat(state.centerLat - 0.005).toFixed(7)),
+        lng: parseFloat(parseFloat(state.centerLng - 0.01).toFixed(7))
       },
       {
-        lat: parseFloat(state.centerLat + 0.005).toFixed(7),
-        lng: parseFloat(state.centerLng + 0.01).toFixed(7)
+        lat: parseFloat(parseFloat(state.centerLat + 0.005).toFixed(7)),
+        lng: parseFloat(parseFloat(state.centerLng + 0.01).toFixed(7))
       }
     ]
   }

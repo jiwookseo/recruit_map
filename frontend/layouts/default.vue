@@ -36,11 +36,8 @@ export default {
     return {}
   },
   computed: {
-    ...mapGetters('company', [
-      'getAllCompanies',
-      'getDepartureStationID',
-      'getRoutesFromStation'
-    ])
+    ...mapGetters('company', ['getAllCompanies']),
+    ...mapGetters('station', ['getDepartureStationID', 'getRoutesFromStation'])
   },
   created() {
     // API Base URL
@@ -69,15 +66,17 @@ export default {
             const route = routes.find(function(r) {
               return r.company === c.id
             })
-            c.transitTime = route.time
+            if (route) {
+              c.transitTime = route.time
+            }
           })
           this.setAllCompanies(companies)
         })
       })
   },
   methods: {
-    ...mapMutations('company', [
-      'setAllCompanies',
+    ...mapMutations('company', ['setAllCompanies']),
+    ...mapMutations('station', [
       'setDepartureStationID',
       'setRoutesFromStation'
     ]),
