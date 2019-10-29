@@ -1,9 +1,16 @@
 <template>
   <div class="left--side-search-div">
     <div class="left--side-bar-input">
-      <input v-model="searchText" type="text" placeholder="회사 명 또는 지하철 역을 입력하세요" />
+      <input
+        v-model="searchText"
+        type="text"
+        placeholder="회사 명 또는 지하철 역을 입력하세요"
+        @change="handleChange()"
+      />
       <div v-if="setActivateSearch" class="left--side-bar-filterList">
-        <p v-for="idx in 5" :key="idx+'kaka'">카카카</p>
+        <p v-for="idx in searchedMovie" :key="idx.id + 'kaka'">
+          {{ idx.name }}
+        </p>
       </div>
     </div>
     <div class="left--side-bar-filter"></div>
@@ -11,17 +18,24 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name: 'InputDiv',
   data() {
     return {
-      searchText: ''
+      searchText: '',
+      searchedMovie: []
     }
   },
   computed: {
     setActivateSearch() {
-      return this.searchText.length > 2 ? true : false
-    }
+      return this.searchText.length > 2
+    },
+    ...mapGetters('company', ['getAllCompanyCompanies'])
+  },
+  // search 구현하기
+  methods: {
+    handleChange() {}
   }
 }
 </script>

@@ -5,6 +5,7 @@
     :label="marker.name | truncateLabel"
     @mouseover="enableInfoWindow(marker)"
     @mouseout="disableInfoWindow"
+    @click="infoDetail(marker)"
   />
 </template>
 
@@ -12,29 +13,49 @@
 import { mapMutations } from 'vuex'
 export default {
   name: 'MapMarker',
+  filters: {
+    truncateLabel(label) {
+      label = label.replace('(주)', '')
+      if (label.length > 5) {
+        label = label.substring(0, 4) + '...'
+      }
+      return label
+    }
+  },
   props: {
-    marker: { type: Object }
+    marker: { type: Object, default: () => {} }
   },
   computed: {
     // Control marker shape (according to marker values)
     iconURL() {
-      let url = 'marker-gray.svg'
+      let url = 'default.png'
       if (!this.marker.jobs_count) {
         // If no current job openings
-        url = 'marker-disabled.svg'
-      } else if (this.marker.avg_salary > 5000) {
-        url = 'marker-star.svg'
-      } else if (this.marker.avg_salary > 3500) {
-        url = 'marker-blue.svg'
+        url = 'disabled.png'
+      } else if (this.marker.transitTime <= 30) {
+        if (this.marker.avg_salary >= 5000) {
+          url = 'closest_coin.png'
+        } else {
+          url = 'closest.png'
+        }
+      } else if (this.marker.transitTime <= 60) {
+        if (this.marker.avg_salary >= 5000) {
+          url = 'closer_coin.png'
+        } else {
+          url = 'closer.png'
+        }
+      } else if (this.marker.avg_salary >= 5000) {
+        url = 'default_coin.png'
       }
+
       return url
     },
     markerOptions() {
       return {
         url: require(`../static/${this.iconURL}`),
-        size: { width: 80, height: 80, f: 'px', b: 'px' },
-        scaledSize: { width: 80, height: 80, f: 'px', b: 'px' }
-        // labelOrigin: {x: -2, y: 0}
+        size: { width: 58, height: 42, f: 'px', b: 'px' },
+        scaledSize: { width: 58, height: 42, f: 'px', b: 'px' },
+        labelOrigin: { x: 26, y: 27 }
       }
     }
   },
@@ -44,24 +65,25 @@ export default {
       'setOptionsContent',
       'setOpen'
     ]),
+    ...mapMutations('company', ['setHoveredCompany', 'setCompanyDetail']),
     enableInfoWindow(marker) {
       this.setPosition({ lat: marker.lat, lng: marker.lng })
-      this.setOptionsContent({ name: marker.name, time: marker.transitTime })
+      this.setOptionsContent({
+        name: marker.name,
+        time: marker.transitTime,
+        salary: marker.avg_salary,
+        jobs: marker.jobs_count
+      })
       this.setOpen(true)
     },
     disableInfoWindow() {
       setTimeout(() => {
         this.setOpen(false)
-      }, 200)
-    }
-  },
-  filters: {
-    truncateLabel(label) {
-      label = label.replace('(주)', '')
-      if (label.length > 5) {
-        label = label.substring(0, 4) + '...'
-      }
-      return label
+      }, 4000)
+    },
+    infoDetail(marker) {
+      this.setCompanyDetail(marker)
+      this.$router.push(`/company/${marker.id}/`)
     }
   }
 }

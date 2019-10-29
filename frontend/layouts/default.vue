@@ -1,6 +1,7 @@
 <template>
   <div id="Default">
     <GmapMap
+      ref="map"
       :center="{ lat: 37.5012, lng: 127.0396 }"
       :zoom="17"
       map-type-id="roadmap"
@@ -18,11 +19,11 @@
 </template>
 
 <script>
+import axios from 'axios'
+import { mapMutations, mapGetters } from 'vuex'
 import MapMarker from '~/components/MapMarker.vue'
 import MapInfoWindow from '~/components/MapInfoWindow.vue'
 import LeftSideBar from '~/components/LeftSideBar'
-import axios from 'axios'
-import { mapMutations, mapGetters } from 'vuex'
 export default {
   components: {
     MapMarker,
@@ -35,16 +36,11 @@ export default {
   computed: {
     ...mapGetters('company', [
       'getAllCompanies',
+    ]),
+    ...mapGetters('station', [
       'getDepartureStationID',
       'getRoutesFromStation'
-    ])
-  },
-  methods: {
-    ...mapMutations('company', [
-      'setAllCompanies',
-      'setDepartureStationID',
-      'setRoutesFromStation'
-    ])
+    ]),
   },
   created() {
     // API Base URL
@@ -55,7 +51,7 @@ export default {
 
     // Set departure station => 역삼(961) as default
     // let stationID = localStorageStationID ? localStorageStationID : 600
-    let stationID = this.getDepartureStationID
+    const stationID = this.getDepartureStationID
 
     // Retrieve routes from above station and store in Vuex
     axios
@@ -66,7 +62,7 @@ export default {
       .then(() => {
         // Retrieve all company data from DB (including transit time) and store in Vuex
         axios.get(`${APIBase}companies/?all`).then((res) => {
-          let companies = res.data // Array of companies, WITHOUT transit time
+          const companies = res.data // Array of companies, WITHOUT transit time
           const routes = this.getRoutesFromStation // Routes with transit time info
           companies.forEach((c) => {
             // c.id = company id
@@ -78,6 +74,29 @@ export default {
           this.setAllCompanies(companies)
         })
       })
+  },
+  methods: {
+    ...mapMutations('company', [
+      'setAllCompanies',
+    ]),
+    ...mapMutations('station', [
+      'setDepartureStationID',
+      'setRoutesFromStation',
+    ]),
+    // center_changed() {
+    //   console.log("CenterChanged")
+    //   let a = this.$refs.map
+    //   console.log(a.$mapObject)
+    // },
+    // bounds_changed() {
+    //   console.log("BoundsChanged")
+    // },
+    // geolocate() {  // finds actual location of user
+    //   navigator.geolocation.getCurrentPosition(pos => {
+    //     console.log("lat: ", pos.coords.latitude);
+    //     console.log("lng: ", pos.coords.longitude);
+    //   })
+    // }
   }
 }
 </script>

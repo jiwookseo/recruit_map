@@ -7,10 +7,10 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import InputDiv from './InputDiv'
 import CompanyInfo from './CompanyInfo'
 import Recruit from './Recruit'
-import { mapGetters } from 'vuex'
 export default {
   name: 'LeftSideBar',
   components: {
@@ -24,7 +24,7 @@ export default {
 }
 </script>
 
-<style lang="scss" >
+<style lang="scss">
 .left--side-bar {
   display: flex;
   flex-direction: column;
