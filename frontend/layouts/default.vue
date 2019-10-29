@@ -7,7 +7,8 @@
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
       :options="{
-        streetViewControl: false
+        streetViewControl: false,
+        fullscreenControl: false
       }"
       @center_changed="center_changed"
     >
@@ -16,69 +17,56 @@
       <MapInfoWindow />
     </GmapMap>
     <LeftSideBar />
+    <StationButton />
+    <transition name="stationMenu">
+      <StationMenu v-if="getShowStationMenu" />
+    </transition>
     <nuxt />
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 import MapMarker from '~/components/MapMarker.vue'
 import MapInfoWindow from '~/components/MapInfoWindow.vue'
 import LeftSideBar from '~/components/LeftSideBar'
+import StationButton from '~/components/StationButton.vue'
+import StationMenu from '~/components/StationMenu.vue'
 export default {
   components: {
     MapMarker,
     MapInfoWindow,
-    LeftSideBar
+    LeftSideBar,
+    StationButton,
+    StationMenu
   },
   data() {
-    return {}
+    return {
+      showStationMenu: false
+    }
   },
   computed: {
     ...mapGetters('company', ['getAllCompanies']),
-    ...mapGetters('station', ['getDepartureStationID', 'getRoutesFromStation'])
-  },
-  created() {
-    // API Base URL
-    const APIBase = 'http://52.78.29.170:8000/api/'
-
-    // TODO: Check local storage to see if departure station has been previously set
-    // const localStorageStationID = window.localStorage.getItem("gmapDepartureStation")
-
-    // Set departure station => 역삼(961) as default
-    // let stationID = localStorageStationID ? localStorageStationID : 600
-    const stationID = this.getDepartureStationID
-
-    // Retrieve routes from above station and store in Vuex
-    axios
-      .get(`${APIBase}stations/${stationID}/routes`)
-      .then((res) => {
-        this.setRoutesFromStation(res.data)
-      })
-      .then(() => {
-        // Retrieve all company data from DB (including transit time) and store in Vuex
-        axios.get(`${APIBase}companies/?all`).then((res) => {
-          const companies = res.data // Array of companies, WITHOUT transit time
-          const routes = this.getRoutesFromStation // Routes with transit time info
-          companies.forEach((c) => {
-            // c.id = company id
-            const route = routes.find(function(r) {
-              return r.company === c.id
-            })
-            if (route) {
-              c.transitTime = route.time
-            }
-          })
-          this.setAllCompanies(companies)
-        })
-      })
+    ...mapGetters('station', [
+      'getDepartureStationID',
+      'getRoutesFromStation',
+      'getAllStations',
+      'getShowStationMenu'
+    ])
   },
   methods: {
+    ...mapActions('station', [
+      'setAsyncRoutesFromStation',
+      'setAsyncAllStations'
+    ]),
+    ...mapActions('company', ['setAsyncAllCompanies']),
     ...mapMutations('company', ['setAllCompanies']),
     ...mapMutations('station', [
       'setDepartureStationID',
-      'setRoutesFromStation'
+      'setRoutesFromStation',
+      'setAllStations',
+      'setShowStationMenu'
     ]),
     ...mapMutations('maps', ['setCenterLat', 'setCenterLng']),
     center_changed() {
@@ -95,13 +83,44 @@ export default {
     //     console.log("lng: ", pos.coords.longitude);
     //   })
     // }
+  },
+  created() {
+    // TODO: Check local storage to see if departure station has been previously set
+    const stationID = this.getDepartureStationID || 961
+    this.setAsyncAllStations()
+    this.setAsyncRoutesFromStation(stationID)
+    this.setAsyncAllCompanies()
+    let companies = this.getAllCompanies
+    const routes = this.getRoutesFromStation
+    companies.forEach((c) => {
+      const route = routes.find(function(r) {
+        return r.company === c.id
+      })
+      if (route) {
+        c.transitTime = route.time
+      }
+    })
+    this.setAllCompanies(companies)
   }
 }
+
+// Get all station info
 </script>
 
 <style lang="scss" scoped>
 #Default {
   width: 100%;
   height: 100vh;
+}
+.stationMenu-enter-active {
+  transition: all 0.6s ease;
+}
+.stationMenu-leave-active {
+  transition: all 0.6s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.stationMenu-enter,
+.stationMenu-leave-to {
+  transform: translateX(40px);
+  opacity: 0;
 }
 </style>
