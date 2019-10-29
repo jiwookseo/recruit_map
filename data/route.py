@@ -2,6 +2,7 @@ import requests
 import os
 import json
 from google_maps import Maps
+from progress import progress_bar
 from pprint import pprint as pp
 
 
@@ -17,16 +18,16 @@ class Route:
         res = requests.get(cls.API_URL + "stations/?all")
         stations = res.json()
 
-        print("{} stations * {} companies = {} routes"
-              .format(len(companies), len(stations), len(companies) * len(stations)))
-
+        print("* Now, {} companies and {} stations exist *"
+              .format(len(companies), len(stations)))
+        print("=================================================")
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
         for j in range(len(stations)):  # len(stations) 까지 하면 월 사용량 이상으로 사용됨
+            # progress bar
+            progress_bar(j + 1, len(stations), 25, "▦")
             station = stations[j]
             data = []
-            print("\rstation no.{} / {}".format(
-                j, len(stations)), end=" "*5)
             res = requests.get(
                 cls.API_URL + "routes/?station={}".format(station["id"]))
             count = res.json()["count"]
