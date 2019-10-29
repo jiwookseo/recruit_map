@@ -15,7 +15,6 @@ class CompanySerializer(serializers.ModelSerializer):
                   "address",
                   "lat",
                   "lng",
-                  "viewport",
                   "ind_code",
                   "ind_array",
                   "place_id",
