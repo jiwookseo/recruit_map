@@ -7,13 +7,18 @@
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
       :options="{
-        streetViewControl: false
+        streetViewControl: false,
+        fullscreenControl: false
       }"
     >
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
       <MapInfoWindow />
     </GmapMap>
     <LeftSideBar />
+    <StationButton />
+    <transition name="stationMenu">
+      <StationMenu v-if="getShowStationMenu" />
+    </transition>
     <nuxt />
   </div>
 </template>
@@ -24,14 +29,20 @@ import { mapMutations, mapGetters } from 'vuex'
 import MapMarker from '~/components/MapMarker.vue'
 import MapInfoWindow from '~/components/MapInfoWindow.vue'
 import LeftSideBar from '~/components/LeftSideBar'
+import StationButton from '~/components/StationButton.vue'
+import StationMenu from '~/components/StationMenu.vue'
 export default {
   components: {
     MapMarker,
     MapInfoWindow,
-    LeftSideBar
+    LeftSideBar,
+    StationButton,
+    StationMenu
   },
   data() {
-    return {}
+    return {
+      showStationMenu: false
+    }
   },
   computed: {
     ...mapGetters('company', [
@@ -39,7 +50,9 @@ export default {
     ]),
     ...mapGetters('station', [
       'getDepartureStationID',
-      'getRoutesFromStation'
+      'getRoutesFromStation',
+      'getAllStations',
+      'getShowStationMenu'
     ]),
   },
   created() {
@@ -62,18 +75,26 @@ export default {
       .then(() => {
         // Retrieve all company data from DB (including transit time) and store in Vuex
         axios.get(`${APIBase}companies/?all`).then((res) => {
-          const companies = res.data // Array of companies, WITHOUT transit time
+          let companies = res.data // Array of companies, WITHOUT transit time
           const routes = this.getRoutesFromStation // Routes with transit time info
           companies.forEach((c) => {
             // c.id = company id
             const route = routes.find(function(r) {
               return r.company === c.id
             })
-            c.transitTime = route.time
+            if (route) {
+              c.transitTime = route.time;
+            }
           })
           this.setAllCompanies(companies)
         })
-      })
+      });
+    
+    // Get all station info
+    axios.get(`${APIBase}stations/?all`)
+      .then((res) => {
+        this.setAllStations(res.data);
+      });
   },
   methods: {
     ...mapMutations('company', [
@@ -82,6 +103,8 @@ export default {
     ...mapMutations('station', [
       'setDepartureStationID',
       'setRoutesFromStation',
+      'setAllStations',
+      'setShowStationMenu'
     ]),
     // center_changed() {
     //   console.log("CenterChanged")
@@ -105,5 +128,16 @@ export default {
 #Default {
   width: 100%;
   height: 100vh;
+}
+.stationMenu-enter-active {
+  transition: all 0.6s ease;
+}
+.stationMenu-leave-active {
+  transition: all 0.6s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.stationMenu-enter,
+.stationMenu-leave-to {
+  transform: translateX(40px);
+  opacity: 0;
 }
 </style>
