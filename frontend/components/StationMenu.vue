@@ -67,6 +67,8 @@ export default {
       'setDepartureStationID',
       'setDepartureStationName',
       'setRoutesFromStation',
+      'setShowStationMenu',
+      'setShowStationAlert'
     ]),
     lineName(line) {
       if (line === 'A') {
@@ -131,8 +133,10 @@ export default {
             })
             this.setAllCompanies(companies);
           })
-          
         });
+      this.searchString = '';
+      this.setShowStationMenu(false);
+      this.setShowStationAlert(true);
     }
   }
 }

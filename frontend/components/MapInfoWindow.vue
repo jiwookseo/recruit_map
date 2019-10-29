@@ -13,8 +13,14 @@ export default {
       position: 'infoWindow/getPosition',
       optionsContent: 'infoWindow/getOptionsContent'
     }),
+    ...mapGetters('station', [
+      'getDepartureStationName',
+    ]),
     content_time() {
       const time = this.optionsContent.time
+      if (!time) {
+        return ''
+      }
       let className = 'default'
       if (time <= 30) {
         className = 'closest'
@@ -23,7 +29,7 @@ export default {
       }
       return `<span class="${className}">
                 <i class="material-icons-round">departure_board</i>
-              </span>약 ${time}분`
+              </span>약 ${time}분 (${this.getDepartureStationName}역 기준)`
     },
     content_salary() {
       const jobs = this.optionsContent.jobs

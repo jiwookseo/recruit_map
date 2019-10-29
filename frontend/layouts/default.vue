@@ -19,6 +19,9 @@
     <transition name="stationMenu">
       <StationMenu v-if="getShowStationMenu" />
     </transition>
+    <transition name="stationMenu">
+      <StationAlert v-if="getShowStationAlert" />
+    </transition>
     <nuxt />
   </div>
 </template>
@@ -31,13 +34,15 @@ import MapInfoWindow from '~/components/MapInfoWindow.vue'
 import LeftSideBar from '~/components/LeftSideBar'
 import StationButton from '~/components/StationButton.vue'
 import StationMenu from '~/components/StationMenu.vue'
+import StationAlert from '~/components/StationAlert.vue'
 export default {
   components: {
     MapMarker,
     MapInfoWindow,
     LeftSideBar,
     StationButton,
-    StationMenu
+    StationMenu,
+    StationAlert
   },
   data() {
     return {
@@ -52,7 +57,8 @@ export default {
       'getDepartureStationID',
       'getRoutesFromStation',
       'getAllStations',
-      'getShowStationMenu'
+      'getShowStationMenu',
+      'getShowStationAlert',
     ]),
   },
   created() {

@@ -3,7 +3,8 @@ export const state = () => ({
   departureStationName: '역삼',
   routesFromStation: [], // transit time info from specified station
   allStations: [],
-  showStationMenu: false
+  showStationMenu: false,
+  showStationAlert: false,
 })
 
 export const getters = {
@@ -12,6 +13,7 @@ export const getters = {
   getRoutesFromStation: (state) => state.routesFromStation,
   getAllStations: (state) => state.allStations,
   getShowStationMenu: (state) => state.showStationMenu,
+  getShowStationAlert: (state) => state.showStationAlert,
 }
 
 export const mutations = {
@@ -30,31 +32,39 @@ export const mutations = {
   setShowStationMenu: (state, payload) => {
     state.showStationMenu = payload
   },
-}
-export const actions = {
-  setDepartureStationID({
-    commit
-  }, payload) {
-    commit('setDepartureStationID', payload)
-  },
-  setDepartureStationName({
-    commit
-  }, payload) {
-    commit('setDepartureStationName', payload)
-  },
-  setRoutesFromStation({
-    commit
-  }, payload) {
-    commit('setRoutesFromStation', payload)
-  },
-  setAllStations({
-    commit
-  }, payload) {
-    commit('setAllStations', payload)
-  },
-  setShowStationMenu({
-    commit
-  }, payload) {
-    commit('setShowStationMenu', payload)
+  setShowStationAlert: (state, payload) => {
+    state.showStationAlert = payload
   },
 }
+// export const actions = {
+//   setDepartureStationID({
+//     commit
+//   }, payload) {
+//     commit('setDepartureStationID', payload)
+//   },
+//   setDepartureStationName({
+//     commit
+//   }, payload) {
+//     commit('setDepartureStationName', payload)
+//   },
+//   setRoutesFromStation({
+//     commit
+//   }, payload) {
+//     commit('setRoutesFromStation', payload)
+//   },
+//   setAllStations({
+//     commit
+//   }, payload) {
+//     commit('setAllStations', payload)
+//   },
+//   setShowStationMenu({
+//     commit
+//   }, payload) {
+//     commit('setShowStationMenu', payload)
+//   },
+//   setShowStationAlert({
+//     commit
+//   }, payload) {
+//     commit('setShowStationAlert', payload)
+//   },
+// }
