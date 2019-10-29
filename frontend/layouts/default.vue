@@ -10,7 +10,9 @@
         streetViewControl: false,
         fullscreenControl: false
       }"
+      @center_changed="center_changed"
     >
+      <!-- @bounds_changed="bounds_changed" -->
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
       <MapInfoWindow />
     </GmapMap>
@@ -28,7 +30,7 @@
 
 <script>
 import axios from 'axios'
-import { mapMutations, mapGetters } from 'vuex'
+import { mapMutations, mapGetters, mapActions } from 'vuex'
 import MapMarker from '~/components/MapMarker.vue'
 import MapInfoWindow from '~/components/MapInfoWindow.vue'
 import LeftSideBar from '~/components/LeftSideBar'
@@ -50,84 +52,67 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('company', [
-      'getAllCompanies',
-    ]),
+    ...mapGetters('company', ['getAllCompanies']),
     ...mapGetters('station', [
       'getDepartureStationID',
       'getRoutesFromStation',
       'getAllStations',
-      'getShowStationMenu',
       'getShowStationAlert',
-    ]),
-  },
-  created() {
-    // API Base URL
-    const APIBase = 'http://52.78.29.170:8000/api/'
-
-    // TODO: Check local storage to see if departure station has been previously set
-    // const localStorageStationID = window.localStorage.getItem("gmapDepartureStation")
-
-    // Set departure station => 역삼(961) as default
-    // let stationID = localStorageStationID ? localStorageStationID : 600
-    const stationID = this.getDepartureStationID
-
-    // Retrieve routes from above station and store in Vuex
-    axios
-      .get(`${APIBase}stations/${stationID}/routes`)
-      .then((res) => {
-        this.setRoutesFromStation(res.data)
-      })
-      .then(() => {
-        // Retrieve all company data from DB (including transit time) and store in Vuex
-        axios.get(`${APIBase}companies/?all`).then((res) => {
-          let companies = res.data // Array of companies, WITHOUT transit time
-          const routes = this.getRoutesFromStation // Routes with transit time info
-          companies.forEach((c) => {
-            // c.id = company id
-            const route = routes.find(function(r) {
-              return r.company === c.id
-            })
-            if (route) {
-              c.transitTime = route.time;
-            }
-          })
-          this.setAllCompanies(companies)
-        })
-      });
-    
-    // Get all station info
-    axios.get(`${APIBase}stations/?all`)
-      .then((res) => {
-        this.setAllStations(res.data);
-      });
+      'getShowStationMenu'
+    ])
   },
   methods: {
-    ...mapMutations('company', [
-      'setAllCompanies',
+    ...mapActions('station', [
+      'setAsyncRoutesFromStation',
+      'setAsyncAllStations'
     ]),
+    ...mapActions('company', ['setAsyncAllCompanies']),
+    ...mapMutations('company', ['setAllCompanies']),
     ...mapMutations('station', [
       'setDepartureStationID',
       'setRoutesFromStation',
       'setAllStations',
       'setShowStationMenu'
     ]),
-    // center_changed() {
-    //   console.log("CenterChanged")
-    //   let a = this.$refs.map
-    //   console.log(a.$mapObject)
-    // },
+    ...mapMutations('maps', ['setCenterLat', 'setCenterLng']),
+    center_changed() {
+      let gMap = this.$refs.map
+      this.setCenterLat(gMap.$mapObject.center.lat())
+      this.setCenterLng(gMap.$mapObject.center.lng())
+    }
     // bounds_changed() {
-    //   console.log("BoundsChanged")
-    // },
+    //   console.log('BoundsChanged')
+    // }
     // geolocate() {  // finds actual location of user
     //   navigator.geolocation.getCurrentPosition(pos => {
     //     console.log("lat: ", pos.coords.latitude);
     //     console.log("lng: ", pos.coords.longitude);
     //   })
     // }
+  },
+  created() {
+    // TODO: Check local storage to see if departure station has been previously set
+    const stationID = this.getDepartureStationID || 961
+    this.setAsyncAllStations()
+    this.setAsyncRoutesFromStation(stationID)
+    this.setAsyncAllCompanies()
+    let companies = this.getAllCompanies
+    const routes = this.getRoutesFromStation
+    companies.forEach((c) => {
+      const route = routes.find(function(r) {
+        return r.company === c.id
+      })
+      console.log(route)
+      if (route) {
+        c.transitTime = route.time
+      }
+    })
+    this.setAllCompanies(companies)
+    console.log(companies)
   }
 }
+
+// Get all station info
 </script>
 
 <style lang="scss" scoped>

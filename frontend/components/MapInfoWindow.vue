@@ -18,9 +18,9 @@ export default {
     ]),
     content_time() {
       const time = this.optionsContent.time
-      if (!time) {
-        return ''
-      }
+      // if (!time) {
+      //   return ''
+      // }
       let className = 'default'
       if (time <= 30) {
         className = 'closest'

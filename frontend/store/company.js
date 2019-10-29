@@ -1,8 +1,10 @@
+import api from '../api/company'
+
 export const state = () => ({
   hoveredCompany: {},
   selectedCompany: {},
   allCompanies: [],
-  companyDetail: {},
+  companyDetail: {}
 })
 
 export const getters = {
@@ -27,14 +29,10 @@ export const mutations = {
   }
 }
 export const actions = {
-  setAllCompanies({
-    commit
-  }, payload) {
-    commit('setAllCompanies', payload)
-  },
-  setCompanyDetail({
-    commit
-  }, payload) {
-    commit('setCompanyDetail', payload)
+  setAsyncAllCompanies({ commit }, payload) {
+    const res = api.getCompaniesData()
+    res.then((v) => {
+      commit('setAllCompanies', v.data)
+    })
   }
 }

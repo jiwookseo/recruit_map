@@ -1,3 +1,5 @@
+import api from '../api/station'
+
 export const state = () => ({
   departureStationID: 961, // starting point
   departureStationName: '역삼',
@@ -36,35 +38,37 @@ export const mutations = {
     state.showStationAlert = payload
   },
 }
-// export const actions = {
-//   setDepartureStationID({
-//     commit
-//   }, payload) {
-//     commit('setDepartureStationID', payload)
-//   },
-//   setDepartureStationName({
-//     commit
-//   }, payload) {
-//     commit('setDepartureStationName', payload)
-//   },
-//   setRoutesFromStation({
-//     commit
-//   }, payload) {
-//     commit('setRoutesFromStation', payload)
-//   },
-//   setAllStations({
-//     commit
-//   }, payload) {
-//     commit('setAllStations', payload)
-//   },
-//   setShowStationMenu({
-//     commit
-//   }, payload) {
-//     commit('setShowStationMenu', payload)
-//   },
-//   setShowStationAlert({
-//     commit
-//   }, payload) {
-//     commit('setShowStationAlert', payload)
-//   },
-// }
+export const actions = {
+  setDepartureStationID({
+    commit
+  }, payload) {
+    commit('setDepartureStationID', payload)
+  },
+  setDepartureStationName({
+    commit
+  }, payload) {
+    commit('setDepartureStationName', payload)
+  },
+  setAsyncRoutesFromStation({
+    commit,
+    state
+  }, payload) {
+    const res = api.getStationRoutes(payload)
+    res.then((v) => {
+      commit('setRoutesFromStation', v.data)
+    })
+  },
+  setAsyncAllStations({
+    commit
+  }, payload) {
+    const res = api.getAllStation()
+    res.then((v) => {
+      commit('setAllStations', v.data)
+    })
+  },
+  setShowStationMenu({
+    commit
+  }, payload) {
+    commit('setShowStationMenu', payload)
+  }
+}

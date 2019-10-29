@@ -2,7 +2,7 @@
   <!-- 5개의 회사 정보를 보여주는 것에 최적화 되어 있읍니다. -->
   <section class="company--info-div">
     <article
-      v-for="item in companiesData"
+      v-for="item in calData"
       :key="item.id + item.avg_salary"
       @mouseenter="handleMouseEnter(item)"
       @mouseleave="setOpen(false)"
@@ -13,12 +13,10 @@
         </nuxt-link>
         <span class="company-info-salary">
           {{
-            item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
+          item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
           }}
         </span>
-        <a target="_blank" class="company--info-link" :href="item.saramin_url">
-          채용링크
-        </a>
+        <a target="_blank" class="company--info-link" :href="item.saramin_url">채용링크</a>
       </p>
       <p class="company--info-sub">{{ item.address }}</p>
     </article>
@@ -29,14 +27,34 @@
 import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'CompanyInfo',
+  data() {
+    return {
+      a: ''
+    }
+  },
   computed: {
     ...mapGetters('company', [
-      'hoveredCompany',
-      'selectedCompany',
+      'getHoveredCompany',
+      'getSelectedCompany',
       'getAllCompanies'
     ]),
+    ...mapGetters('maps', ['getLatLng']),
     companiesData() {
       return this.getAllCompanies.slice(0, 5)
+    },
+    // TODO error fix (error during evaluation)
+    calData() {
+      const companyArray = this.getAllCompanies.filter(
+        (v) =>
+          v.lat >= this.getLatLng[0].lat &&
+          v.lat <= this.getLatLng[1].lat &&
+          v.lng >= this.getLatLng[0].lng &&
+          v.lng <= this.getLatLng[1].lng
+      )
+      if (companyArray.length > 5) {
+        return companyArray.splice(0, 5)
+      }
+      return companyArray
     }
   },
   methods: {
