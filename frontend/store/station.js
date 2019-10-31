@@ -39,15 +39,16 @@ export const mutations = {
   }
 }
 export const actions = {
-  setDepartureStationID({ commit }, payload) {
+  setAsyncDepartureStationID({ commit }, payload) {
     commit('setDepartureStationID', payload)
   },
-  setDepartureStationName({ commit }, payload) {
+  setAsyncDepartureStationName({ commit }, payload) {
     commit('setDepartureStationName', payload)
   },
   async setAsyncRoutesFromStation({ commit, state }, payload) {
-    const res = await api.getStationRoutes(payload)
-    commit('setRoutesFromStation', res.data)
+    const res = await api.getStationRoutes(payload.v)
+    commit('setRoutesFromStation', res.data.results)
+    payload.cb()
   },
   async setAsyncAllStations({ commit }, payload) {
     const res = await api.getAllStation()

@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import axios from 'axios'
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 import MapMarker from '~/components/MapMarker.vue'
 import MapInfoWindow from '~/components/MapInfoWindow.vue'
@@ -95,13 +94,14 @@ export default {
   created() {
     // TODO: Check local storage to see if departure station has been previously set
     // const stationID = this.getDepartureStationID || 961
-    const stationID = this.getDepartureStationID;
+    const stationID = this.getDepartureStationID
     this.setAsyncAllStations()
-    this.setAsyncRoutesFromStation(stationID)
-    this.setAsyncAllCompanies()
+    this.setAsyncRoutesFromStation({
+      v: stationID,
+      cb: this.setAsyncAllCompanies
+    })
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
