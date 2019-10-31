@@ -34,19 +34,37 @@ export default {
         url = 'disabled.png'
       } else if (this.marker.transitTime <= 30) {
         if (this.marker.avg_salary >= 5000) {
-          url = 'closest_coin.png'
+          url = 'closest_c2.png'
+        } else if (this.marker.avg_salary >= 4000) {
+          url = 'closest_c1.png'
         } else {
           url = 'closest.png'
         }
-      } else if (this.marker.transitTime <= 60) {
+      } else if (this.marker.transitTime <= 45) {
         if (this.marker.avg_salary >= 5000) {
-          url = 'closer_coin.png'
+          url = 'closer_c2.png'
+        } else if (this.marker.avg_salary >= 4000) {
+          url = 'closer_c1.png'
         } else {
           url = 'closer.png'
         }
-      } else if (this.marker.avg_salary >= 5000) {
-        url = 'default_coin.png'
-      }
+      } else if (this.marker.transitTime <= 60) {
+        if (this.marker.avg_salary >= 5000) {
+          url = 'close_c2.png'
+        } else if (this.marker.avg_salary >= 4000) {
+          url = 'close_c1.png'
+        } else {
+          url = 'close.png'
+        }
+      } else {
+        if (this.marker.avg_salary >= 5000) {
+          url = 'default_c2.png'
+        } else if (this.marker.avg_salary >= 4000) {
+          url = 'default_c1.png'
+        } else {
+          url = 'default.png'
+        }
+      } 
 
       return url
     },
