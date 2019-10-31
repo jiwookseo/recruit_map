@@ -86,7 +86,7 @@ export default {
   flex-direction: column;
   padding: 20px;
   background-color: #f7f7f7;
-  z-index: 100;
+  z-index: 9;
   h1 {
     font-weight: 700;
     margin-left: 30px;

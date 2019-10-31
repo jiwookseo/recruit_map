@@ -8,7 +8,11 @@
         @input="handleChange"
       />
       <div v-if="setActivateSearch" class="left--side-bar-filterList">
-        <p v-for="idx in computedMovieList" :key="idx.id + 'kaka'">{{ idx.name }}</p>
+        <p
+          v-for="item in computedMovieList"
+          @click="moveDetail(item.id)"
+          :key="item.id"
+        >{{ item.name }}</p>
       </div>
     </div>
     <div class="left--side-bar-filter"></div>
@@ -45,6 +49,10 @@ export default {
         let res = await api.getCompanyDataByName(this.searchText)
         this.searchedMovie = res.data.results
       }
+    },
+    moveDetail(id) {
+      this.searchText = ''
+      this.$router.push(`/company/${id}`)
     }
   }
 }
@@ -93,6 +101,10 @@ export default {
     }
     &:last-child {
       border-radius: 0 0 10px 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #181818;
     }
   }
 }
