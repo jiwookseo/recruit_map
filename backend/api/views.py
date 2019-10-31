@@ -10,6 +10,7 @@ from .serializers import CompanySerializer, JobSerializer, StationSerializer, Ro
 from django_filters import rest_framework as filters
 from rest_framework import viewsets, filters
 from rest_framework.response import Response
+from rest_framework.reverse import reverse
 from rest_framework import status
 from rest_framework.decorators import action
 
@@ -36,8 +37,15 @@ class CompanyViewSet(FiltersMixin, viewsets.ModelViewSet):
     def jobs(self, request, pk):
         instance = self.get_object()
         jobs = instance.jobs.all()
-        serializer = JobSerializer(jobs, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = JobSerializer(
+            jobs, many=True, context={'request': request})
+        return Response({
+            "link": {
+                "url": reverse('api:company-jobs', args=[pk], request=request),
+                "company": reverse('api:company-detail', args=[pk], request=request),
+            },
+            "results": serializer.data
+        }, status=status.HTTP_200_OK)
 
 
 class JobViewSet(FiltersMixin, viewsets.ModelViewSet):
@@ -65,8 +73,15 @@ class StationViewSet(FiltersMixin, viewsets.ModelViewSet):
     def routes(self, request, pk):
         instance = self.get_object()
         routes = instance.routes.all()
-        serializer = RouteSerializer(routes, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        serializer = RouteSerializer(
+            routes, many=True, context={'request': request})
+        return Response({
+            "link": {
+                "url": reverse('api:station-routes', args=[pk], request=request),
+                "station": reverse('api:station-detail', args=[pk], request=request),
+            },
+            "results": serializer.data
+        }, status=status.HTTP_200_OK)
 
 
 class RouteViewSet(FiltersMixin, viewsets.ModelViewSet):
@@ -77,6 +92,7 @@ class RouteViewSet(FiltersMixin, viewsets.ModelViewSet):
     filter_mappings = {
         'id': 'id',
         'station': 'station',
+        'company': 'company',
     }
 
     def create(self, request, *args, **kwargs):
