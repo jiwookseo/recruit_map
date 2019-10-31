@@ -10,9 +10,10 @@ import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: "StationAlert",
   computed: {
-    ...mapGetters('station', [
-      'getDepartureStationName',
-    ]),
+    ...mapGetters('localStorage', ['getDepartureStationName']),
+    // ...mapGetters('station', [
+    //   'getDepartureStationName',
+    // ]),
   },
   methods: {
     ...mapMutations('station', [

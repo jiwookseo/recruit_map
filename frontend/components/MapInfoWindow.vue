@@ -13,9 +13,12 @@ export default {
       position: 'infoWindow/getPosition',
       optionsContent: 'infoWindow/getOptionsContent'
     }),
-    ...mapGetters('station', [
+    ...mapGetters('localStorage', [
       'getDepartureStationName',
     ]),
+    // ...mapGetters('station', [
+    //   'getDepartureStationName',
+    // ]),
     content_time() {
       const time = this.optionsContent.time
       // if (!time) {

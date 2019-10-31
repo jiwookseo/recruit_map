@@ -53,8 +53,9 @@ export default {
   },
   computed: {
     ...mapGetters('company', ['getAllCompanies']),
+    ...mapGetters('localStorage', ['getDepartureStationID']),
     ...mapGetters('station', [
-      'getDepartureStationID',
+      // 'getDepartureStationID',
       'getRoutesFromStation',
       'getAllStations',
       'getShowStationAlert',
@@ -68,8 +69,9 @@ export default {
     ]),
     ...mapActions('company', ['setAsyncAllCompanies']),
     ...mapMutations('company', ['setAllCompanies']),
+    ...mapMutations('localStorage', ['setDepartureStationID']),
     ...mapMutations('station', [
-      'setDepartureStationID',
+      // 'setDepartureStationID',
       'setRoutesFromStation',
       'setAllStations',
       'setShowStationMenu'
@@ -92,14 +94,14 @@ export default {
   },
   created() {
     // TODO: Check local storage to see if departure station has been previously set
-    const stationID = this.getDepartureStationID || 961
+    // const stationID = this.getDepartureStationID || 961
+    const stationID = this.getDepartureStationID;
     this.setAsyncAllStations()
     this.setAsyncRoutesFromStation(stationID)
     this.setAsyncAllCompanies()
   }
 }
 
-// Get all station info
 </script>
 
 <style lang="scss" scoped>

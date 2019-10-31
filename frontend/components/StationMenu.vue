@@ -35,9 +35,13 @@ export default {
     ...mapGetters('company', [
       'getAllCompanies',
     ]),
+    ...mapGetters('localStorage', [
+      'getDepartureStationID', 
+      'getDepartureStationName'
+    ]),
     ...mapGetters('station', [
-      'getDepartureStationID',
-      'getDepartureStationName',
+      // 'getDepartureStationID',
+      // 'getDepartureStationName',
       'getRoutesFromStation',
       'getAllStations'
     ]),
@@ -63,9 +67,13 @@ export default {
     ...mapMutations('company', [
       'setAllCompanies',
     ]),
-    ...mapMutations('station', [
+    ...mapMutations('localStorage', [
       'setDepartureStationID',
       'setDepartureStationName',
+    ]),
+    ...mapMutations('station', [
+      // 'setDepartureStationID',
+      // 'setDepartureStationName',
       'setRoutesFromStation',
       'setShowStationMenu',
       'setShowStationAlert'
