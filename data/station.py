@@ -1,4 +1,4 @@
-from googleMaps import Maps
+from google_maps import Maps
 import json
 import os
 import requests
@@ -30,7 +30,6 @@ for name, v in stations.items():
     if place:
         station["place_id"] = place["place_id"]
         station["address"] += " {}역".format(name)
-        station["viewport"] = place["geometry"]["viewport"]
         station["lat"] = place["geometry"]["location"]["lat"]
         station["lng"] = place["geometry"]["location"]["lng"]
     else:

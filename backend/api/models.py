@@ -20,7 +20,6 @@ class Company(models.Model):
                              max_length=50, default="", blank=True)
     lat = models.FloatField(_("latitude"))
     lng = models.FloatField(_("longitude"))
-    viewport = jsonfield.JSONField(_("viewport geometry"))
     place_id = models.CharField(_("google map place_id"), max_length=150)
     ind_code = models.CharField(
         _("industry code"),  max_length=50, default=0, blank=True)
@@ -45,7 +44,7 @@ class Company(models.Model):
 class Job(models.Model):
     company = models.ForeignKey(Company, verbose_name=_(
         "company foreign key"), on_delete=models.CASCADE, related_name="jobs")
-    title = models.CharField(_("title"), max_length=50)
+    title = models.CharField(_("title"), max_length=100)
     saramin_url = models.URLField(
         _("saramin info url"), max_length=200, default="", blank=True, unique=True)
     job = models.CharField(
@@ -67,7 +66,6 @@ class Station(models.Model):
     address = models.CharField(_("detail address"), max_length=250)
     lat = models.FloatField(_("latitude"))
     lng = models.FloatField(_("longitude"))
-    viewport = jsonfield.JSONField(_("viewport geometry"))
     place_id = models.CharField(_("google map place_id"), max_length=150)
 
     @property

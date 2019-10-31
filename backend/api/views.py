@@ -26,6 +26,10 @@ class CompanyViewSet(FiltersMixin, viewsets.ModelViewSet):
     filter_mappings = {
         'id': 'id',
         'name': 'name__icontains',
+        'farther_east': 'lng__gt',
+        'farther_west': 'lng__lt',
+        'farther_north': 'lat__gt',
+        'farther_south': 'lat__lt',
     }
 
     @action(detail=True)
@@ -41,7 +45,9 @@ class JobViewSet(FiltersMixin, viewsets.ModelViewSet):
     serializer_class = JobSerializer
     filter_mappings = {
         'id': 'id',
-        'name': 'name__icontains',
+        'title': 'title__icontains',
+        'open': 'open',
+        'close': 'close',
     }
 
 
