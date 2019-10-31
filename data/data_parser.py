@@ -10,6 +10,7 @@ from datetime import datetime
 class Parser:
     NODE_ENV = os.environ.get("NODE_ENV", "develop")
     API_URL = "http://52.78.29.170:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
+    API = requests.get(API_URL).json()
 
     def __init__(self, data):
         self.data = data
@@ -156,7 +157,7 @@ class Parser:
 
     @classmethod
     def get_company(cls, name):
-        res = requests.get(cls.API_URL + "companies/?name=" + name).json()
+        res = requests.get(cls.API["companies"] + "?name=" + name).json()
         if res["count"]:
             return True, res["results"][0]
         else:
@@ -164,14 +165,14 @@ class Parser:
 
     @classmethod
     def create_company(cls, company):
-        req = requests.post(cls.API_URL + "companies/", company)
+        req = requests.post(cls.API["companies"], company)
         res = req.json()
         return True if req.status_code == 201 else False, res
 
     @classmethod
     def get_job(cls, title, open_stamp):
         res = requests.get(
-            cls.API_URL + "jobs/?title={}&open={}".format(title, open_stamp)).json()
+            cls.API["jobs"] + "?title={}&open={}".format(title, open_stamp)).json()
         if res["count"]:
             return True, res["results"][0]
         else:
@@ -179,6 +180,6 @@ class Parser:
 
     @classmethod
     def create_job(cls, job):
-        req = requests.post(cls.API_URL + "jobs/", job)
+        req = requests.post(cls.API["jobs"], job)
         res = req.json()
         return True if req.status_code == 201 else False, res

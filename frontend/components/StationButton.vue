@@ -1,5 +1,5 @@
 <template>
-  <div class="outer" :class="{'on': getShowStationMenu}" @click="showStationMenuToggle">
+  <div class="outer" :class="{'on': getShowStationMenu}" @click.stop="showStationMenuToggle">
     <i class="material-icons-round">directions_subway</i>
   </div>
 </template>
