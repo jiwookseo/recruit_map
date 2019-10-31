@@ -66,7 +66,12 @@ export default {
     handleMouseEnter(payload) {
       this.setHoveredCompany(payload)
       this.setPosition({ lat: payload.lat, lng: payload.lng })
-      this.setOptionsContent({ name: payload.name, time: payload.transitTime })
+      this.setOptionsContent({
+        name: payload.name,
+        time: payload.transitTime,
+        salary: payload.avg_salary,
+        jobs: payload.jobs_count
+      })
       this.setOpen(true)
     }
   }
