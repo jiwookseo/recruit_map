@@ -96,19 +96,6 @@ export default {
     this.setAsyncAllStations()
     this.setAsyncRoutesFromStation(stationID)
     this.setAsyncAllCompanies()
-    let companies = this.getAllCompanies
-    const routes = this.getRoutesFromStation
-    companies.forEach((c) => {
-      const route = routes.find(function(r) {
-        return r.company === c.id
-      })
-      console.log(route)
-      if (route) {
-        c.transitTime = route.time
-      }
-    })
-    this.setAllCompanies(companies)
-    console.log(companies)
   }
 }
 

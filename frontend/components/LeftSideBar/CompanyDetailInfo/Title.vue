@@ -33,6 +33,7 @@
         <i class="material-icons-round">arrow_left_alt</i>
       </nuxtLink>
     </div>
+    <!-- 추가적으로 해야 할 것 ! company/:pk/jobs -->
   </div>
 </template>
 

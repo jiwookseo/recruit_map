@@ -42,7 +42,6 @@ export default {
     companiesData() {
       return this.getAllCompanies.slice(0, 5)
     },
-    // TODO error fix (error during evaluation)
     calData() {
       const companyArray = this.getAllCompanies.filter(
         (v) =>

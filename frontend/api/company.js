@@ -2,12 +2,10 @@ import axios from 'axios'
 const BASE_URL = 'http://52.78.29.170:8000/api/'
 
 export default {
-  async getCompanyData(id) {
-    const data = await axios.get(`${BASE_URL}companies/${id}`)
-    return data
+  getCompanyData(id) {
+    return axios.get(`${BASE_URL}companies/${id}`)
   },
-  async getCompaniesData() {
-    const data = await axios.get(`${BASE_URL}companies/?all`)
-    return data
+  getCompaniesData() {
+    return axios.get(`${BASE_URL}companies/?all`)
   }
 }

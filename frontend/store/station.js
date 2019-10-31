@@ -6,7 +6,7 @@ export const state = () => ({
   routesFromStation: [], // transit time info from specified station
   allStations: [],
   showStationMenu: false,
-  showStationAlert: false,
+  showStationAlert: false
 })
 
 export const getters = {
@@ -15,7 +15,7 @@ export const getters = {
   getRoutesFromStation: (state) => state.routesFromStation,
   getAllStations: (state) => state.allStations,
   getShowStationMenu: (state) => state.showStationMenu,
-  getShowStationAlert: (state) => state.showStationAlert,
+  getShowStationAlert: (state) => state.showStationAlert
 }
 
 export const mutations = {
@@ -36,39 +36,24 @@ export const mutations = {
   },
   setShowStationAlert: (state, payload) => {
     state.showStationAlert = payload
-  },
+  }
 }
 export const actions = {
-  setDepartureStationID({
-    commit
-  }, payload) {
+  setDepartureStationID({ commit }, payload) {
     commit('setDepartureStationID', payload)
   },
-  setDepartureStationName({
-    commit
-  }, payload) {
+  setDepartureStationName({ commit }, payload) {
     commit('setDepartureStationName', payload)
   },
-  setAsyncRoutesFromStation({
-    commit,
-    state
-  }, payload) {
-    const res = api.getStationRoutes(payload)
-    res.then((v) => {
-      commit('setRoutesFromStation', v.data)
-    })
+  async setAsyncRoutesFromStation({ commit, state }, payload) {
+    const res = await api.getStationRoutes(payload)
+    commit('setRoutesFromStation', res.data)
   },
-  setAsyncAllStations({
-    commit
-  }, payload) {
-    const res = api.getAllStation()
-    res.then((v) => {
-      commit('setAllStations', v.data)
-    })
+  async setAsyncAllStations({ commit }, payload) {
+    const res = await api.getAllStation()
+    commit('setAllStations', res.data)
   },
-  setShowStationMenu({
-    commit
-  }, payload) {
+  setShowStationMenu({ commit }, payload) {
     commit('setShowStationMenu', payload)
   }
 }

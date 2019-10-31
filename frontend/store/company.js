@@ -29,10 +29,17 @@ export const mutations = {
   }
 }
 export const actions = {
-  setAsyncAllCompanies({ commit }, payload) {
-    const res = api.getCompaniesData()
-    res.then((v) => {
-      commit('setAllCompanies', v.data)
+  async setAsyncAllCompanies({ commit, state, rootState }, payload) {
+    const res = await api.getCompaniesData()
+    const routes = rootState.station.routesFromStation
+    res.data.forEach((c) => {
+      const route = routes.find(function(r) {
+        return r.company === c.id
+      })
+      if (route) {
+        c.transitTime = route.time
+      }
     })
+    commit('setAllCompanies', res.data)
   }
 }
