@@ -1,12 +1,12 @@
 <template>
-  <div class="outer">
+  <div class="outer" v-click-outside="closeMenu">
     <div class="currentStation">
       출발: {{ currentStation.name || getDepartureStationName }}역
       <button class="btn" @click="applyChanges" :disabled="!valid">적용</button>
     </div>
     <div class="changeStation">
       <input v-model="searchString" placeholder="지하철역을 검색하세요">
-      <ul class="scrollable">
+      <ul class="scrollable" v-if="filteredStations.length">
         <li v-for="st in filteredStations" :key="st.id" @click="setStation(st)">
           {{st.name}}
           <div class="line" v-for="line in st.line.split(',')" :key="line.id" :class="`L${line}`">
@@ -14,6 +14,7 @@
           </div>
         </li>
       </ul>
+      <div v-else>검색 결과가 없습니다.</div>
     </div>
   </div>
 </template>
@@ -145,6 +146,9 @@ export default {
       this.searchString = '';
       this.setShowStationMenu(false);
       this.setShowStationAlert(true);
+    },
+    closeMenu() {
+      this.setShowStationMenu(false);
     }
   }
 }

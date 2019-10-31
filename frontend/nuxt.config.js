@@ -73,9 +73,14 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [{
-    src: '~/plugins/google-maps',
-    ssr: true
-  }],
+      src: '~/plugins/google-maps',
+      ssr: true
+    },
+    {
+      src: '~/plugins/directives',
+      ssr: true
+    },
+  ],
   /*
    ** Nuxt.js dev-modules
    */
