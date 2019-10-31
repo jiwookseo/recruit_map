@@ -5,12 +5,14 @@
         v-model="searchText"
         type="text"
         placeholder="회사 명 또는 지하철 역을 입력하세요"
-        @change="handleChange()"
+        @input="handleChange"
       />
-      <div v-if="setActivateSearch" class="left--side-bar-filterList">
-        <p v-for="idx in searchedMovie" :key="idx.id + 'kaka'">
-          {{ idx.name }}
-        </p>
+      <div v-if="setActivateSearch" class="left--side-bar-filterList" ref="filterList">
+        <p
+          v-for="item in computedMovieList"
+          @click="moveDetail(item.id)"
+          :key="item.id"
+        >{{ item.name }}</p>
       </div>
     </div>
     <div class="left--side-bar-filter"></div>
@@ -19,6 +21,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import api from '../../api/company'
 export default {
   name: 'InputDiv',
   data() {
@@ -29,13 +32,39 @@ export default {
   },
   computed: {
     setActivateSearch() {
-      return this.searchText.length > 2
+      return this.searchText.length >= 1
     },
-    ...mapGetters('company', ['getAllCompanyCompanies'])
+    computedMovieList() {
+      if (this.searchedMovie.length > 4) {
+        return this.searchedMovie.slice(0, 5)
+      } else {
+        return this.searchedMovie
+      }
+    }
   },
   // search 구현하기
   methods: {
-    handleChange() {}
+    async handleChange() {
+      if (this.setActivateSearch) {
+        if (this.$refs.filterList) {
+          this.$refs.filterList.style.zIndex = 10
+        }
+        // this.$refs.filterList.style.zIndex = 10
+        let res = await api.getCompanyDataByName(this.searchText)
+        this.searchedMovie = res.data.results
+      } else {
+        if (this.$refs.filterList) {
+          this.$refs.filterList.style.zIndex = 8
+        }
+      }
+    },
+    moveDetail(id) {
+      this.searchText = ''
+      if (this.$refs.filterList) {
+        this.$refs.filterList.style.zIndex = 8
+      }
+      this.$router.push(`/company/${id}`)
+    }
   }
 }
 </script>
@@ -83,6 +112,10 @@ export default {
     }
     &:last-child {
       border-radius: 0 0 10px 10px;
+    }
+    a {
+      text-decoration: none;
+      color: #181818;
     }
   }
 }

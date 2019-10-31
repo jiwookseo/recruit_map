@@ -29,10 +29,11 @@
       <span>powered by saramin</span>
     </p>
     <div class="back">
-      <nuxtLink to="/">
+      <nuxt-link to="/">
         <i class="material-icons-round">arrow_left_alt</i>
-      </nuxtLink>
+      </nuxt-link>
     </div>
+    <!-- 추가적으로 해야 할 것 ! company/:pk/jobs -->
   </div>
 </template>
 
@@ -85,7 +86,7 @@ export default {
   flex-direction: column;
   padding: 20px;
   background-color: #f7f7f7;
-  z-index: 100;
+  z-index: 9;
   h1 {
     font-weight: 700;
     margin-left: 30px;

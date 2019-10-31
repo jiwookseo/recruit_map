@@ -1,8 +1,10 @@
+import api from '../api/company'
+
 export const state = () => ({
   hoveredCompany: {},
   selectedCompany: {},
   allCompanies: [],
-  companyDetail: {},
+  companyDetail: {}
 })
 
 export const getters = {
@@ -27,14 +29,17 @@ export const mutations = {
   }
 }
 export const actions = {
-  setAllCompanies({
-    commit
-  }, payload) {
-    commit('setAllCompanies', payload)
-  },
-  setCompanyDetail({
-    commit
-  }, payload) {
-    commit('setCompanyDetail', payload)
+  async setAsyncAllCompanies({ commit, state, rootState }, payload) {
+    const res = await api.getCompaniesData()
+    const routes = rootState.station.routesFromStation
+    res.data.forEach((c) => {
+      const route = routes.find(function(r) {
+        return r.company === c.id
+      })
+      if (route) {
+        c.transitTime = route.time
+      }
+    })
+    commit('setAllCompanies', res.data)
   }
 }
