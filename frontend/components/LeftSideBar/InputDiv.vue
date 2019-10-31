@@ -7,7 +7,7 @@
         placeholder="회사 명 또는 지하철 역을 입력하세요"
         @input="handleChange"
       />
-      <div v-if="setActivateSearch" class="left--side-bar-filterList">
+      <div v-if="setActivateSearch" class="left--side-bar-filterList" ref="filterList">
         <p
           v-for="item in computedMovieList"
           @click="moveDetail(item.id)"
@@ -46,12 +46,23 @@ export default {
   methods: {
     async handleChange() {
       if (this.setActivateSearch) {
+        if (this.$refs.filterList) {
+          this.$refs.filterList.style.zIndex = 10
+        }
+        // this.$refs.filterList.style.zIndex = 10
         let res = await api.getCompanyDataByName(this.searchText)
         this.searchedMovie = res.data.results
+      } else {
+        if (this.$refs.filterList) {
+          this.$refs.filterList.style.zIndex = 8
+        }
       }
     },
     moveDetail(id) {
       this.searchText = ''
+      if (this.$refs.filterList) {
+        this.$refs.filterList.style.zIndex = 8
+      }
       this.$router.push(`/company/${id}`)
     }
   }
