@@ -9,9 +9,13 @@ import time
 apiKey = os.environ.get("SARAMIN_KEY")
 URL = "http://oapi.saramin.co.kr/job-search/?access-key={}&sr=directhire&loc_cd=101000, 102000&ind_cd=3&bbs_gb=1&count=100&job_type=1,11&fields=keyword-code".format(
     apiKey)
-print("================   Jobs Start    ================")
+print("==============   Jobs Start    ==============")
 res = requests.get(URL).json()
-total = int(res["jobs"]["total"])
+try:
+    total = int(res["jobs"]["total"])
+except KeyError:
+    print(res["message"])
+    total = 0
 count = 0
 print("total : {} jobs exist".format(total))
 while count < total:
@@ -19,7 +23,7 @@ while count < total:
     length = len(res["jobs"]["job"])
     for i in range(length):
         # progress bar
-        progress_bar(i + 1 + count, total, 25, "▦")
+        progress_bar(i + 1 + count, total, 20)
         # parser data initialization
         parser = Parser(res["jobs"]["job"][i])
         # scrap company and job
@@ -27,7 +31,7 @@ while count < total:
         parser.scrap_job()
     count += length
 
-print("\n================   Jobs Finish   ================")
-print("================  Routes Start   ================")
+print("\n==============   Jobs Finish   ==============")
+print("==============  Routes Start   ==============")
 Route.create_routes()
-print("================  Routes Finish  ================")
+print("\n==============  Routes Finish  ==============")
