@@ -4,7 +4,7 @@ import os
 
 
 class Maps:
-    api_key = os.environ.get("GOOGLE_MAPS_KEY")
+    api_key = "AIzaSyBqydbDQL01C34zWA3hVXEUVi2UQuMmbzQ"
 
     @classmethod
     def directions(cls, origin, destination):
