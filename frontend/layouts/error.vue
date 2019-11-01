@@ -39,6 +39,7 @@ export default {
   width: 100vw;
   height: 100vh;
   z-index: 99999999999;
+  overflow: hidden;
 }
 h1 {
   font-size: 20px;

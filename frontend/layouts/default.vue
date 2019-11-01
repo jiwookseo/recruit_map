@@ -2,7 +2,7 @@
   <div id="Default">
     <GmapMap
       ref="map"
-      :center="{ lat: 37.5012, lng: 127.0396 }"
+      :center="{ lat: getCenterLat, lng: getCenterLng }"
       :zoom="17"
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
@@ -59,7 +59,8 @@ export default {
       'getAllStations',
       'getShowStationAlert',
       'getShowStationMenu'
-    ])
+    ]),
+    ...mapGetters('maps', ['getCenterLat', 'getCenterLng'])
   },
   methods: {
     ...mapActions('station', [
@@ -108,6 +109,7 @@ export default {
 #Default {
   width: 100%;
   height: 100vh;
+  overflow: hidden;
 }
 .stationMenu-enter-active {
   transition: all 0.6s ease;

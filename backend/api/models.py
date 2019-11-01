@@ -81,6 +81,7 @@ class Route(models.Model):
         Station, verbose_name=_("origin station"), on_delete=models.CASCADE, related_name="routes")
 
     def save(self, *args, **kwargs):
-        if self.company.routes.filter(station=self.station):
-            raise SuspiciousOperation("Already exists")
+        if self._state.adding:
+            if self.company.routes.filter(station=self.station):
+                raise SuspiciousOperation("Already exists")
         super().save(*args, **kwargs)

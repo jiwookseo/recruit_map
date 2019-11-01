@@ -1,15 +1,19 @@
 import json
 import requests
 import os
+from pprint import pprint as pp
 
 
 class Maps:
-    api_key = "AIzaSyBqydbDQL01C34zWA3hVXEUVi2UQuMmbzQ"
+    api_key = os.environ["GOOGLE_MAPS_KEY"]
 
     @classmethod
     def directions(cls, origin, destination):
         path = "directions/{}&{}.json".format(origin, destination)
-        if os.path.isfile(path):  # 기존에 검색한 이력이 있을 때
+        if os.path.isfile(path + "-w"):  # 도보가 더 빠른 경로 이력
+            with open(path + "-w", encoding='UTF8') as f:
+                res = json.load(f)
+        elif os.path.isfile(path):  # 기존에 검색한 이력이 있을 때
             with open(path, encoding='UTF8') as f:
                 res = json.load(f)
         else:
@@ -20,6 +24,20 @@ class Maps:
             if res["status"] == "OK":
                 with open(path, 'w', encoding='UTF-8') as f:
                     json.dump(res, f, indent="  ", ensure_ascii=False)
+                if res["routes"][0]["legs"][0]["duration"]["value"] < 1200:  # 20분 이하 거리는 도보와 시간 비교
+                    transit = res["routes"][0]["legs"][0]["duration"]["value"]
+                    URL = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:{}&destination=place_id:{}&mode=walking&language=ko&key={}".format(
+                        origin, destination, cls.api_key)
+                    res2 = requests.get(URL).json()
+                    if res2["status"] == "OK":
+                        walking = res2["routes"][0]["legs"][0]["duration"]["value"]
+                        if walking < transit:
+                            res = res2
+                            with open(path + "-w", 'w', encoding='UTF-8') as f:
+                                json.dump(res, f, indent="  ",
+                                          ensure_ascii=False)
+                    else:
+                        res2["status"]
             else:
                 print(URL)
                 print(res["status"])

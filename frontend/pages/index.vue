@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="index-page"></div>
 </template>
 
 <script>
@@ -10,3 +10,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.index-page {
+  height: 100vh;
+  overflow-y: hidden;
+}
+</style>
