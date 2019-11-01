@@ -10,7 +10,6 @@
         streetViewControl: false,
         fullscreenControl: false
       }"
-      @center_changed="center_changed"
     >
       <!-- @bounds_changed="bounds_changed" -->
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
