@@ -12,6 +12,27 @@ class Route:
     API = requests.get(API_URL).json()
 
     @classmethod
+    def get_route(cls, pk):
+        req = requests.get("{}{}/".format(cls.API["routes"], pk))
+        res = req.json()
+        return True if req.status_code == 200 else False, res
+
+    @classmethod
+    def create_route(cls, data=None, json=None, headers=None):
+        if json:
+            req = requests.post(cls.API["routes"], json=json, headers=headers)
+        else:
+            req = requests.post(cls.API["routes"], data)
+        res = req.json()
+        return True if req.status_code == 201 else False, res
+
+    @classmethod
+    def update_route(cls, pk, data):
+        req = requests.put("{}{}/".format(cls.API["routes"], pk), data)
+        res = req.json()
+        return True if req.status_code == 200 else False, res
+
+    @classmethod
     def create_routes(cls):
         res = requests.get(cls.API["companies"]+"?all")
         companies = res.json()
@@ -24,25 +45,24 @@ class Route:
         print("=============================================")
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
-        for j in range(len(stations)):  # len(stations) 까지 하면 월 사용량 이상으로 사용됨
+        for j in range(85, len(stations)):  # len(stations) 까지 하면 월 사용량 이상으로 사용됨
             # progress bar
             progress_bar(j, len(stations), 20)
             station = stations[j]
             data = []
             res = requests.get(station["routes"])
-            count = len(res.json()["results"])
-
+            routes = res.json()["results"]
+            count = len(routes)
             # already finished
             if count >= len(companies):
                 continue
             # not finished
-            for i in (61,):
+            for i in range(count, len(companies)):
                 company = companies[i]
                 time = Maps.directions(
-                    stations[j]["place_id"], companies[i]["place_id"])
+                    station["place_id"], companies[i]["place_id"])
                 if time:
                     route = {"company": company["id"],
                              "station": station["id"], "time": time}
                     data.append(route)
-            requests.post(cls.API["routes"],
-                          json=json.dumps(data), headers=headers)
+            cls.create_route(json=json.dumps(data), headers=headers)
