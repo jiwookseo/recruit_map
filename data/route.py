@@ -18,17 +18,24 @@ class Route:
         return True if req.status_code == 200 else False, res
 
     @classmethod
-    def create_route(cls, data=None, json=None, headers=None):
-        if json:
-            req = requests.post(cls.API["routes"], json=json, headers=headers)
+    def create_route(cls, data, headers=None):
+        if headers:
+            req = requests.post(cls.API["routes"],
+                                json=json.dumps(data), headers=headers)
         else:
             req = requests.post(cls.API["routes"], data)
-        res = req.json()
-        return True if req.status_code == 201 else False, res
+        try:
+            res = req.json()
+            return True if req.status_code == 201 else False, res
+        except json.decoder.JSONDecodeError:
+            for item in data:
+                req = requests.post(cls.API["routes"], item)
+            return True
 
     @classmethod
     def update_route(cls, pk, data):
-        req = requests.put("{}{}/".format(cls.API["routes"], pk), data)
+        req = requests.put("{}{}/".format(cls.API
+                                          ["routes"], pk), data)
         res = req.json()
         return True if req.status_code == 200 else False, res
 
@@ -45,7 +52,7 @@ class Route:
         print("=============================================")
         headers = {'Content-Type': 'application/json',
                    'Accept': 'application/json'}
-        for j in range(85, len(stations)):  # len(stations) 까지 하면 월 사용량 이상으로 사용됨
+        for j in range(len(stations)):  # len(stations) 까지 하면 월 사용량 이상으로 사용됨
             # progress bar
             progress_bar(j, len(stations), 20)
             station = stations[j]
@@ -65,4 +72,4 @@ class Route:
                     route = {"company": company["id"],
                              "station": station["id"], "time": time}
                     data.append(route)
-            cls.create_route(json=json.dumps(data), headers=headers)
+            cls.create_route(data, headers)

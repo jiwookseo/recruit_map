@@ -7,17 +7,19 @@
     <hr class="c-di-t-li" />
     <p class="c-di-t-sp">
       신입 평균
-      <span>{{ company.start_salary }} 만원</span>
+      <span>{{ fs }}</span>
     </p>
     <p class="c-di-t-ap">
       직원 평균
-      <span>{{ company.avg_salary }} 만원</span>
+      <span>{{ as }}</span>
     </p>
     <p class="c-di-t-jc">
       현재 진행중인 채용 공고 개수
       <span>{{ company.jobs_count }}</span>
     </p>
-    <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
+    <div v-if="company.jobs_count">
+      <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
+    </div>
     <p class="c-di-t-cp">
       <a target="_blank" :href="company.href">회사홈페이지 바로 가기</a>
     </p>
@@ -62,6 +64,16 @@ export default {
     }),
     googleRouteLink() {
       return `https://www.google.com/maps/dir/${this.station}/${this.company.name}/`
+    },
+    fs() {
+      return this.company.start_salary
+        ? this.company.start_salary + '만원'
+        : '회사내규에 따름'
+    },
+    as() {
+      return this.company.average_salary
+        ? this.company.average_salary + '만원'
+        : '회사내규에 따름'
     }
   },
   head() {

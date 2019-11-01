@@ -31,6 +31,12 @@ class CompanyViewSet(FiltersMixin, viewsets.ModelViewSet):
         'farther_west': 'lng__lt',
         'farther_north': 'lat__gt',
         'farther_south': 'lat__lt',
+        'more_avg': 'avg_salary__gt',
+        'less_arg': 'avg_salary__lt',
+        'more_frs': 'start_salary__gt',
+        'less_frs': 'start_salary__lt',
+        'ind_code': 'ind_code__icontains',
+        'scale': 'scale',
     }
 
     @action(detail=True)
