@@ -36,6 +36,7 @@ class CompanyViewSet(FiltersMixin, viewsets.ModelViewSet):
         'more_frs': 'start_salary__gt',
         'less_frs': 'start_salary__lt',
         'ind_code': 'ind_code__icontains',
+        'scale': 'scale',
     }
 
     @action(detail=True)
