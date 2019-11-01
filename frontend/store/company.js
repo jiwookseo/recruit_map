@@ -33,13 +33,15 @@ export const actions = {
     const res = await api.getCompaniesData()
     const routes = rootState.station.routesFromStation
     res.data.forEach((c) => {
-      const route = routes.find(function(r) {
-        return r.company === c.id
-      })
+      const route = routes.find((r) => r.company === c.url)
       if (route) {
         c.transitTime = route.time
       }
     })
     commit('setAllCompanies', res.data)
+  },
+  async setAsyncCompanyDetail({ commit, state }, payload) {
+    const res = await api.getCompanyData(payload)
+    commit('setCompanyDetail', res.data)
   }
 }

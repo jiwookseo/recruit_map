@@ -1,5 +1,5 @@
 <template>
-  <div class="left--side-bar">
+  <div class="left--side-bar" :style="{ zIndex: getSearchShow ? 11 : 7}">
     <InputDiv />
     <CompanyInfo v-show="getDefaultMenu" />
     <Recruit v-show="getDefaultMenu" />
@@ -19,7 +19,7 @@ export default {
     Recruit
   },
   computed: {
-    ...mapGetters('leftSideBar', ['getDefaultMenu'])
+    ...mapGetters('leftSideBar', ['getDefaultMenu', 'getSearchShow'])
   }
 }
 </script>

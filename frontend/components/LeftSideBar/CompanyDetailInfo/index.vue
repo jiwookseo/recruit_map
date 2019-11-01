@@ -1,5 +1,5 @@
 <template>
-  <section class="company--detial-info-div">
+  <section class="company--detail-info-div">
     <Title />
   </section>
 </template>
@@ -13,18 +13,13 @@ export default {
     Title
   },
   mounted() {
-    const data = api.getCompanyData(this.$route.params.id)
-    data
-      .then((res) => res.data)
-      .then((res) => {
-        this.$store.commit('company/setCompanyDetail', res)
-      })
+    this.$store.dispatch('company/setAsyncCompanyDetail', this.$route.params.id)
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.company--detial-info-div {
+.company--detail-info-div {
   width: 100%;
   height: 100%;
 }
