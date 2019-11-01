@@ -11,9 +11,6 @@ export default {
   name: 'CompanyDetailInfo',
   components: {
     Title
-  },
-  mounted() {
-    this.$store.dispatch('company/setAsyncCompanyDetail', this.$route.params.id)
   }
 }
 </script>

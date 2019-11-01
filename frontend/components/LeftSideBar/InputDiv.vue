@@ -54,6 +54,7 @@ export default {
         // this.$refs.sideSearch.style.zIndex = 8
         // this.$refs.lsb.style.zIndex = '7 important!'
       }
+      this.$store.dispatch('company/setAsyncCompanyDetail', id)
       this.$router.push(`/company/${id}`)
     }
   }

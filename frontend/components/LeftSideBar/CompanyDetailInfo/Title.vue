@@ -17,7 +17,9 @@
       현재 진행중인 채용 공고 개수
       <span>{{ company.jobs_count }}</span>
     </p>
-    <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
+    <div v-if="company.jobs_count">
+      <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
+    </div>
     <p class="c-di-t-cp">
       <a target="_blank" :href="company.href">회사홈페이지 바로 가기</a>
     </p>

@@ -1,11 +1,15 @@
 export const state = () => ({
   centerLat: 37.5012,
-  centerLng: 127.0396
+  centerLng: 127.0396,
+  detailLat: 37.5012,
+  detailLng: 127.0396
 })
 
 export const getters = {
   getCenterLat: (state) => state.centerLat,
   getCenterLng: (state) => state.centerLng,
+  getDetailLat: (state) => state.detailLat,
+  getDetailLng: (state) => state.detailLng,
   getLatLng: (state) => {
     return [
       {
@@ -26,6 +30,12 @@ export const mutations = {
   },
   setCenterLng: (state, payload) => {
     state.centerLng = payload
+  },
+  setDetailLat: (state, payload) => {
+    state.centerLat = parseFloat(payload)
+  },
+  setDetailLng: (state, payload) => {
+    state.centerLng = parseFloat(payload)
   }
 }
 export const actions = {}

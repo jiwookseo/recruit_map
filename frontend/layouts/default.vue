@@ -2,7 +2,7 @@
   <div id="Default">
     <GmapMap
       ref="map"
-      :center="{ lat: getCenterLat, lng: getCenterLng }"
+      :center="{ lat: getDetailLat, lng: getDetailLng }"
       :zoom="17"
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
@@ -10,6 +10,7 @@
         streetViewControl: false,
         fullscreenControl: false
       }"
+      @center_changed="center_changed"
     >
       <!-- @bounds_changed="bounds_changed" -->
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
@@ -59,7 +60,12 @@ export default {
       'getShowStationAlert',
       'getShowStationMenu'
     ]),
-    ...mapGetters('maps', ['getCenterLat', 'getCenterLng'])
+    ...mapGetters('maps', [
+      'getCenterLat',
+      'getCenterLng',
+      'getDetailLat',
+      'getDetailLng'
+    ])
   },
   methods: {
     ...mapActions('station', [
