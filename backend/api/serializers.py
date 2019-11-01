@@ -36,11 +36,15 @@ class CompanySerializer(serializers.ModelSerializer):
         read_only_fields = ('jobs', 'ind_array', 'ind_key_array',)
 
 
+class CompanyField(serializers.PrimaryKeyRelatedField):
+    def to_representation(self, value):
+        return reverse('api:company-detail', args=(value.pk,), request=self.context['request'])
+
+
 class JobSerializer(serializers.HyperlinkedModelSerializer):
     url = serializers.HyperlinkedIdentityField(
         view_name='api:job-detail', lookup_field='pk')
-    company = serializers.HyperlinkedRelatedField(
-        view_name='api:company-detail', read_only=True, lookup_field='pk')
+    company = CompanyField(queryset=Company.objects.all())
 
     class Meta:
         model = Job
@@ -73,11 +77,6 @@ class StationSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
-class CompanyField(serializers.PrimaryKeyRelatedField):
-    def to_representation(self, value):
-        return reverse('api:company-detail', args=(value.pk,), request=self.context['request'])
-
-
 class StationField(serializers.PrimaryKeyRelatedField):
     def to_representation(self, value):
         return reverse('api:station-detail', args=(value.pk,), request=self.context['request'])
@@ -91,4 +90,10 @@ class RouteSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Route
-        fields = '__all__'
+        fields = (
+            'id',
+            'url',
+            'company',
+            'station',
+            'time',
+        )
