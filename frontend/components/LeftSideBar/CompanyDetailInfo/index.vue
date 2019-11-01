@@ -21,6 +21,6 @@ export default {
 <style lang="scss" scoped>
 .company--detail-info-div {
   width: 100%;
-  height: 100%;
+  height: 100vh;
 }
 </style>

@@ -10,11 +10,11 @@ export const getters = {
     return [
       {
         lat: parseFloat(parseFloat(state.centerLat - 0.005).toFixed(7)),
-        lng: parseFloat(parseFloat(state.centerLng - 0.01).toFixed(7))
+        lng: parseFloat(parseFloat(state.centerLng - 0.0035).toFixed(7))
       },
       {
         lat: parseFloat(parseFloat(state.centerLat + 0.005).toFixed(7)),
-        lng: parseFloat(parseFloat(state.centerLng + 0.01).toFixed(7))
+        lng: parseFloat(parseFloat(state.centerLng + 0.0035).toFixed(7))
       }
     ]
   }
@@ -29,7 +29,3 @@ export const mutations = {
   }
 }
 export const actions = {}
-// 0.0043713
-// 0.005
-// 0.0095588
-// 0.01

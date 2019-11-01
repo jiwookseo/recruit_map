@@ -24,5 +24,25 @@ export default {
   width: 400px;
   height: 100vh;
   background-color: #8774c1;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #8774c1;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #5744c1;
+    border-radius: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
 }
 </style>

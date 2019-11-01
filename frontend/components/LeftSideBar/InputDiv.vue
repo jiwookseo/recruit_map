@@ -1,12 +1,7 @@
 <template>
   <div class="left--side-search-div">
     <div class="left--side-bar-input">
-      <input
-        v-model="searchText"
-        type="text"
-        placeholder="회사 명 또는 지하철 역을 입력하세요"
-        @input="handleChange"
-      />
+      <input v-model="searchText" type="text" placeholder="회사 명을 입력하세요" @input="handleChange" />
       <div v-if="setActivateSearch" class="left--side-bar-filterList">
         <p
           v-for="item in computedMovieList"
@@ -74,7 +69,7 @@ export default {
     background-color: #fff;
     border: none;
     outline: none;
-    width: 100%;
+    width: 95%;
     min-height: 50px;
     padding-left: 20px;
     font-weight: 600;
@@ -90,6 +85,7 @@ export default {
 
 .left--side-bar-filterList {
   background-color: #fff;
+  width: 95.5%;
   box-sizing: border-box;
   border-radius: 0 0 10px 10px;
   border: 2px solid #8774c1;

@@ -40,8 +40,11 @@ export const actions = {
     })
     commit('setAllCompanies', res.data)
   },
-  async setAsyncCompanyDetail({ commit, state }, payload) {
+  async setAsyncCompanyDetail({ commit, dispatch }, payload) {
     const res = await api.getCompanyData(payload)
     commit('setCompanyDetail', res.data)
+    dispatch('jobs/setAsyncJobData', res.data.jobs, { root: true })
+    commit('maps/setCenterLat', res.data.lat, { root: true })
+    commit('maps/setCenterLng', res.data.lng, { root: true })
   }
 }

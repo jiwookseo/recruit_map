@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { resolve } from 'upath'
 const BASE_URL = 'http://52.78.29.170:8000/api/'
 
 export default {
