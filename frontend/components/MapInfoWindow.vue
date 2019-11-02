@@ -16,14 +16,8 @@ export default {
     ...mapGetters('localStorage', [
       'getDepartureStationName',
     ]),
-    // ...mapGetters('station', [
-    //   'getDepartureStationName',
-    // ]),
     content_time() {
       const time = this.optionsContent.time
-      // if (!time) {
-      //   return ''
-      // }
       let className = 'default'
       if (time <= 30) {
         className = 'closest'

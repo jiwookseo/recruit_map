@@ -19,6 +19,7 @@ class CompanySerializer(serializers.ModelSerializer):
             'jobs',
             'name',
             'href',
+            'scale',
             'saramin_url',
             'avg_salary',
             'start_salary',

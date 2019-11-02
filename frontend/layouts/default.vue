@@ -18,7 +18,7 @@
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
       <MapInfoWindow />
     </GmapMap>
-    <LeftSideBar />
+    <LeftSidebar />
     <StationButton />
     <transition name="stationMenu">
       <StationMenu v-if="getShowStationMenu" />
@@ -34,7 +34,7 @@
 import { mapMutations, mapGetters, mapActions } from 'vuex'
 import MapMarker from '~/components/MapMarker.vue'
 import MapInfoWindow from '~/components/MapInfoWindow.vue'
-import LeftSideBar from '~/components/LeftSideBar'
+import LeftSidebar from '~/components/LeftSidebar'
 import StationButton from '~/components/StationButton.vue'
 import StationMenu from '~/components/StationMenu.vue'
 import StationAlert from '~/components/StationAlert.vue'
@@ -42,7 +42,7 @@ export default {
   components: {
     MapMarker,
     MapInfoWindow,
-    LeftSideBar,
+    LeftSidebar,
     StationButton,
     StationMenu,
     StationAlert
@@ -61,7 +61,6 @@ export default {
       'getLsMapZoom',
     ]),
     ...mapGetters('station', [
-      // 'getDepartureStationID',
       'getRoutesFromStation',
       'getAllStations',
       'getShowStationAlert',
@@ -91,7 +90,6 @@ export default {
       'setLsMapZoom',
     ]),
     ...mapMutations('station', [
-      // 'setDepartureStationID',
       'setRoutesFromStation',
       'setAllStations',
       'setShowStationMenu'
@@ -122,8 +120,6 @@ export default {
     // }
   },
   created() {
-    // TODO: Check local storage to see if departure station has been previously set
-    // const stationID = this.getDepartureStationID || 961
     const stationID = this.getDepartureStationID
     this.setAsyncAllStations()
     this.setAsyncRoutesFromStation({

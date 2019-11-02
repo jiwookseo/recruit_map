@@ -5,11 +5,14 @@
 </template>
 
 <script>
-import CompanyDetailInfo from '../../components/LeftSideBar/CompanyDetailInfo'
+import CompanyDetailInfo from '../../components/LeftSidebar/CompanyDetailInfo'
 export default {
   components: {
     CompanyDetailInfo
   },
+  created() {
+    this.$store.commit('leftSidebar/setShowDefaultMenu', false)
+  }
 }
 </script>
 

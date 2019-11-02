@@ -46,18 +46,17 @@ export default {
       if (this.searchButton) {
         let res = await api.getCompanyDataByName(this.searchText)
         this.searchedCompanies = res.data.results
-        this.$store.commit('leftSideBar/setSearchShow', true)
+        this.$store.commit('leftSidebar/setShowSearchbar', true)
       } else {
-        this.$store.commit('leftSideBar/setSearchShow', false)
+        this.$store.commit('leftSidebar/setShowSearchbar', false)
       }
     },
     handleSwitch() {
       this.searchButton = false
     },
     moveDetail(data) {
-      console.log(data)
       this.searchText = ''
-      this.$store.commit('leftSideBar/setSearchShow', false)
+      this.$store.commit('leftSidebar/setShowSearchbar', false)
       this.$store.commit('maps/setDetailLat', data.lat)
       this.$store.commit('maps/setDetailLng', data.lng)
       this.$store.dispatch('company/setAsyncCompanyDetail', data.id)

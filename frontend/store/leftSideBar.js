@@ -1,14 +1,18 @@
 export const state = () => ({
-  searchShow: false
+  showSearchbar: false,
+  showDefaultMenu: false
 })
 
 export const getters = {
-  getSearchShow: (state) => state.searchShow
+  getShowSearchbar: (state) => state.showSearchbar,
+  getShowDefaultMenu: (state) => state.showDefaultMenu
 }
 
 export const mutations = {
-  setSearchShow: (state, payload) => {
-    state.searchShow = payload
+  setShowSearchbar: (state, payload) => {
+    state.showSearchbar = payload
+  },
+  setShowDefaultMenu: (state, payload) => {
+    state.showDefaultMenu = payload
   }
 }
-export const actions = {}
