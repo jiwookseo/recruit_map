@@ -88,7 +88,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    width: 100%;
+    width: 95%;
     height: 90px;
     background-color: #fff;
     border-bottom: 2px solid #ddd;

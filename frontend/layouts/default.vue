@@ -2,8 +2,8 @@
   <div id="Default">
     <GmapMap
       ref="map"
-      :center="{ lat: getDetailLat, lng: getDetailLng }"
-      :zoom="17"
+      :center="{ lat: getDetailLat || getLsMapCenterLat, lng: getDetailLng || getLsMapCenterLng }"
+      :zoom="currentZoom"
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
       :options="{
@@ -11,6 +11,8 @@
         fullscreenControl: false
       }"
       @center_changed="center_changed"
+      @zoom_changed="zoom_changed"
+      @dragend="dragend"
     >
       <!-- @bounds_changed="bounds_changed" -->
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
@@ -52,7 +54,12 @@ export default {
   },
   computed: {
     ...mapGetters('company', ['getAllCompanies']),
-    ...mapGetters('localStorage', ['getDepartureStationID']),
+    ...mapGetters('localStorage', [
+      'getDepartureStationID',
+      'getLsMapCenterLat',
+      'getLsMapCenterLng',
+      'getLsMapZoom',
+    ]),
     ...mapGetters('station', [
       // 'getDepartureStationID',
       'getRoutesFromStation',
@@ -65,7 +72,10 @@ export default {
       'getCenterLng',
       'getDetailLat',
       'getDetailLng'
-    ])
+    ]),
+    currentZoom() {
+      return this.getLsMapZoom || 17
+    }
   },
   methods: {
     ...mapActions('station', [
@@ -74,7 +84,12 @@ export default {
     ]),
     ...mapActions('company', ['setAsyncAllCompanies']),
     ...mapMutations('company', ['setAllCompanies']),
-    ...mapMutations('localStorage', ['setDepartureStationID']),
+    ...mapMutations('localStorage', [
+      'setDepartureStationID',
+      'setLsMapCenterLat',
+      'setLsMapCenterLng',
+      'setLsMapZoom',
+    ]),
     ...mapMutations('station', [
       // 'setDepartureStationID',
       'setRoutesFromStation',
@@ -86,6 +101,15 @@ export default {
       let gMap = this.$refs.map
       this.setCenterLat(gMap.$mapObject.center.lat())
       this.setCenterLng(gMap.$mapObject.center.lng())
+    },
+    zoom_changed() {
+      let gMap = this.$refs.map
+      this.setLsMapZoom(gMap.$mapObject.zoom)
+    },
+    dragend() {
+      let gMap = this.$refs.map
+      this.setLsMapCenterLat(gMap.$mapObject.center.lat())
+      this.setLsMapCenterLng(gMap.$mapObject.center.lng())
     }
     // bounds_changed() {
     //   console.log('BoundsChanged')
@@ -106,6 +130,8 @@ export default {
       v: stationID,
       cb: this.setAsyncAllCompanies
     })
+    this.setCenterLat(this.getLsMapCenterLat)
+    this.setCenterLng(this.getLsMapCenterLng)
   }
 }
 </script>

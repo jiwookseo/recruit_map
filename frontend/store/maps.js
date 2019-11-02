@@ -1,8 +1,8 @@
 export const state = () => ({
   centerLat: 37.5012,
   centerLng: 127.0396,
-  detailLat: 37.5012,
-  detailLng: 127.0396
+  detailLat: 0,
+  detailLng: 0
 })
 
 export const getters = {
@@ -11,8 +11,7 @@ export const getters = {
   getDetailLat: (state) => state.detailLat,
   getDetailLng: (state) => state.detailLng,
   getLatLng: (state) => {
-    return [
-      {
+    return [{
         lat: parseFloat(parseFloat(state.centerLat - 0.005).toFixed(7)),
         lng: parseFloat(parseFloat(state.centerLng - 0.0035).toFixed(7))
       },

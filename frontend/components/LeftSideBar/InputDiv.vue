@@ -2,10 +2,10 @@
   <div class="left--side-search-div">
     <div class="left--side-bar-input">
       <input v-model="searchText" type="text" placeholder="회사 명을 입력하세요" @input="handleChange" />
-      <div v-if="setActivateSearch" class="left--side-bar-filterList">
+      <div v-if="searchButton" class="left--side-bar-filterList" v-click-outside="handleSwitch">
         <p
-          v-for="item in computedMovieList"
-          @click="moveDetail(item.id)"
+          v-for="item in computedCompanyList"
+          @click="moveDetail(item)"
           :key="item.id"
         >{{ item.name }}</p>
       </div>
@@ -22,40 +22,45 @@ export default {
   data() {
     return {
       searchText: '',
-      searchedMovie: []
+      searchedCompanies: [],
+      searchButton: false
     }
   },
   computed: {
-    setActivateSearch() {
-      return this.searchText.length >= 1
-    },
-    computedMovieList() {
-      if (this.searchedMovie.length > 4) {
-        return this.searchedMovie.slice(0, 5)
+    computedCompanyList() {
+      if (this.searchedCompanies.length > 4) {
+        return this.searchedCompanies.slice(0, 5)
       } else {
-        return this.searchedMovie
+        return this.searchedCompanies
       }
     }
   },
-  // search 구현하기
+
   methods: {
     async handleChange() {
-      if (this.setActivateSearch) {
+      if (this.searchText.length >= 1) {
+        this.searchButton = true
+      } else {
+        this.searchButton = false
+      }
+      if (this.searchButton) {
         let res = await api.getCompanyDataByName(this.searchText)
-        this.searchedMovie = res.data.results
+        this.searchedCompanies = res.data.results
         this.$store.commit('leftSideBar/setSearchShow', true)
       } else {
         this.$store.commit('leftSideBar/setSearchShow', false)
       }
     },
-    moveDetail(id) {
+    handleSwitch() {
+      this.searchButton = false
+    },
+    moveDetail(data) {
       this.searchText = ''
-      if (this.$refs.filterList) {
-        // this.$refs.sideSearch.style.zIndex = 8
-        // this.$refs.lsb.style.zIndex = '7 important!'
-      }
-      this.$store.dispatch('company/setAsyncCompanyDetail', id)
-      this.$router.push(`/company/${id}`)
+      this.$store.commit('leftSideBar/setSearchShow', false)
+      this.$store.commit('maps/setDetailLat', data.lat)
+      this.$store.commit('maps/setDetailLng', data.lng)
+      this.$store.dispatch('company/setAsyncCompanyDetail', data.id)
+      this.$router.push(`/company/${data.id}`)
     }
   }
 }

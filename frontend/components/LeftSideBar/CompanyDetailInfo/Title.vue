@@ -63,7 +63,16 @@ export default {
       station: 'getDepartureStationName'
     }),
     googleRouteLink() {
-      return `https://www.google.com/maps/dir/${this.station}/${this.company.name}/`
+      let stationName = ''
+      if (
+        this.station.slice(this.station.length - 1, this.station.length) ===
+        '역'
+      ) {
+        stationName = this.station
+      } else {
+        stationName = this.station + '역'
+      }
+      return `https://www.google.com/maps/dir/${stationName}/${this.company.name}/`
     },
     fs() {
       return this.company.start_salary
