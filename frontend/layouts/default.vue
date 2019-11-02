@@ -2,7 +2,7 @@
   <div id="Default">
     <GmapMap
       ref="map"
-      :center="{ lat: getDetailLat || getLsMapCenterLat, lng: getDetailLng || getLsMapCenterLng }"
+      :center="{ lat: getTargetCenterLat || getLastCenterLat, lng: getTargetCenterLng || getLastCenterLng }"
       :zoom="currentZoom"
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
@@ -56,9 +56,9 @@ export default {
     ...mapGetters('company', ['getAllCompanies']),
     ...mapGetters('localStorage', [
       'getDepartureStationID',
-      'getLsMapCenterLat',
-      'getLsMapCenterLng',
-      'getLsMapZoom',
+      'getLastCenterLat',
+      'getLastCenterLng',
+      'getLastZoom',
     ]),
     ...mapGetters('station', [
       'getRoutesFromStation',
@@ -67,13 +67,13 @@ export default {
       'getShowStationMenu'
     ]),
     ...mapGetters('maps', [
-      'getCenterLat',
-      'getCenterLng',
-      'getDetailLat',
-      'getDetailLng'
+      'getRealtimeCenterLat',
+      'getRealtimeCenterLng',
+      'getTargetCenterLat',
+      'getTargetCenterLng'
     ]),
     currentZoom() {
-      return this.getLsMapZoom || 17
+      return this.getLastZoom || 17
     }
   },
   methods: {
@@ -85,29 +85,29 @@ export default {
     ...mapMutations('company', ['setAllCompanies']),
     ...mapMutations('localStorage', [
       'setDepartureStationID',
-      'setLsMapCenterLat',
-      'setLsMapCenterLng',
-      'setLsMapZoom',
+      'setLastCenterLat',
+      'setLastCenterLng',
+      'setLastZoom',
     ]),
     ...mapMutations('station', [
       'setRoutesFromStation',
       'setAllStations',
       'setShowStationMenu'
     ]),
-    ...mapMutations('maps', ['setCenterLat', 'setCenterLng']),
+    ...mapMutations('maps', ['setRealtimeCenterLat', 'setRealtimeCenterLng']),
     center_changed() {
       let gMap = this.$refs.map
-      this.setCenterLat(gMap.$mapObject.center.lat())
-      this.setCenterLng(gMap.$mapObject.center.lng())
+      this.setRealtimeCenterLat(gMap.$mapObject.center.lat())
+      this.setRealtimeCenterLng(gMap.$mapObject.center.lng())
     },
     zoom_changed() {
       let gMap = this.$refs.map
-      this.setLsMapZoom(gMap.$mapObject.zoom)
+      this.setLastZoom(gMap.$mapObject.zoom)
     },
     dragend() {
       let gMap = this.$refs.map
-      this.setLsMapCenterLat(gMap.$mapObject.center.lat())
-      this.setLsMapCenterLng(gMap.$mapObject.center.lng())
+      this.setLastCenterLat(gMap.$mapObject.center.lat())
+      this.setLastCenterLng(gMap.$mapObject.center.lng())
     }
     // bounds_changed() {
     //   console.log('BoundsChanged')
@@ -126,8 +126,8 @@ export default {
       v: stationID,
       cb: this.setAsyncAllCompanies
     })
-    this.setCenterLat(this.getLsMapCenterLat)
-    this.setCenterLng(this.getLsMapCenterLng)
+    this.setRealtimeCenterLat(this.getLastCenterLat)
+    this.setRealtimeCenterLng(this.getLastCenterLng)
   }
 }
 </script>
