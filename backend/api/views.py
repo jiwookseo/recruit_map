@@ -42,7 +42,7 @@ class CompanyViewSet(FiltersMixin, viewsets.ModelViewSet):
     @action(detail=True)
     def jobs(self, request, pk):
         instance = self.get_object()
-        jobs = instance.jobs.all()
+        jobs = instance.jobs.filter(close__gt=datetime.now())
         serializer = JobSerializer(
             jobs, many=True, context={'request': request})
         return Response({
