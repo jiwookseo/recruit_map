@@ -1,6 +1,6 @@
 export const state = () => ({
   showSearchbar: false,
-  showDefaultMenu: false
+  showDefaultMenu: true
 })
 
 export const getters = {

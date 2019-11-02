@@ -70,7 +70,7 @@ export default {
     },
     markerOptions() {
       return {
-        url: require(`../static/${this.iconURL}`),
+        url: require(`~/static/${this.iconURL}`),
         size: { width: 58, height: 42, f: 'px', b: 'px' },
         scaledSize: { width: 58, height: 42, f: 'px', b: 'px' },
         labelOrigin: { x: 26, y: 27 }

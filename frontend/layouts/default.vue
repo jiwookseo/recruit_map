@@ -32,12 +32,12 @@
 
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex'
-import MapMarker from '~/components/MapMarker.vue'
-import MapInfoWindow from '~/components/MapInfoWindow.vue'
+import MapMarker from '~/components/Map/MapMarker.vue'
+import MapInfoWindow from '~/components/Map/MapInfoWindow.vue'
 import LeftSidebar from '~/components/LeftSidebar'
-import StationButton from '~/components/StationButton.vue'
-import StationMenu from '~/components/StationMenu.vue'
-import StationAlert from '~/components/StationAlert.vue'
+import StationButton from '~/components/Station/StationButton.vue'
+import StationMenu from '~/components/Station/StationMenu.vue'
+import StationAlert from '~/components/Station/StationAlert.vue'
 export default {
   components: {
     MapMarker,
