@@ -9,9 +9,9 @@ export default {
   name: 'MapInfoWindow',
   computed: {
     ...mapGetters({
-      open: 'infoWindow/getOpen',
-      position: 'infoWindow/getPosition',
-      optionsContent: 'infoWindow/getOptionsContent'
+      open: 'infoWindow/getShowInfoWindow',
+      position: 'infoWindow/getInfoWindowPosition',
+      optionsContent: 'infoWindow/getInfoWindowOptionsContent'
     }),
     ...mapGetters('localStorage', [
       'getDepartureStationName',
@@ -72,13 +72,13 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('infoWindow', ['setOpen']),
+    ...mapMutations('infoWindow', ['setShowInfoWindow']),
     enableInfoWindow() {
-      this.setOpen(true)
+      this.setShowInfoWindow(true)
     },
     disableInfoWindow() {
       setTimeout(() => {
-        this.setOpen(false)
+        this.setShowInfoWindow(false)
       }, 400)
     }
   }
