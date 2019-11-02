@@ -55,11 +55,13 @@ export default {
       this.searchButton = false
     },
     moveDetail(data) {
+      console.log(data)
       this.searchText = ''
       this.$store.commit('leftSideBar/setSearchShow', false)
       this.$store.commit('maps/setDetailLat', data.lat)
       this.$store.commit('maps/setDetailLng', data.lng)
       this.$store.dispatch('company/setAsyncCompanyDetail', data.id)
+      this.searchButton = false
       this.$router.push(`/company/${data.id}`)
     }
   }

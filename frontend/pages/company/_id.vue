@@ -10,9 +10,6 @@ export default {
   components: {
     CompanyDetailInfo
   },
-  created() {
-    this.$store.commit('leftSideBar/setDefaultMenu', false)
-  }
 }
 </script>
 

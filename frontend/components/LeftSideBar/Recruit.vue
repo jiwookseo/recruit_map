@@ -43,7 +43,7 @@ export default {
 .recruit--div {
   position: absolute;
   display: flex;
-  top: 540px;
+  top: 80vh;
   border-radius: 10px;
   width: 95%;
   height: 140px;
