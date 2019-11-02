@@ -1,6 +1,12 @@
 export const state = () => ({
+  
+  // updated instantaneously realtime whenever map center is changed => @center_changed
+  // used to update nearby company list shown in left sidebar
   centerLat: 37.5012,
   centerLng: 127.0396,
+
+  // desired center of map
+  // used to move map to specified region (e.g after user selects a particular company)
   detailLat: 0,
   detailLng: 0
 })

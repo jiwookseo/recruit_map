@@ -1,8 +1,8 @@
 <template>
-  <div class="left--side-bar" :style="{ zIndex: getSearchShow ? 11 : 7}">
+  <div class="left--side-bar" :style="{ zIndex: getShowSearchbar ? 11 : 7}">
     <InputDiv />
-    <CompanyInfo v-show="getDefaultMenu" />
-    <Recruit v-show="getDefaultMenu" />
+    <CompanyInfo v-show="getShowDefaultMenu" />
+    <Recruit v-show="getShowDefaultMenu" />
   </div>
 </template>
 
@@ -12,14 +12,14 @@ import InputDiv from './InputDiv'
 import CompanyInfo from './CompanyInfo'
 import Recruit from './Recruit'
 export default {
-  name: 'LeftSideBar',
+  name: 'LeftSidebar',
   components: {
     InputDiv,
     CompanyInfo,
     Recruit
   },
   computed: {
-    ...mapGetters('leftSideBar', ['getDefaultMenu', 'getSearchShow'])
+    ...mapGetters('leftSidebar', ['getShowDefaultMenu', 'getShowSearchbar'])
   }
 }
 </script>

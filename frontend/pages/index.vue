@@ -6,7 +6,7 @@
 export default {
   components: {},
   created() {
-    this.$store.commit('leftSideBar/setDefaultMenu', true)
+    this.$store.commit('leftSidebar/setShowDefaultMenu', true)
   }
 }
 </script>
