@@ -83,24 +83,28 @@ export default {
   position: absolute;
   top: 70px;
   width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
   article {
     display: flex;
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    width: 95%;
     height: 90px;
     background-color: #fff;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
     padding: 5px 15px 5px 15px;
     cursor: pointer;
     &:hover {
-      background-color: #aaa;
+      background-color: #ddd;
     }
     p {
       a:first-child {
         color: #181818;
       }
+    }
+    &:last-child {
+      border: none;
     }
   }
 }
@@ -112,24 +116,28 @@ export default {
 
 .company-info-salary {
   display: inline-block;
-  font-size: 14px;
+  font-size: 13px;
   background-color: rebeccapurple;
   color: #fff;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .company--info-link {
   display: inline-block;
-  font-size: 14px;
+  font-size: 13px;
   background-color: #18186f;
   color: #fff;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 3px;
   text-decoration: none;
 }
 
 .company--info-sub {
   font-size: 14px;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

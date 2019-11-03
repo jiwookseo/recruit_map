@@ -42,10 +42,11 @@ export default {
 <style lang="scss">
 .recruit--div {
   position: absolute;
+  bottom: 0;
+  left: 0;
   display: flex;
-  top: 80vh;
-  border-radius: 10px;
-  width: 95%;
+  border-radius: 5px;
+  width: 100%;
   height: 140px;
   overflow-x: hidden;
   a {

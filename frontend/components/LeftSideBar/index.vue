@@ -28,12 +28,12 @@ export default {
 .left--side-bar {
   display: flex;
   flex-direction: column;
-  width: 380px;
-  height: 300px;
+  width: 360px;
+  height: calc(100vh - 20px);
   position: absolute;
   top: 10px;
   left: 10px;
   z-index: 7;
-  border-radius: 4px;
+  overflow: hidden;
 }
 </style>
