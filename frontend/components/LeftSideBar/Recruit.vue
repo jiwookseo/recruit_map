@@ -115,19 +115,19 @@ export default {
         btn_init();
         left();
       });
-      $('.recruit--div').mouseenter(function(){
-        stop();
-      });
-      $('.recruit--div').mouseleave(function(){
-        start();
-      });
-      start();
+      // $('.recruit--div').mouseenter(function(){
+      //   stop();
+      // });
+      // $('.recruit--div').mouseleave(function(){
+      //   start();
+      // });
+      // start();
     });
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .recruit--div {
   position: absolute;
   bottom: 0;
