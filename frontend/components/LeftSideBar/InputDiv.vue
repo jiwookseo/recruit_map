@@ -1,20 +1,30 @@
 <template>
   <div class="left--side-search-div">
     <div class="left--side-bar-input">
-      <input v-model="searchText" type="text" placeholder="회사 명을 입력하세요" @input="handleChange" />
-      <div v-if="searchButton" class="left--side-bar-filterList" v-click-outside="handleSwitch">
+      <input
+        v-model="searchText"
+        type="text"
+        placeholder="회사 명을 입력하세요"
+        @input="handleChange"
+      />
+      <div
+        v-if="searchButton"
+        v-click-outside="handleSwitch"
+        class="left--side-bar-filterList"
+      >
         <p
           v-for="item in computedCompanyList"
-          @click="moveDetail(item)"
           :key="item.id"
-        >{{ item.name }}</p>
+          @click="moveDetail(item)"
+        >
+          {{ item.name }}
+        </p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 import api from '../../api/company'
 export default {
   name: 'InputDiv',
@@ -43,7 +53,7 @@ export default {
         this.searchButton = false
       }
       if (this.searchButton) {
-        let res = await api.getCompanyDataByName(this.searchText)
+        const res = await api.getCompanyDataByName(this.searchText)
         this.searchedCompanies = res.data.results
         this.$store.commit('leftSidebar/setShowSearchbar', true)
       } else {

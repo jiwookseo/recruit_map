@@ -38,5 +38,5 @@ export const actions = {
   async setAsyncAllStations({ commit }, payload) {
     const res = await api.getAllStation()
     commit('setAllStations', res.data)
-  },
+  }
 }

@@ -1,13 +1,14 @@
 export const state = () => ({
   departureStationID: 961,
   departureStationName: '역삼',
-  
+
   // center & zoom level of last viewed map region
   // updated on map drag-end
   // stored in local storage to remember last map position upon page reload
   lsMapCenterLat: 37.5012,
   lsMapCenterLng: 127.0396,
   lsMapZoom: 0,
+  filteredCompanies: [],
   filterList: {
     time: '',
     salary: '',
@@ -16,14 +17,14 @@ export const state = () => ({
   }
 })
 
-
 export const getters = {
   getDepartureStationID: (state) => state.departureStationID,
   getDepartureStationName: (state) => state.departureStationName,
   getLsMapCenterLat: (state) => state.lsMapCenterLat,
   getLsMapCenterLng: (state) => state.lsMapCenterLng,
   getLsMapZoom: (state) => state.lsMapZoom,
-  getFilterList: (state) => state.filterList
+  getFilterList: (state) => state.filterList,
+  getFilteredCompanies: (state) => state.filteredCompanies
 }
 
 export const mutations = {
@@ -44,5 +45,8 @@ export const mutations = {
   },
   setFilterList: (state, payload) => {
     state.filterList = payload
+  },
+  setFilteredCompanies: (state, payload) => {
+    state.filteredCompanies = payload
   }
 }

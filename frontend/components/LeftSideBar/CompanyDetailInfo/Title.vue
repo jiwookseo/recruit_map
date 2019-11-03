@@ -14,14 +14,23 @@
       <span>{{ as }}</span>
     </p>
     <p class="c-di-t-time">
-      {{ station }}역 에서 {{ company.name }} 까지 약 {{ transitTime }} 분 예상
+      <span class="span-station">{{ station }}역</span>
+      에서
+      <span class="span-name">{{ company.name }}</span>
+      까지 약
+      <span class="span-time">{{ transitTime }}</span>
+      분 예상
     </p>
     <p class="c-di-t-jc">
       현재 진행중인 채용 공고 개수
       <span>{{ company.jobs_count }}</span>
     </p>
     <div v-if="company.jobs_count">
-      <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
+      <Recruitment
+        v-for="(data, idx) in recruitments"
+        :key="data.open + idx"
+        :data="data"
+      />
     </div>
     <p class="c-di-t-cp">
       <a target="_blank" :href="company.href">회사홈페이지 바로 가기</a>
@@ -50,8 +59,8 @@
 
 //TODO og:image
 <script>
-import Recruitment from './recruitment'
 import { mapGetters } from 'vuex'
+import Recruitment from './recruitment'
 export default {
   name: 'Title',
   components: { Recruitment },
@@ -66,10 +75,10 @@ export default {
     ...mapGetters('localStorage', {
       station: 'getDepartureStationName'
     }),
-    transitTime(){
+    transitTime() {
       let tt = 0
-      this.allCompanies.forEach(c => {
-        if(c.id === this.company.id){
+      this.allCompanies.forEach((c) => {
+        if (c.id === this.company.id) {
           tt = c.transitTime
         }
       })
@@ -174,6 +183,23 @@ export default {
 .c-di-t-li {
   margin-top: 5px;
 }
+
+.c-di-t-time {
+  span {
+    font-weight: 700;
+  }
+}
+
+.span-station {
+  color: #9774f1;
+}
+.span-name {
+  color: #8774c1;
+}
+.span-time {
+  color: #4876ef;
+}
+
 .c-di-t-sp,
 .c-di-t-ap {
   display: inline-block;
@@ -187,7 +213,7 @@ export default {
 .c-di-t-cp,
 .c-di-t-gr {
   width: 100%;
-  background-color: #4876ef;
+  background-color: #9794d1;
   padding: 10px;
   border-radius: 5px;
   text-align: center;

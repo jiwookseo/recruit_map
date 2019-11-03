@@ -1,5 +1,4 @@
 export const state = () => ({
-  
   // updated instantaneously realtime whenever map center is changed => @center_changed
   // used to update nearby company list shown in left sidebar
   centerLat: 37.5012,
@@ -17,7 +16,8 @@ export const getters = {
   getDetailLat: (state) => state.detailLat,
   getDetailLng: (state) => state.detailLng,
   getLatLng: (state) => {
-    return [{
+    return [
+      {
         lat: parseFloat(parseFloat(state.centerLat - 0.005).toFixed(7)),
         lng: parseFloat(parseFloat(state.centerLng - 0.0035).toFixed(7))
       },

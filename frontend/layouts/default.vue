@@ -2,7 +2,10 @@
   <div id="Default">
     <GmapMap
       ref="map"
-      :center="{ lat: getDetailLat || getLsMapCenterLat, lng: getDetailLng || getLsMapCenterLng }"
+      :center="{
+        lat: getDetailLat || getLsMapCenterLat,
+        lng: getDetailLng || getLsMapCenterLng
+      }"
       :zoom="currentZoom"
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
@@ -15,7 +18,7 @@
       @dragend="dragend"
     >
       <!-- @bounds_changed="bounds_changed" -->
-      <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
+      <MapMarker v-for="m in markerCompaniesData" :key="m.id" :marker="m" />
       <MapInfoWindow />
     </GmapMap>
     <LeftSidebar />
@@ -59,6 +62,7 @@ export default {
       'getLsMapCenterLat',
       'getLsMapCenterLng',
       'getLsMapZoom',
+      'getFilteredCompanies'
     ]),
     ...mapGetters('station', [
       'getRoutesFromStation',
@@ -74,7 +78,20 @@ export default {
     ]),
     currentZoom() {
       return this.getLsMapZoom || 17
+    },
+    markerCompaniesData() {
+      return this.getFilteredCompanies || this.getAllCompanies
     }
+  },
+  created() {
+    const stationID = this.getDepartureStationID
+    this.setAsyncAllStations()
+    this.setAsyncRoutesFromStation({
+      v: stationID,
+      cb: this.setAsyncAllCompanies
+    })
+    this.setCenterLat(this.getLsMapCenterLat)
+    this.setCenterLng(this.getLsMapCenterLng)
   },
   methods: {
     ...mapActions('station', [
@@ -87,7 +104,7 @@ export default {
       'setDepartureStationID',
       'setLsMapCenterLat',
       'setLsMapCenterLng',
-      'setLsMapZoom',
+      'setLsMapZoom'
     ]),
     ...mapMutations('station', [
       'setRoutesFromStation',
@@ -96,16 +113,16 @@ export default {
     ]),
     ...mapMutations('maps', ['setCenterLat', 'setCenterLng']),
     center_changed() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setCenterLat(gMap.$mapObject.center.lat())
       this.setCenterLng(gMap.$mapObject.center.lng())
     },
     zoom_changed() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setLsMapZoom(gMap.$mapObject.zoom)
     },
     dragend() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setLsMapCenterLat(gMap.$mapObject.center.lat())
       this.setLsMapCenterLng(gMap.$mapObject.center.lng())
     }
@@ -118,16 +135,6 @@ export default {
     //     console.log("lng: ", pos.coords.longitude);
     //   })
     // }
-  },
-  created() {
-    const stationID = this.getDepartureStationID
-    this.setAsyncAllStations()
-    this.setAsyncRoutesFromStation({
-      v: stationID,
-      cb: this.setAsyncAllCompanies
-    })
-    this.setCenterLat(this.getLsMapCenterLat)
-    this.setCenterLng(this.getLsMapCenterLng)
   }
 }
 </script>

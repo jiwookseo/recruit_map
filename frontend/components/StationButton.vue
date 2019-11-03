@@ -1,5 +1,9 @@
 <template>
-  <div class="outer" :class="{'on': getShowStationMenu}" @click.stop="showStationMenuToggle">
+  <div
+    class="outer"
+    :class="{ on: getShowStationMenu }"
+    @click.stop="showStationMenuToggle"
+  >
     <i class="material-icons-round">directions_subway</i>
   </div>
 </template>
@@ -8,24 +12,19 @@
 import { mapMutations, mapGetters } from 'vuex'
 
 export default {
-  name: "StationButton",
+  name: 'StationButton',
   props: {
-    mode: {type: Boolean, default: false}
+    mode: { type: Boolean, default: false }
   },
   computed: {
-    ...mapGetters('station', [
-      'getShowStationMenu'
-    ]),
+    ...mapGetters('station', ['getShowStationMenu'])
   },
   methods: {
-    ...mapMutations('station', [
-      'setShowStationMenu'
-    ]),
+    ...mapMutations('station', ['setShowStationMenu']),
     showStationMenuToggle() {
       if (this.getShowStationMenu) {
         this.setShowStationMenu(false)
-      }
-      else {
+      } else {
         this.setShowStationMenu(true)
       }
     }
@@ -50,7 +49,8 @@ export default {
   & > i {
     color: #666666;
     position: absolute;
-    top: 50%; left: 50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
   }
   &.on {
@@ -60,5 +60,4 @@ export default {
     }
   }
 }
-
 </style>

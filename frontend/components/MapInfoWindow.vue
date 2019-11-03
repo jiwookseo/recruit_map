@@ -1,5 +1,9 @@
 <template>
-  <GmapInfoWindow :options="options" :position="position" :opened="open"></GmapInfoWindow>
+  <GmapInfoWindow
+    :options="options"
+    :position="position"
+    :opened="open"
+  ></GmapInfoWindow>
 </template>
 
 <script>
@@ -13,9 +17,7 @@ export default {
       position: 'infoWindow/getPosition',
       optionsContent: 'infoWindow/getOptionsContent'
     }),
-    ...mapGetters('localStorage', [
-      'getDepartureStationName',
-    ]),
+    ...mapGetters('localStorage', ['getDepartureStationName']),
     content_time() {
       const time = this.optionsContent.time
       let className = 'default'

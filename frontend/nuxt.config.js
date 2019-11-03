@@ -12,7 +12,8 @@ export default {
   head: {
     titleTemplate: '%s - ' + '길잡이',
     title: '길잡이' || '',
-    meta: [{
+    meta: [
+      {
         charset: 'utf-8'
       },
       {
@@ -48,7 +49,8 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [{
+    link: [
+      {
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico'
@@ -72,14 +74,15 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [{
+  plugins: [
+    {
       src: '~/plugins/google-maps',
       ssr: true
     },
     {
       src: '~/plugins/directives',
       ssr: true
-    },
+    }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -97,10 +100,13 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     '@nuxtjs/pwa',
-    ['nuxt-vuex-localstorage', {
-      mode: 'debug',
-      localStorage: ['localStorage']
-    }]
+    [
+      'nuxt-vuex-localstorage',
+      {
+        mode: 'debug',
+        localStorage: ['localStorage']
+      }
+    ]
   ],
   /*
    ** Axios module configuration

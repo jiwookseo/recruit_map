@@ -1,24 +1,22 @@
 <template>
-  <div class="outer" v-click-outside="closeMenu">
+  <div v-click-outside="closeMenu" class="outer">
     <div class="currentStation">
       출발: {{ currentStation.name || getDepartureStationName }}역
-      <button
-        class="btn"
-        @click="applyChanges"
-        :disabled="!valid"
-      >적용</button>
+      <button class="btn" :disabled="!valid" @click="applyChanges">적용</button>
     </div>
     <div class="changeStation">
       <input v-model="searchString" placeholder="지하철역을 검색하세요" />
-      <ul class="scrollable" v-if="filteredStations.length">
+      <ul v-if="filteredStations.length" class="scrollable">
         <li v-for="st in filteredStations" :key="st.id" @click="setStation(st)">
-          {{st.name}}
+          {{ st.name }}
           <div
-            class="line"
             v-for="line in st.line.split(',')"
             :key="line.id"
+            class="line"
             :class="`L${line}`"
-          >{{lineName(line)}}</div>
+          >
+            {{ lineName(line) }}
+          </div>
         </li>
       </ul>
       <div v-else>검색 결과가 없습니다.</div>
@@ -28,7 +26,6 @@
 
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex'
-import axios from 'axios'
 
 export default {
   name: 'StationMenu',
@@ -45,12 +42,9 @@ export default {
       'getDepartureStationID',
       'getDepartureStationName'
     ]),
-    ...mapGetters('station', [
-      'getRoutesFromStation',
-      'getAllStations'
-    ]),
+    ...mapGetters('station', ['getRoutesFromStation', 'getAllStations']),
     filteredStations() {
-      let searchString = this.searchString
+      const searchString = this.searchString
       return this.getAllStations.filter((st) => {
         return st.name.includes(searchString)
       })
