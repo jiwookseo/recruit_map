@@ -1,7 +1,7 @@
 <template>
   <div class="outer" v-click-outside="closeMenu">
     <div class="currentStation">
-      출발: {{ currentStation.name || getDepartureStationName }}역
+      [출발] {{ currentStation.name || getDepartureStationName }}역
       <button
         class="btn"
         @click="applyChanges"
@@ -9,9 +9,10 @@
       >적용</button>
     </div>
     <div class="changeStation">
-      <input v-model="searchString" placeholder="지하철역을 검색하세요" />
+      <input v-model="searchString" placeholder="지하철역을 검색하세요" autofocus />
+      <i class="material-icons-round">search</i>
       <ul class="scrollable" v-if="filteredStations.length">
-        <li v-for="st in filteredStations" :key="st.id" @click="setStation(st)">
+        <li v-for="st in filteredStations" :key="st.id" :class="{'current': st.id === currentStation.id}" @click="setStation(st)">
           {{st.name}}
           <div
             class="line"
@@ -21,7 +22,7 @@
           >{{lineName(line)}}</div>
         </li>
       </ul>
-      <div v-else>검색 결과가 없습니다.</div>
+      <div class="noSearchResults" v-else>검색 결과가 없습니다.</div>
     </div>
   </div>
 </template>
@@ -65,6 +66,9 @@ export default {
         return true
       }
     }
+  },
+  created() {
+    this.currentStation.id = this.getDepartureStationID;
   },
   methods: {
     ...mapActions('station', ['setAsyncRoutesFromStation']),
@@ -157,7 +161,7 @@ export default {
     font-weight: bold;
     position: absolute;
     right: 0;
-    top: -2px;
+    top: 0px;
     &:focus {
       outline: none;
     }
@@ -170,22 +174,31 @@ export default {
   }
 }
 .changeStation {
+  position: relative;
   & > input {
     width: 100%;
     height: 30px;
-    border-radius: 2px;
-    border: 1px solid gray;
+    border-radius: 2px 2px 0 0;
+    border: 1px solid #CCC;
     font-size: 0.9em;
-    margin-bottom: 5px;
-    padding: 0 5px;
+    padding: 1px 5px 1px 25px;
     &:focus {
       outline: none;
     }
+    & + i {
+      color: #AAA;
+      position: absolute;
+      top: 6px;
+      left: 5px;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
   }
   & > ul {
-    max-height: 150px;
-    border-radius: 2px;
-    border: 1px solid gray;
+    max-height: 157px;
+    border-radius: 0 0 2px 2px;
+    border: 1px solid #CCC;
+    border-top: none;
     list-style: none;
     overflow-y: auto;
     font-size: 0.9em;
@@ -196,19 +209,25 @@ export default {
       &:hover {
         background: #eee;
       }
+      &.current {
+        background: #eee;
+      }
       & > .line {
         display: inline-block;
         min-width: 16px;
         height: 16px;
         line-height: 16px;
         border-radius: 16px;
-        padding: 1px 5px 0;
+        padding: 0 5px;
         background: #3cb44a;
         color: white;
         font-size: 10px;
         font-weight: bold;
         text-align: center;
         margin-left: 2px;
+        font-family: 'Nanum Gothic Coding', monospace;
+        position: relative;
+        top: -2px;
         &.L1 {
           background: #263c96;
         }
@@ -262,6 +281,11 @@ export default {
         }
       }
     }
+  }
+  & > .noSearchResults {
+    font-size: 0.8em;
+    margin-top: 10px;
+    color: #AAA;
   }
 }
 
