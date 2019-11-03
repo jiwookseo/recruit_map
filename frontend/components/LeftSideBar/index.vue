@@ -34,6 +34,6 @@ export default {
   top: 10px;
   left: 10px;
   z-index: 7;
-  overflow: hidden;
+  // overflow: hidden;
 }
 </style>

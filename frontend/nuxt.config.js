@@ -61,6 +61,12 @@ export default {
         rel: 'stylesheet',
         href: 'https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Sans+KR&display=swap'
       }
+    ],
+    script: [
+      {
+        src: "https://code.jquery.com/jquery-1.12.4.min.js",
+        type: "text/javascript"
+      }
     ]
   },
   /*
