@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 .company--info-div {
   position: absolute;
-  top: 70px;
+  top: 120px;
   width: 100%;
   article {
     display: flex;

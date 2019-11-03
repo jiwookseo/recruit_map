@@ -20,7 +20,7 @@ export default {
   },
   computed: {
     ...mapGetters('leftSidebar', ['getShowDefaultMenu', 'getShowSearchbar'])
-  }
+  },
 }
 </script>
 

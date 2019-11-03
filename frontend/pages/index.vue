@@ -5,6 +5,9 @@
 <script>
 export default {
   components: {},
+  mounted(){
+    this.$store.commit('leftSidebar/setShowDefaultMenu', true)
+  }
 }
 </script>
 
