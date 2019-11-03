@@ -13,6 +13,9 @@
       직원 평균
       <span>{{ as }}</span>
     </p>
+    <p class="c-di-t-time">
+      {{ station }}역 에서 {{ company.name }} 까지 약 {{ transitTime }} 분 예상
+    </p>
     <p class="c-di-t-jc">
       현재 진행중인 채용 공고 개수
       <span>{{ company.jobs_count }}</span>
@@ -54,7 +57,8 @@ export default {
   components: { Recruitment },
   computed: {
     ...mapGetters('company', {
-      company: 'getCompanyDetail'
+      company: 'getCompanyDetail',
+      allCompanies: 'getAllCompanies'
     }),
     ...mapGetters('jobs', {
       recruitments: 'getJobData'
@@ -62,6 +66,15 @@ export default {
     ...mapGetters('localStorage', {
       station: 'getDepartureStationName'
     }),
+    transitTime(){
+      let tt = 0
+      this.allCompanies.forEach(c => {
+        if(c.id === this.company.id){
+          tt = c.transitTime
+        }
+      })
+      return tt
+    },
     googleRouteLink() {
       let stationName = ''
       if (

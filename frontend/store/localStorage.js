@@ -7,7 +7,13 @@ export const state = () => ({
   // stored in local storage to remember last map position upon page reload
   lsMapCenterLat: 37.5012,
   lsMapCenterLng: 127.0396,
-  lsMapZoom: 0
+  lsMapZoom: 0,
+  filterList: {
+    time: '',
+    salary: '',
+    size: [],
+    recruting: false
+  }
 })
 
 
@@ -17,6 +23,7 @@ export const getters = {
   getLsMapCenterLat: (state) => state.lsMapCenterLat,
   getLsMapCenterLng: (state) => state.lsMapCenterLng,
   getLsMapZoom: (state) => state.lsMapZoom,
+  getFilterList: (state) => state.filterList
 }
 
 export const mutations = {
@@ -35,4 +42,7 @@ export const mutations = {
   setLsMapZoom: (state, payload) => {
     state.lsMapZoom = payload
   },
+  setFilterList: (state, payload) => {
+    state.filterList = payload
+  }
 }

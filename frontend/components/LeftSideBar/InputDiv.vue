@@ -10,7 +10,6 @@
         >{{ item.name }}</p>
       </div>
     </div>
-    <div class="left--side-bar-filter"></div>
   </div>
 </template>
 
@@ -74,7 +73,7 @@ export default {
   outline: none;
   input[type='text'] {
     background-color: #fff;
-    border: none;
+    border-bottom: 1px solid #755eb5;
     outline: none;
     width: 95%;
     min-height: 50px;

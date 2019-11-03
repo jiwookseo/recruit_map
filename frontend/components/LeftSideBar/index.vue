@@ -1,6 +1,7 @@
 <template>
   <div class="left--side-bar" :style="{ zIndex: getShowSearchbar ? 11 : 7}">
     <InputDiv />
+    <FilterList v-show="getShowDefaultMenu" />
     <CompanyInfo v-show="getShowDefaultMenu" />
     <Recruit v-show="getShowDefaultMenu" />
   </div>
@@ -8,12 +9,14 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import FilterList from './FilterList'
 import InputDiv from './InputDiv'
 import CompanyInfo from './CompanyInfo'
 import Recruit from './Recruit'
 export default {
   name: 'LeftSidebar',
   components: {
+    FilterList,
     InputDiv,
     CompanyInfo,
     Recruit
