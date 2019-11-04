@@ -129,7 +129,7 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.company.name
+          content: `${this.company.name}에 대한 취업 정보 및 지도와 연봉 정보가 담겨져 있습니다.`
         }
       ]
     }
