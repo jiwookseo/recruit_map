@@ -12,8 +12,7 @@ export default {
   head: {
     titleTemplate: '%s - ' + '길잡이',
     title: '길잡이' || '',
-    meta: [
-      {
+    meta: [{
         charset: 'utf-8'
       },
       {
@@ -54,8 +53,7 @@ export default {
         content: process.env.npm_package_description || ''
       }
     ],
-    link: [
-      {
+    link: [{
         rel: 'icon',
         type: 'image/x-icon',
         href: '/favicon.ico'
@@ -66,16 +64,13 @@ export default {
       },
       {
         rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Sans+KR&display=swap'
+        href: 'https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Sans+KR&display=swap'
       }
     ],
-    script: [
-      {
-        src: 'https://code.jquery.com/jquery-1.12.4.min.js',
-        type: 'text/javascript'
-      }
-    ]
+    script: [{
+      src: 'https://code.jquery.com/jquery-1.12.4.min.js',
+      type: 'text/javascript'
+    }]
   },
   /*
    ** Customize the progress-bar color
@@ -90,8 +85,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    {
+  plugins: [{
       src: '~/plugins/google-maps',
       ssr: true
     },

@@ -6,10 +6,13 @@
   >
     <!-- for 문을 돌 때, Recommended Recruit의 length에 맞게 돌게하고,
     Button Slider로 하면 좋을거 같음 + 구현 후 자동으로 슬라이딩 되는 것 까지-->
-    <div v-for="ad in ads" :key="ad.id" class="ad">
-      <a :href="ad.url" target="_blank">
+    <div class="ad" v-for="ad in ads" :key="ad.id">
+      <a v-if="ad.type==='link'" :href="ad.url" target="_blank" :title="ad.name">
         <article :style="{ backgroundImage: `url(${imgUrl(ad.img)})` }" />
       </a>
+      <div v-if="ad.type==='button'" class="buttonType">
+        <img :src="imgUrl(ad.img)" :alt="ad.name" @click="clickHandler(ad.action)">
+      </div>
     </div>
     <div class="btnContainer left">
       <div class="btn left" :class="{ hide: !hoverAds }">
@@ -25,6 +28,8 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex'
+
 export default {
   name: 'Recruit',
   data() {
@@ -32,30 +37,47 @@ export default {
       hoverAds: false,
       ads: [
         {
-          id: 'ssafy3',
-          name: 'ssafy',
+          id: 1,
+          type: 'link',
+          name: 'SSAFY 3기 모집',
           url: 'https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp',
           img: 's3.png'
         },
         {
-          id: 'adz',
+          id: 2,
+          type: 'button',
           name: 'add',
-          url: 'jiwonjulietyoon@gmail.com',
+          action: 'openAboutUs',
           img: 'ad.png'
         },
         {
-          id: 'ssafy4',
+          id: 3,
+          type: 'link',
           name: 'ssafy',
           url: 'https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp',
           img: 'closest_c2.png'
         },
         {
-          id: 'ad',
+          id: 4,
+          type: 'button',
           name: 'add',
-          url: 'jiwonjulietyoon@gmail.com',
+          action: 'jiwonjulietyoon@gmail.com',
           img: 'close_c1.png'
         }
       ]
+    }
+  },
+  methods: {
+    ...mapMutations('about', [
+      'setShowAboutUs',
+    ]),
+    imgUrl: (fn) => {
+      return require(`../../static/${fn}`)
+    },
+    clickHandler(action) {
+      if (action === "openAboutUs") {
+        this.setShowAboutUs(true)
+      }
     }
   },
   mounted() {
@@ -68,8 +90,8 @@ export default {
 
       let i = 0
       const count = $('.ad').length
-      const slidetime = 500
-      const intervaltime = 5000
+      const slidetime = 700
+      const intervaltime = 8000
       let slideshow
 
       function btn_init() {
@@ -136,11 +158,6 @@ export default {
       // start();
     })
   },
-  methods: {
-    imgUrl: (fn) => {
-      return require(`../../static/${fn}`)
-    }
-  }
 }
 </script>
 
@@ -154,6 +171,7 @@ export default {
   width: 100%;
   height: 140px;
   overflow: hidden;
+  background: #FFF;
   & > .ad {
     width: 100%;
     height: 100%;
@@ -201,6 +219,13 @@ export default {
     &.hide {
       display: none;
     }
+  }
+}
+.buttonType {
+  width: 100%; height: 100%;
+  & > img {
+    width: 100%; height: 100%;
+    object-fit: cover;
   }
 }
 </style>
