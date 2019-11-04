@@ -10,9 +10,8 @@
           <i class="material-icons-round marker marker2">room</i>
           <div class="txt">{{ error.statusCode }}</div>
         </div>
-        <div class="errorMsg">
-          잘못된 경로입니다 :( 메인페이지로 이동합니다.
-        </div>
+        <div v-if="error.statusCode === 404" class="errorMsg">잘못된 경로입니다 :(<br>{{secondsLeft}}초 뒤에 메인페이지로 이동합니다.</div>
+        <div v-else class="errorMsg">페이지를 표시할 수 없습니다.<br>관리자에게 문의해주세요.</div>
       </div>
       <!-- <h1 v-if="error.statusCode === 404">{{ pageNotFound }}</h1>
       <h1 v-else>{{ otherError }}</h1>
@@ -39,8 +38,19 @@ export default {
   },
   data() {
     return {
-      pageNotFound: '404 Not Found',
-      otherError: 'An error occurred'
+      secondsLeft: 5
+    }
+  },
+  created() {
+    if (this.error.statusCode === 404) {
+      setTimeout(() => {
+        setInterval(() => {
+          this.secondsLeft--
+        }, 1000);
+      }, 100);
+      setTimeout(() => {
+        this.$router.push('/')
+      }, 5000)
     }
   }
 }
@@ -79,6 +89,7 @@ export default {
   margin: 0 auto;
   position: relative;
   perspective: 200px;
+  user-select: none;
   .map {
     width: 80px;
     height: 90px;
@@ -140,6 +151,7 @@ export default {
   padding-top: 20px;
   color: #181818;
   font-size: 20px;
+  white-space: pre-line;
 }
 
 h1 {
