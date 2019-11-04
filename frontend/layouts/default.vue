@@ -26,6 +26,7 @@
     <transition name="stationMenu">
       <StationAlert v-if="getShowStationAlert" />
     </transition>
+    <AboutUs v-if="getShowAboutUs" />
     <nuxt />
   </div>
 </template>
@@ -38,6 +39,7 @@ import LeftSidebar from '~/components/LeftSidebar'
 import StationButton from '~/components/Station/StationButton.vue'
 import StationMenu from '~/components/Station/StationMenu.vue'
 import StationAlert from '~/components/Station/StationAlert.vue'
+import AboutUs from '~/components/AboutUs'
 export default {
   components: {
     MapMarker,
@@ -45,7 +47,8 @@ export default {
     LeftSidebar,
     StationButton,
     StationMenu,
-    StationAlert
+    StationAlert,
+    AboutUs
   },
   data() {
     return {
@@ -72,6 +75,9 @@ export default {
       'getRealtimeCenterLng',
       'getTargetCenterLat',
       'getTargetCenterLng'
+    ]),
+    ...mapGetters('about', [
+      'getShowAboutUs',
     ]),
     currentZoom() {
       return this.getLastZoom || 17
