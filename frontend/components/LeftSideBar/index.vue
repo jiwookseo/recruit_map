@@ -22,7 +22,7 @@ export default {
     Recruit
   },
   computed: {
-    ...mapGetters('leftSidebar', ['getShowDefaultMenu', 'getShowSearchbar'])
+    ...mapGetters('leftSidebar', ['getShowSearchbar', 'getShowDefaultMenu'])
   }
 }
 </script>

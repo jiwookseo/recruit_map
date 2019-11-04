@@ -66,8 +66,8 @@ export default {
     moveDetail(data) {
       this.searchText = ''
       this.$store.commit('leftSidebar/setShowSearchbar', false)
-      this.$store.commit('maps/setDetailLat', data.lat)
-      this.$store.commit('maps/setDetailLng', data.lng)
+      this.$store.commit('maps/setTargetCenterLat', data.lat)
+      this.$store.commit('maps/setTargetCenterLng', data.lng)
       this.$store.dispatch('company/setAsyncCompanyDetail', data.id)
       this.searchButton = false
       this.$router.push(`/company/${data.id}`)

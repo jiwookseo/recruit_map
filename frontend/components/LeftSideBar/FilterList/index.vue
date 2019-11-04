@@ -52,13 +52,13 @@
       </div>
       <div v-show="menuController[3].active">
         <input
-        id="recruting"
+        id="recruiting"
         v-model="filterRecruiting"
         type="checkbox"
-        value="recruting"
+        value="recruiting"
         :checked="filterRecruiting"
       />
-        <label for="recruting">현재 채용중인 공고만 보기</label>
+        <label for="recruiting">현재 채용중인 공고만 보기</label>
         <button @click="handleFilter">적용하기</button>
       </div>
     </div>
@@ -187,6 +187,7 @@ export default {
 .filter-detail {
   div {
     z-index: 10;
+    position: float;
   }
 }
 

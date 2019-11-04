@@ -44,7 +44,7 @@ export const actions = {
     const res = await api.getCompanyData(payload)
     commit('setCompanyDetail', res.data)
     dispatch('jobs/setAsyncJobData', res.data.jobs, { root: true })
-    commit('maps/setDetailLat', res.data.lat, { root: true })
-    commit('maps/setDetailLng', res.data.lng, { root: true })
+    commit('maps/setTargetCenterLat', res.data.lat, { root: true })
+    commit('maps/setTargetCenterLng', res.data.lng, { root: true })
   }
 }
