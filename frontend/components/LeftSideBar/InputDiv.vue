@@ -82,26 +82,25 @@ export default {
   flex-direction: column;
   outline: none;
   input[type='text'] {
-    background-color: #fff;
-    border-bottom: 1px solid #755eb5;
+    background: none #fff;
     outline: none;
-    width: 95%;
     min-height: 50px;
     padding-left: 20px;
     font-weight: 600;
+    border: 2px solid #fff;
+    border-radius: 2px;
     &::placeholder {
       font-size: 18px;
       font-weight: 400;
     }
     &:focus {
-      border: 2px solid #755eb5;
+      border-color: #755eb5;
     }
   }
 }
 
 .left--side-bar-filterList {
   background-color: #fff;
-  width: 95.5%;
   box-sizing: border-box;
   border-radius: 0 0 10px 10px;
   border: 2px solid #8774c1;

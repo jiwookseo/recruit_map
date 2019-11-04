@@ -2,6 +2,7 @@ html,
 body {
   height: 100vh;
   overflow: hidden !important;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 .page-enter-active,
 .page-leave-active {

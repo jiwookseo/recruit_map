@@ -1,11 +1,21 @@
 <template>
-  <section class="recruit--div">
+  <section class="recruit--div" @mouseenter="hoverAds=true" @mouseleave="hoverAds=false">
     <!-- for 문을 돌 때, Recommended Recruit의 length에 맞게 돌게하고,
     Button Slider로 하면 좋을거 같음 + 구현 후 자동으로 슬라이딩 되는 것 까지-->
-    <div v-for="ad in ads" :key="ad.id">
+    <div class="ad" v-for="ad in ads" :key="ad.id">
       <a :href="ad.url" target="_blank">
         <article :style="{ backgroundImage: `url(${imgUrl(ad.img)})` }" />
       </a>
+    </div>
+    <div class="btnContainer left">
+      <div class="btn left" :class="{'hide': !hoverAds}">
+        <i class="material-icons-round">keyboard_arrow_left</i>
+      </div>
+    </div>
+    <div class="btnContainer right">
+      <div class="btn right" :class="{'hide': !hoverAds}">
+        <i class="material-icons-round">keyboard_arrow_right</i>
+      </div>
     </div>
   </section>
 </template>
@@ -15,6 +25,7 @@ export default {
   name: 'Recruit',
   data() {
     return {
+      hoverAds: false,
       ads: [
         {
           id: 'ssafy3',
@@ -27,35 +38,148 @@ export default {
           name: 'add',
           url: 'jiwonjulietyoon@gmail.com',
           img: 'ad.png'
-        }
-      ]
+        },
+        {
+          id: 'ssafy4',
+          name: 'ssafy',
+          url: 'https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp',
+          img: 'closest_c2.png'
+        },
+        {
+          id: 'ad',
+          name: 'add',
+          url: 'jiwonjulietyoon@gmail.com',
+          img: 'close_c1.png'
+        },
+      ],
     }
   },
   methods: {
     imgUrl: (fn) => {
       return require(`../../static/${fn}`)
-    }
+    },
+  },
+  mounted() {
+    $(document).ready(function(){
+      $('.ad').eq(0).css({
+        left: 0,
+      });
+
+      var i = 0;
+      var count = $('.ad').length;
+      var slidetime = 500;
+      var intervaltime = 5000;
+      var slideshow;
+
+      function btn_init() {
+        $('.btn.right').css('pointer-events','none');
+        $('.btn.left').css('pointer-events','none');
+        setTimeout(function(){
+          $('.btn.right').css('pointer-events','');
+          $('.btn.left').css('pointer-events','');
+        }, slidetime);
+      }
+      function adSlide(s_out, pos1, s_in, pos2) {        
+        $('.ad').eq(s_in).css({
+          left: pos2
+        }).animate({
+          left: 0
+        }, slidetime);
+
+        $('.ad').eq(s_out).animate({
+          left: pos1
+        }, slidetime);
+      }
+      function right() {
+        adSlide(i % count, '100%', (i + 1) % count, '-100%');
+        i++;
+      }
+      function left() {
+        adSlide(i % count, '-100%', (i - 1) % count, '100%');
+        i--;
+      }
+      function start() {
+        stop();
+        slideshow = setInterval(function(){
+          right();
+        }, intervaltime);
+      }
+      function stop() {
+        clearInterval(slideshow);
+      }
+      $('.btn.right').click(function(){
+        btn_init();
+        right();
+      });
+      $('.btn.left').click(function(){
+        btn_init();
+        left();
+      });
+      // $('.recruit--div').mouseenter(function(){
+      //   stop();
+      // });
+      // $('.recruit--div').mouseleave(function(){
+      //   start();
+      // });
+      // start();
+    });
   }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .recruit--div {
   position: absolute;
+  bottom: 0;
+  left: 0;
   display: flex;
-  top: 80vh;
-  border-radius: 10px;
-  width: 95%;
+  border-radius: 2px;
+  width: 100%;
   height: 140px;
-  overflow-x: hidden;
-  a {
-    min-width: 361px;
-    min-height: 140px;
+  overflow: hidden;
+  & > .ad {
+    width: 100%; height: 100%;
+    position: absolute;
+    top: 0;
+    left: -100%;
+  }
+  a, article {
+    width: 100%; height: 100%;
+    overflow: hidden;
   }
   article {
-    min-width: 361px;
-    min-height: 140px;
-    background-size: 380px 140px;
+    background-color: white;
+    background-position: center;
+    background-size: cover;
+  }
+  .btnContainer {
+    width: 30px;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    &.left {
+      left: 0;
+    }
+    &.right {
+      right: 0;
+    }
+  }
+  .btn {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    i {
+      font-size: 40px;
+      text-shadow: 0 0 2px #AAA;
+      position: relative;
+      transform: translateY(2px);
+    }
+    &.hide {
+      display: none;
+    }
   }
 }
 </style>
