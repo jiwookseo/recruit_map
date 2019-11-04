@@ -21,7 +21,12 @@
       </div>
       <div v-show="menuController[2].active" class="filter-detail-size">
         <!-- { major: '대기업', affiliate:'대기업 계열사·자회사', venture: '벤처기업', midSize: '중견기업', smallSize:'중소기업'}  -->
-        <div v-for="(item, idx) in filterSize" :key="item.id" class="filter-detail-size-item">
+        <div
+          v-for="(item, idx) in filterSize"
+          :key="item.id"
+          class="filter-detail-size-item"
+          v-show="menuController[2].active"
+        >
           <input
             :id="item.size"
             v-model="filterSize[idx].active"
@@ -213,12 +218,17 @@ export default {
   padding-bottom: 10px;
   background-color: #fff;
   border-bottom: 1.5px solid #8774c1;
+  min-height: 170px;
   div {
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 18;
     background-color: #fff;
+    &:first-child,
+    &:nth-child(2) {
+      align-items: flex-end;
+    }
     p {
       min-width: 70px;
       max-width: 70px;
@@ -227,14 +237,8 @@ export default {
 }
 
 .filter-detail-size {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start !important;
-  align-items: flex-start !important;
+  display: block !important;
   padding: 10px;
-  div + div {
-    margin-top: 10px;
-  }
   i,
   label {
     cursor: pointer;
@@ -266,8 +270,10 @@ export default {
 }
 
 .filter-bottom {
+  clear: both;
   display: flex;
   flex-direction: column;
+  padding-top: 21.7px;
   button {
     margin-top: 15px;
     background-color: #8774c1;
@@ -277,9 +283,25 @@ export default {
   }
 }
 
+.filter-detail-size-item {
+  float: left;
+  &:nth-child(2) {
+    margin-left: 17px;
+    margin-bottom: 6.4px;
+  }
+  &:nth-child(3) {
+    clear: both;
+  }
+  &:nth-child(4) {
+    margin-left: 2px;
+  }
+  &:last-child {
+    margin-left: 15px;
+  }
+}
+
 input[type='range'] {
   -webkit-appearance: none;
-  margin: 18px;
   width: 60%;
 }
 input[type='range']:focus {

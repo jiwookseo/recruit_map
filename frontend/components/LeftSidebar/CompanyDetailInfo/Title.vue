@@ -1,6 +1,9 @@
 <template>
   <div class="c-di-t">
-    <h1>{{ company.name || '이름' }}</h1>
+    <h1>
+      {{ company.name || '이름' }}
+      <span>{{ company.scale }}</span>
+    </h1>
     <p class="c-di-t-st">
       <span>{{ company.ind_name }}</span>
     </p>
@@ -152,6 +155,14 @@ export default {
     margin-left: 30px;
     display: inline-block;
     width: calc(100%-40px);
+    span {
+      margin-left: 10px;
+      background-color: red;
+      color: #fff;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 12px;
+    }
   }
   a {
     text-decoration: none;
@@ -165,7 +176,7 @@ export default {
 .back {
   position: absolute;
   display: flex;
-  top: 2px;
+  top: 5px;
   font-weight: 700;
   left: -10px;
   i {
@@ -177,7 +188,9 @@ export default {
 .c-di-t-st {
   margin-top: 4px !important;
   font-size: 12px;
-  color: #aaa;
+  span {
+    color: #aaa;
+  }
 }
 
 .c-di-t-li {
@@ -194,10 +207,10 @@ export default {
   color: #9774f1;
 }
 .span-name {
-  color: #8774c1;
+  color: #4876ef;
 }
 .span-time {
-  color: #4876ef;
+  color: #8774c1;
 }
 
 .c-di-t-sp,
@@ -205,7 +218,6 @@ export default {
   display: inline-block;
   span {
     padding: 5px 10px;
-    font-size: 20px;
     font-weight: 600;
   }
 }
@@ -235,7 +247,6 @@ export default {
 .c-di-t-jc {
   span {
     margin-left: 10px;
-    font-size: 18px;
     color: #8774c1;
     font-weight: 700;
   }
