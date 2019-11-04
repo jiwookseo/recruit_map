@@ -67,7 +67,7 @@ export default {
                     </div>
                   </div>`,
         pixelOffset: {
-          width: -2.5,
+          width: -7,
           height: -45
         }
       }
