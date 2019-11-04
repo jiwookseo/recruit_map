@@ -1,8 +1,8 @@
 <template>
   <div class="left--side-bar" :style="{ zIndex: getShowSearchbar ? 11 : 7 }">
     <InputDiv />
-    <FilterList v-show="getShowDefaultMenu" />
     <CompanyInfo v-show="getShowDefaultMenu" />
+    <FilterList v-show="getShowDefaultMenu" />
     <Recruit v-show="getShowDefaultMenu" />
   </div>
 </template>

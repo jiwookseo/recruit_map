@@ -89,11 +89,35 @@ export default {
 <style lang="scss" scoped>
 .company--info-div {
   position: absolute;
-  top: 120px;
+  top: 105px;
   width: 100%;
+  max-height: calc(100% - 105px - 150px);
   border-radius: 2px;
-  overflow: hidden;
+  overflow-y: auto;
   background: #FFF;
+  &::-webkit-scrollbar {
+    display: initial;
+    width: 7px;
+    box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    &:hover {
+      box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
+    }
+  }
+  &::-webkit-scrollbar-thumb:vertical {
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    background-color: rgba(0, 0, 0, 0.2);
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0);
+    min-height: 10px;
+    &:active {
+      background-color: rgba(0, 0, 0, 0.3);
+      border-radius: 50px;
+      -webkit-border-radius: 50px;
+    }
+  }
   a.company-item {
     text-decoration: none;
     display: inline-block;
