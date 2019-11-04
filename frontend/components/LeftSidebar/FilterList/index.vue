@@ -1,6 +1,6 @@
 <template>
   <div class="filter-list">
-    <div class="filter-items">
+    <div class="filter-items" :class="{'thickBorder': !menuController[3].active}">
       <div
         v-for="(menuItem, i) in menuController"
         :key="menuItem.id"
@@ -203,12 +203,17 @@ export default {
   justify-content: space-between;
   border: 1.5px solid #8774c1;
   border-top: none;
+  border-bottom-width: 1px;
   background-color: #fff;
+  &.thickBorder {
+    border-bottom-width: 2px;
+  }
   div {
     padding-top: 10px;
-    &:hover {
-      background-color: #8774c1;
-    }
+    // &:hover {
+    //   border-bottom-color: #dbd0ff;
+    //   background-color: #dbd0ff;
+    // }
   }
 }
 
@@ -218,11 +223,12 @@ export default {
   text-align: center;
   padding-bottom: 10px;
   cursor: pointer;
+  border-bottom: 3px solid white;
   &:last-child {
     width: 0;
   }
   &.active {
-    background-color: #8774c1;
+    border-bottom-color: #7564a7;
   }
 }
 
@@ -291,6 +297,11 @@ export default {
 
 .filter-recruiting {
   padding-left: 80px;
+  i {
+    user-select: none;
+    cursor: pointer;
+    color: #181818;
+  }
   label {
     position: relative;
     top: -5px;
@@ -301,11 +312,8 @@ export default {
   position: relative;
   margin-top: 5px;
   .applyFilterBtn {
-    &:focus {
-      outline: none;
-    }
-    padding: 3px 5px;
-    border-radius: 5px;
+    padding: 3px 10px;
+    border-radius: 3px;
     background: rebeccapurple;
     color: white;
     font-size: 13px;
@@ -314,6 +322,13 @@ export default {
     left: 50%;
     transform: translate(-50%);
     font-weight: 400;
+    transition: all 0.2s;
+    &:focus {
+      outline: none;
+    }
+    &:hover {
+      background: rgb(81, 40, 122);
+    }
   }
 }
 
