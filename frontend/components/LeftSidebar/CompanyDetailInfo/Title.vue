@@ -1,56 +1,53 @@
 <template>
   <div class="c-di-t">
-    <h1>
-      {{ company.name || '이름' }}
-      <span>{{ company.scale }}</span>
-    </h1>
-    <p class="c-di-t-st">
-      <span>{{ company.ind_name }}</span>
-    </p>
-    <hr class="c-di-t-li" />
-    <p class="c-di-t-sp">
-      신입 평균
-      <span>{{ fs }}</span>
-    </p>
-    <p class="c-di-t-ap">
-      직원 평균
-      <span>{{ as }}</span>
-    </p>
-    <p class="c-di-t-time">
-      <span class="span-station">{{ station }}역</span>
-      에서
-      <span class="span-name">{{ company.name }}</span>
-      까지 약
-      <span class="span-time">{{ transitTime }}</span>
-      분 예상
-    </p>
-    <p class="c-di-t-jc">
-      현재 진행중인 채용 공고 개수
-      <span>{{ company.jobs_count }} 개</span>
-    </p>
-    <div v-if="company.jobs_count">
-      <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
+    <div class="fixed">
+      <h1 class="c-name">
+        {{ company.name || '이름' }}
+        <span>{{ company.scale }}</span>
+        <a target="_blank" :href="company.href">홈페이지</a>
+      </h1>
+      <p class="c-di-t-st">
+        <span>{{ company.ind_name }}</span>
+      </p>
+      <div class="back">
+        <nuxt-link to="/">
+          <i class="material-icons-round">arrow_left_alt</i>
+        </nuxt-link>
+      </div>
     </div>
-    <p class="c-di-t-cp">
-      <a target="_blank" :href="company.href">회사홈페이지 바로 가기</a>
-    </p>
-    <p class="c-di-t-rp">
-      <a target="_blank" :href="company.saramin_url">
-        <span>채용 공고 바로 가기</span>
-      </a>
-    </p>
-    <p class="c-di-t-gr">
-      <a target="_blank" :href="googleRouteLink">
-        <span>구글맵에서 경로 보기</span>
-      </a>
-    </p>
-    <p class="saramin">
-      <span>powered by saramin</span>
-    </p>
-    <div class="back">
-      <nuxt-link to="/">
-        <i class="material-icons-round">arrow_left_alt</i>
-      </nuxt-link>
+    <div class="scrollable">
+      <p class="c-di-t-sp">
+        신입 평균
+        <span>{{ fs }}</span>
+      </p>
+      <p class="c-di-t-ap">
+        직원 평균
+        <span>{{ as }}</span>
+      </p>
+      <p class="c-di-t-time">
+        <span class="span-station">{{ station }}역</span>
+        에서
+        <span class="span-name">{{ company.name }}</span>
+        까지 약
+        <span class="span-time">{{ transitTime }}</span>
+        분 예상
+        <a target="_blank" :href="googleRouteLink">
+          <span class="route">길찾기</span>
+        </a>
+      </p>
+      <p class="c-di-t-jc">
+        현재 진행중인 채용 공고 개수
+        <span>{{ company.jobs_count }} 개</span>
+        <a target="_blank" :href="company.saramin_url">
+          공고 보기
+        </a>
+      </p>
+      <div v-if="company.jobs_count">
+        <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
+      </div>
+      <p class="saramin">
+        <span>powered by saramin</span>
+      </p>
     </div>
   </div>
 </template>
@@ -144,111 +141,166 @@ export default {
 .c-di-t {
   top: 70px;
   width: 100%;
+  height: calc(100% - 70px);
   position: absolute;
   display: flex;
   flex-direction: column;
-  padding: 20px;
   background-color: #f7f7f7;
   z-index: 9;
-  h1 {
+  .fixed {
+    padding: 15px;
+    border-bottom: 1px solid #AAA;
+    box-sizing: border-box;
+    position: relative;
+  }
+  h1.c-name {
+    padding-left: 30px;
     font-weight: 700;
-    margin-left: 30px;
     display: inline-block;
-    width: calc(100%-40px);
     span {
-      margin-left: 10px;
-      background-color: red;
+      margin-left: 5px;
+      background-color: rebeccapurple;
       color: #fff;
-      padding: 5px;
-      border-radius: 5px;
-      font-size: 12px;
+      padding: 3px 5px 4px;
+      border-radius: 15px;
+      font-size: 10px;
+      position: relative;
+      top: -4px;
+    }
+    a {
+      background-color: #99abab;
+      color: #fff;
+      padding: 3px 5px 4px;
+      border-radius: 15px;
+      font-size: 10px;
+      font-weight: 400;
+      position: relative;
+      top: -4px;
     }
   }
-  a {
-    text-decoration: none;
-    color: #181818;
+  .c-di-t-st {
+    margin-top: 4px !important;
+    margin-left: 30px;
+    font-size: 12px;
+    span {
+      color: #aaa;
+    }
+  }
+  .back {
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 0;
+    left: -10px;
+    font-weight: 700;
+    a, i {
+      width: 100%;
+      height: 100%;
+      display: inline-block;
+    }
+    i {
+      font-size: 70px;
+      color: #181818;
+    }
+  }
+}
+
+// SCROLLABLE SECTION
+.scrollable {
+  overflow-y: auto;
+  padding: 15px;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #8774c1;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #5744c1;
+    border-radius: 10px;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #555;
   }
   p {
-    margin-top: 7px;
+    height: 25px;
   }
 }
-
-.back {
-  position: absolute;
-  display: flex;
-  top: 5px;
-  font-weight: 700;
-  left: -10px;
-  i {
-    font-size: 70px;
-    color: #181818;
-  }
-}
-
-.c-di-t-st {
-  margin-top: 4px !important;
-  font-size: 12px;
+.c-di-t-sp,
+.c-di-t-ap {
+  display: inline-block;
   span {
-    color: #aaa;
+    margin-left: 10px;
+    font-weight: 600;
+    font-size: 0.9em;
   }
 }
-
-.c-di-t-li {
-  margin-top: 5px;
+a {
+  text-decoration: none;
+  color: #181818;
+}
+p {
+  margin-top: 7px;
 }
 
 .c-di-t-time {
   span {
     font-weight: 700;
   }
-}
 
-.span-station {
-  color: #9774f1;
-}
-.span-name {
-  color: #4876ef;
-}
-.span-time {
-  color: #8774c1;
-}
-
-.c-di-t-sp,
-.c-di-t-ap {
-  display: inline-block;
-  span {
-    padding: 5px 10px;
-    font-weight: 600;
+  .span-station, .span-name {
+    color: #4876ef;
   }
-}
-.c-di-t-rp,
-.c-di-t-cp,
-.c-di-t-gr {
-  width: 100%;
-  background-color: #9794d1;
-  padding: 10px;
-  border-radius: 5px;
-  text-align: center;
-  margin-top: 15px !important;
+
+  .span-time {
+    color: #8774c1;
+  }
   a {
-    color: #fff;
+    display: inline-block;
+  }
+  .route {
+    display: inline-block;
+    padding: 3px 5px 4px;
+    color: #FFF;
+    background: #3766f3;
+    font-size: 11px;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+    position: relative;
+    top: -2px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    &:hover {
+      background: #2054f3;
+    }
   }
 }
-
-.c-di-t-cp {
-  background-color: #181818;
-  color: #fff;
-}
-
-.c-di-t-gr {
-  background-color: #37aa56;
-}
-
 .c-di-t-jc {
   span {
-    margin-left: 10px;
+    margin-left: 3px;
     color: #8774c1;
     font-weight: 700;
+  }
+  a {
+    display: inline-block;
+    padding: 3px 5px 4px;
+    color: #FFF;
+    background: #806db8;
+    font-size: 11px;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+    position: relative;
+    top: -2px;
+    letter-spacing: 1px;
+    font-weight: 400;
+    &:hover {
+      background: #6e5e9e;
+    }
   }
 }
 

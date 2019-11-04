@@ -296,11 +296,11 @@ export default {
 .scrollable::-webkit-scrollbar {
   display: initial;
   width: 7px;
-  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 50px;
   -webkit-border-radius: 50px;
   &:hover {
-    background-color: rgba(0, 0, 0, 0.1);
+    box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
   }
 }
 .scrollable::-webkit-scrollbar-thumb:vertical {

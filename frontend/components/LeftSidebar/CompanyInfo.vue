@@ -5,6 +5,7 @@
       v-for="item in calData"
       :key="item.id + item.avg_salary"
       :to="`/company/${item.id}/`"
+      class="company-item"
     >
       <article @mouseenter="handleMouseEnter(item)" @mouseleave="setShowInfoWindow(false)">
         <p>
@@ -92,27 +93,31 @@ export default {
   width: 100%;
   border-radius: 2px;
   overflow: hidden;
-  a {
+  background: #FFF;
+  a.company-item {
     text-decoration: none;
+    display: inline-block;
+    width: 100%;
+    height: 90px;
+    background-color: #fff;
+    border-bottom: 1px solid #CCC;
+    &:last-child {
+      border: none;
+    }
+    &:hover {
+      background-color: #EEE;
+    }
   }
   article {
     display: flex;
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    height: 90px;
-    background-color: #fff;
+    height: 100%;
     padding: 5px 15px 5px 15px;
-    border-bottom: 1px solid #aaa !important;
     cursor: pointer;
-    &:hover {
-      background-color: #ddd;
-    }
     p {
       color: #181818;
-    }
-    &:last-child {
-      border: none;
     }
   }
 }
@@ -127,8 +132,9 @@ export default {
   font-size: 13px;
   background-color: rebeccapurple;
   color: #fff;
-  padding: 5px 10px;
-  border-radius: 3px;
+  padding: 4px 8px;
+  border-radius: 2px;
+  margin-left: 5px;
 }
 
 .company--info-link {

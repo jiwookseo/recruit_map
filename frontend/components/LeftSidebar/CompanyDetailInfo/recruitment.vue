@@ -63,13 +63,14 @@ export default {
   padding: 10px;
   margin-top: 20px;
   border-radius: 10px;
-  background-color: #f2f2f2;
+  background-color: #EAEAEA;
   h2 {
     text-align: center;
     font-size: 18px;
   }
   p {
     margin-top: 5px;
+    font-size: 14px;
     span {
       &:first-child {
         display: inline-block;
@@ -92,8 +93,8 @@ export default {
     }
   }
 }
-.rc-j {
-  color: #aaa;
+p.rc-j {
+  color: #999;
   font-size: 12px;
 }
 </style>
