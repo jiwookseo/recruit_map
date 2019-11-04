@@ -164,14 +164,21 @@ export default {
 .filter-items {
   width: 100%;
   display: flex;
+  box-sizing: border-box;
   justify-content: space-between;
   border-bottom: 1.5px solid #8774c1;
-  padding-top: 10px;
   background-color: #fff;
+  div {
+    padding-top: 10px;
+    &:hover {
+      background-color: #8774c1;
+    }
+  }
 }
 
 .filter-item {
-  width: 33%;
+  width: 33.333333333%;
+  box-sizing: border-box;
   text-align: center;
   padding-bottom: 10px;
   cursor: pointer;

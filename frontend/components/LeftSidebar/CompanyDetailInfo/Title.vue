@@ -26,11 +26,7 @@
       <span>{{ company.jobs_count }} 개</span>
     </p>
     <div v-if="company.jobs_count">
-      <Recruitment
-        v-for="(data, idx) in recruitments"
-        :key="data.open + idx"
-        :data="data"
-      />
+      <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
     </div>
     <p class="c-di-t-cp">
       <a target="_blank" :href="company.href">회사홈페이지 바로 가기</a>
@@ -121,6 +117,11 @@ export default {
           content: `${this.company.name} ${this.company.name}채용 ${this.company.name}연봉 ${this.company.name}거리`
         },
         {
+          hid: 'og:site_name',
+          property: 'og:site_name',
+          content: `${this.company.name} - 길잡이`
+        },
+        {
           hid: 'og:title',
           property: 'og:title',
           content: this.company.name
@@ -128,7 +129,7 @@ export default {
         {
           hid: 'og:description',
           name: 'og:description',
-          content: this.company.name
+          content: `${this.company.name}에 대한 취업 정보 및 지도와 연봉 정보가 담겨져 있습니다.`
         }
       ]
     }
