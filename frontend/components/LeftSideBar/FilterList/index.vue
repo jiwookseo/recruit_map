@@ -50,15 +50,17 @@
           <label :for="item.size">{{ item.name }}</label>
         </div>
       </div>
-      <input
+      <div v-show="menuController[3].active">
+        <input
         id="recruting"
         v-model="filterRecruiting"
         type="checkbox"
         value="recruting"
         :checked="filterRecruiting"
       />
-      <label for="recruting">현재 채용중인 공고만 보기</label>
-      <button @click="handleFilter">적용하기</button>
+        <label for="recruting">현재 채용중인 공고만 보기</label>
+        <button @click="handleFilter">적용하기</button>
+      </div>
     </div>
   </div>
 </template>
@@ -84,7 +86,8 @@ export default {
           id: 'm3',
           name: '규모',
           active: false
-        }
+        },
+        {active: false}
       ],
       filterSalary: 0,
       filterTime: 9999,
@@ -132,14 +135,24 @@ export default {
           v.jobs_count >= 1
         )
       })
+      console.log('data', data)
       this.setFilteredCompanies(data)
+      for (let i = 0; i < 4; i++) {
+        this.menuController[i].active = false
+      }
     },
     handleMenu(idx) {
-      for (let i = 0; i < 3; i++) {
-        if (i === idx) {
-          this.menuController[i].active = true
-        } else {
-          this.menuController[i].active = false
+      if (this.menuController[idx].active) {
+        this.menuController[3].active = false
+        this.menuController[idx].active = false
+      } else {
+        this.menuController[3].active = true
+        for (let i = 0; i < 3; i++) {
+          if (i === idx) {
+            this.menuController[i].active = true
+          } else {
+            this.menuController[i].active = false
+          }
         }
       }
     }
@@ -158,7 +171,23 @@ export default {
 .filter-items {
   width: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+}
+
+.filter-item {
+  width: 33%;
+  text-align: center;
+  padding-bottom: 10px;
+  cursor: pointer;
+  &:last-child {
+    width: 0;
+  }
+}
+
+.filter-detail {
+  div {
+    z-index: 10;
+  }
 }
 
 .filter-detail-size {
@@ -169,5 +198,9 @@ export default {
   label {
     display: inline-block;
   }
+}
+
+.filter-detail-salary {
+  height: 150px;
 }
 </style>

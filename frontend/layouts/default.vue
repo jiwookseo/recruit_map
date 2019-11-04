@@ -18,7 +18,7 @@
       @dragend="dragend"
     >
       <!-- @bounds_changed="bounds_changed" -->
-      <MapMarker v-for="m in markerCompaniesData" :key="m.id" :marker="m" />
+      <MapMarker v-for="m in this.getAllCompanies" :key="m.id" :marker="m" />
       <MapInfoWindow />
     </GmapMap>
     <LeftSidebar />
@@ -80,7 +80,8 @@ export default {
       return this.getLsMapZoom || 17
     },
     markerCompaniesData() {
-      return this.getFilteredCompanies || this.getAllCompanies
+      const data = this.getFilteredCompanies || this.getAllCompanies
+      return data
     }
   },
   created() {
