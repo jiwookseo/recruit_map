@@ -27,12 +27,10 @@
 <script>
 export default {
   props: {
-    data() {
-      return {
-        type: Object,
-        required: true,
-        default: {}
-      }
+    data: {
+      type: Object,
+      required: true,
+      default: {}
     }
   },
   computed: {
