@@ -1,25 +1,28 @@
 <template>
-  <div class="left--side-bar" :style="{ zIndex: getSearchShow ? 11 : 7}">
+  <div class="left--side-bar" :style="{ zIndex: getShowSearchbar ? 11 : 7 }">
     <InputDiv />
-    <CompanyInfo v-show="getDefaultMenu" />
-    <Recruit v-show="getDefaultMenu" />
+    <FilterList v-show="getShowDefaultMenu" />
+    <CompanyInfo v-show="getShowDefaultMenu" />
+    <Recruit v-show="getShowDefaultMenu" />
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import FilterList from './FilterList'
 import InputDiv from './InputDiv'
 import CompanyInfo from './CompanyInfo'
 import Recruit from './Recruit'
 export default {
-  name: 'LeftSideBar',
+  name: 'LeftSidebar',
   components: {
+    FilterList,
     InputDiv,
     CompanyInfo,
     Recruit
   },
   computed: {
-    ...mapGetters('leftSideBar', ['getDefaultMenu', 'getSearchShow'])
+    ...mapGetters('leftSidebar', ['getShowSearchbar', 'getShowDefaultMenu'])
   }
 }
 </script>
@@ -28,12 +31,12 @@ export default {
 .left--side-bar {
   display: flex;
   flex-direction: column;
-  width: 380px;
-  height: 300px;
+  width: 360px;
+  height: calc(100vh - 20px);
   position: absolute;
   top: 10px;
   left: 10px;
   z-index: 7;
-  border-radius: 4px;
+  // overflow: hidden;
 }
 </style>

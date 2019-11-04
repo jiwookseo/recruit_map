@@ -5,7 +5,7 @@
       v-for="item in calData"
       :key="item.id + item.avg_salary"
       @mouseenter="handleMouseEnter(item)"
-      @mouseleave="setOpen(false)"
+      @mouseleave="setShowInfoWindow(false)"
     >
       <p>
         <nuxt-link :to="`/company/${item.id}/`">
@@ -13,10 +13,12 @@
         </nuxt-link>
         <span class="company-info-salary">
           {{
-          item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
+            item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
           }}
         </span>
-        <a target="_blank" class="company--info-link" :href="item.saramin_url">채용링크</a>
+        <a target="_blank" class="company--info-link" :href="item.saramin_url">
+          채용링크
+        </a>
       </p>
       <p class="company--info-sub">{{ item.address }}</p>
     </article>
@@ -59,20 +61,20 @@ export default {
   methods: {
     ...mapMutations('company', ['setHoveredCompany', 'setSelectedCompany']),
     ...mapMutations('infoWindow', [
-      'setPosition',
-      'setOptionsContent',
-      'setOpen'
+      'setInfoWindowPosition',
+      'setInfoWindowOptionsContent',
+      'setShowInfoWindow'
     ]),
     handleMouseEnter(payload) {
       this.setHoveredCompany(payload)
-      this.setPosition({ lat: payload.lat, lng: payload.lng })
-      this.setOptionsContent({
+      this.setInfoWindowPosition({ lat: payload.lat, lng: payload.lng })
+      this.setInfoWindowOptionsContent({
         name: payload.name,
         time: payload.transitTime,
         salary: payload.avg_salary,
         jobs: payload.jobs_count
       })
-      this.setOpen(true)
+      this.setShowInfoWindow(true)
     }
   }
 }
@@ -81,26 +83,30 @@ export default {
 <style lang="scss" scoped>
 .company--info-div {
   position: absolute;
-  top: 70px;
+  top: 120px;
   width: 100%;
+  border-radius: 2px;
+  overflow: hidden;
   article {
     display: flex;
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    width: 95%;
     height: 90px;
     background-color: #fff;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
     padding: 5px 15px 5px 15px;
     cursor: pointer;
     &:hover {
-      background-color: #aaa;
+      background-color: #ddd;
     }
     p {
       a:first-child {
         color: #181818;
       }
+    }
+    &:last-child {
+      border: none;
     }
   }
 }
@@ -112,24 +118,28 @@ export default {
 
 .company-info-salary {
   display: inline-block;
-  font-size: 14px;
+  font-size: 13px;
   background-color: rebeccapurple;
   color: #fff;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 3px;
 }
 
 .company--info-link {
   display: inline-block;
-  font-size: 14px;
+  font-size: 13px;
   background-color: #18186f;
   color: #fff;
   padding: 5px 10px;
-  border-radius: 5px;
+  border-radius: 3px;
   text-decoration: none;
 }
 
 .company--info-sub {
   font-size: 14px;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 </style>

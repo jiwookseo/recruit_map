@@ -1,36 +1,31 @@
 <template>
   <div class="outer">
-    출발지를 <strong>{{getDepartureStationName}}역</strong>으로 변경했습니다!
+    출발지를
+    <strong>{{ getDepartureStationName }}역</strong>
+    으로 변경했습니다!
   </div>
 </template>
-
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 export default {
-  name: "StationAlert",
+  name: 'StationAlert',
   computed: {
-    ...mapGetters('localStorage', ['getDepartureStationName']),
-    // ...mapGetters('station', [
-    //   'getDepartureStationName',
-    // ]),
-  },
-  methods: {
-    ...mapMutations('station', [
-      'setShowStationAlert',
-    ]),
-    closeAlert() {
-      this.setShowStationAlert(false);
-    }
+    ...mapGetters('localStorage', ['getDepartureStationName'])
   },
   created() {
     setTimeout(() => {
-      this.closeAlert();
-    }, 5000);
+      this.closeAlert()
+    }, 5000)
+  },
+  methods: {
+    ...mapMutations('station', ['setShowStationAlert']),
+    closeAlert() {
+      this.setShowStationAlert(false)
+    }
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 .outer {

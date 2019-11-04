@@ -1,6 +1,7 @@
 import api from '../api/job'
 
 export const state = () => ({
+  // all open job positions of the selected company displayed in left sidebar
   jobData: []
 })
 

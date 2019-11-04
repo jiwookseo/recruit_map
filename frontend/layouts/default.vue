@@ -2,7 +2,7 @@
   <div id="Default">
     <GmapMap
       ref="map"
-      :center="{ lat: getDetailLat || getLsMapCenterLat, lng: getDetailLng || getLsMapCenterLng }"
+      :center="{ lat: getTargetCenterLat || getLastCenterLat, lng: getTargetCenterLng || getLastCenterLng }"
       :zoom="currentZoom"
       map-type-id="roadmap"
       style="width: 100%; height: 100vh;"
@@ -18,7 +18,7 @@
       <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
       <MapInfoWindow />
     </GmapMap>
-    <LeftSideBar />
+    <LeftSidebar />
     <StationButton />
     <transition name="stationMenu">
       <StationMenu v-if="getShowStationMenu" />
@@ -32,17 +32,17 @@
 
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex'
-import MapMarker from '~/components/MapMarker.vue'
-import MapInfoWindow from '~/components/MapInfoWindow.vue'
-import LeftSideBar from '~/components/LeftSideBar'
-import StationButton from '~/components/StationButton.vue'
-import StationMenu from '~/components/StationMenu.vue'
-import StationAlert from '~/components/StationAlert.vue'
+import MapMarker from '~/components/Map/MapMarker.vue'
+import MapInfoWindow from '~/components/Map/MapInfoWindow.vue'
+import LeftSidebar from '~/components/LeftSidebar'
+import StationButton from '~/components/Station/StationButton.vue'
+import StationMenu from '~/components/Station/StationMenu.vue'
+import StationAlert from '~/components/Station/StationAlert.vue'
 export default {
   components: {
     MapMarker,
     MapInfoWindow,
-    LeftSideBar,
+    LeftSidebar,
     StationButton,
     StationMenu,
     StationAlert
@@ -56,26 +56,40 @@ export default {
     ...mapGetters('company', ['getAllCompanies']),
     ...mapGetters('localStorage', [
       'getDepartureStationID',
-      'getLsMapCenterLat',
-      'getLsMapCenterLng',
-      'getLsMapZoom',
+      'getLastCenterLat',
+      'getLastCenterLng',
+      'getLastZoom',
+      'getFilteredCompanies'
     ]),
     ...mapGetters('station', [
-      // 'getDepartureStationID',
       'getRoutesFromStation',
       'getAllStations',
       'getShowStationAlert',
       'getShowStationMenu'
     ]),
     ...mapGetters('maps', [
-      'getCenterLat',
-      'getCenterLng',
-      'getDetailLat',
-      'getDetailLng'
+      'getRealtimeCenterLat',
+      'getRealtimeCenterLng',
+      'getTargetCenterLat',
+      'getTargetCenterLng'
     ]),
     currentZoom() {
-      return this.getLsMapZoom || 17
+      return this.getLastZoom || 17
+    },
+    markerCompaniesData() {
+      let data = this.getFilteredCompanies ? this.getFilteredCompanies : this.getAllCompanies;
+      return data;
     }
+  },
+  created() {
+    const stationID = this.getDepartureStationID
+    this.setAsyncAllStations()
+    this.setAsyncRoutesFromStation({
+      v: stationID,
+      cb: this.setAsyncAllCompanies
+    })
+    this.setCenterLat(this.getLsMapCenterLat)
+    this.setCenterLng(this.getLsMapCenterLng)
   },
   methods: {
     ...mapActions('station', [
@@ -86,30 +100,29 @@ export default {
     ...mapMutations('company', ['setAllCompanies']),
     ...mapMutations('localStorage', [
       'setDepartureStationID',
-      'setLsMapCenterLat',
-      'setLsMapCenterLng',
-      'setLsMapZoom',
+      'setLastCenterLat',
+      'setLastCenterLng',
+      'setLastZoom',
     ]),
     ...mapMutations('station', [
-      // 'setDepartureStationID',
       'setRoutesFromStation',
       'setAllStations',
       'setShowStationMenu'
     ]),
-    ...mapMutations('maps', ['setCenterLat', 'setCenterLng']),
+    ...mapMutations('maps', ['setRealtimeCenterLat', 'setRealtimeCenterLng']),
     center_changed() {
       let gMap = this.$refs.map
-      this.setCenterLat(gMap.$mapObject.center.lat())
-      this.setCenterLng(gMap.$mapObject.center.lng())
+      this.setRealtimeCenterLat(gMap.$mapObject.center.lat())
+      this.setRealtimeCenterLng(gMap.$mapObject.center.lng())
     },
     zoom_changed() {
       let gMap = this.$refs.map
-      this.setLsMapZoom(gMap.$mapObject.zoom)
+      this.setLastZoom(gMap.$mapObject.zoom)
     },
     dragend() {
       let gMap = this.$refs.map
-      this.setLsMapCenterLat(gMap.$mapObject.center.lat())
-      this.setLsMapCenterLng(gMap.$mapObject.center.lng())
+      this.setLastCenterLat(gMap.$mapObject.center.lat())
+      this.setLastCenterLng(gMap.$mapObject.center.lng())
     }
     // bounds_changed() {
     //   console.log('BoundsChanged')
@@ -122,16 +135,14 @@ export default {
     // }
   },
   created() {
-    // TODO: Check local storage to see if departure station has been previously set
-    // const stationID = this.getDepartureStationID || 961
     const stationID = this.getDepartureStationID
     this.setAsyncAllStations()
     this.setAsyncRoutesFromStation({
       v: stationID,
       cb: this.setAsyncAllCompanies
     })
-    this.setCenterLat(this.getLsMapCenterLat)
-    this.setCenterLng(this.getLsMapCenterLng)
+    this.setRealtimeCenterLat(this.getLastCenterLat)
+    this.setRealtimeCenterLng(this.getLastCenterLng)
   }
 }
 </script>

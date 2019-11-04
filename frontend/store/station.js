@@ -1,8 +1,7 @@
 import api from '../api/station'
 
 export const state = () => ({
-  departureStationID: 961, // starting point
-  departureStationName: '역삼',
+  // departure station related states are stored in localStorage.js
   routesFromStation: [], // transit time info from specified station
   allStations: [],
   showStationMenu: false,
@@ -10,8 +9,6 @@ export const state = () => ({
 })
 
 export const getters = {
-  getDepartureStationID: (state) => state.departureStationID,
-  getDepartureStationName: (state) => state.departureStationName,
   getRoutesFromStation: (state) => state.routesFromStation,
   getAllStations: (state) => state.allStations,
   getShowStationMenu: (state) => state.showStationMenu,
@@ -19,12 +16,6 @@ export const getters = {
 }
 
 export const mutations = {
-  setDepartureStationID: (state, payload) => {
-    state.departureStationID = payload
-  },
-  setDepartureStationName: (state, payload) => {
-    state.departureStationName = payload
-  },
   setRoutesFromStation: (state, payload) => {
     state.routesFromStation = payload
   },
@@ -39,12 +30,6 @@ export const mutations = {
   }
 }
 export const actions = {
-  setAsyncDepartureStationID({ commit }, payload) {
-    commit('setDepartureStationID', payload)
-  },
-  setAsyncDepartureStationName({ commit }, payload) {
-    commit('setDepartureStationName', payload)
-  },
   async setAsyncRoutesFromStation({ commit, state }, payload) {
     const res = await api.getStationRoutes(payload.v)
     commit('setRoutesFromStation', res.data.results)
@@ -53,8 +38,5 @@ export const actions = {
   async setAsyncAllStations({ commit }, payload) {
     const res = await api.getAllStation()
     commit('setAllStations', res.data)
-  },
-  setShowStationMenu({ commit }, payload) {
-    commit('setShowStationMenu', payload)
   }
 }

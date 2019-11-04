@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import api from '../../../api/company.js'
 import Title from './Title'
 export default {
   name: 'CompanyDetailInfo',

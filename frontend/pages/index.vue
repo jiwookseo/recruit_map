@@ -5,8 +5,8 @@
 <script>
 export default {
   components: {},
-  created() {
-    this.$store.commit('leftSideBar/setDefaultMenu', true)
+  mounted() {
+    this.$store.commit('leftSidebar/setShowDefaultMenu', true)
   }
 }
 </script>
