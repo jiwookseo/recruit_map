@@ -10,7 +10,7 @@ import json
 
 def load_data(key, page):
     path = "saramin/{}-{}.json".format(
-        datetime.now().strftime("%y%m%d"), page)
+        datetime.now().strftime("%y%m%d%H"), page)
     if os.path.isfile(path):
         with open(path, encoding='UTF8') as f:
             res = json.load(f)
