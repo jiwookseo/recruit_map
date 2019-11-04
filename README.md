@@ -105,10 +105,8 @@ Search engine optimized SSR / SPA with Nuxt.js
         git clone https://github.com/jiwookseo/gil-job-e.git
        ```
 
-   or
+   - or [Download ZIP](https://github.com/jiwookseo/gil-job-e/archive/develop.zip)
 
-   - [Download ZIP](https://github.com/jiwookseo/gil-job-e/archive/develop.zip)
-   
    &nbsp;
    
 2. Settings
