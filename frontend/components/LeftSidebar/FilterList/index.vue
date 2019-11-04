@@ -10,7 +10,7 @@
         <span>{{ menuItem.name }}</span>
       </div>
     </div>
-    <div class="filter-detail" v-show="menuController[3].active">
+    <div v-show="menuController[3].active" class="filter-detail">
       <div v-show="menuController[0].active" class="filter-detail-salary">
         <input v-model="filterSalary" type="range" min="0" max="6000" value="0" step="100" />
         <p>{{ filterSalary }} 만원</p>
@@ -130,7 +130,6 @@ export default {
           )
         })
       }
-      console.log('data', data)
       this.setFilteredCompanies(data)
       for (let i = 0; i < 4; i++) {
         this.menuController[i].active = false

@@ -3,14 +3,17 @@
     <client-only>
       <GmapMap
         ref="map"
-        :center="{ lat: getTargetCenterLat || getLastCenterLat, lng: getTargetCenterLng || getLastCenterLng }"
+        :center="{
+          lat: getTargetCenterLat || getLastCenterLat,
+          lng: getTargetCenterLng || getLastCenterLng
+        }"
         :zoom="currentZoom"
         map-type-id="roadmap"
         style="width: 100%; height: 100vh;"
         :options="{
-        streetViewControl: false,
-        fullscreenControl: false
-      }"
+          streetViewControl: false,
+          fullscreenControl: false
+        }"
         @center_changed="center_changed"
         @zoom_changed="zoom_changed"
         @dragend="dragend"
@@ -80,7 +83,7 @@ export default {
       return this.getLastZoom || 17
     },
     markerCompaniesData() {
-      let data =
+      const data =
         this.getFilteredCompanies.length >= 1
           ? this.getFilteredCompanies
           : this.getAllCompanies
@@ -117,16 +120,16 @@ export default {
     ]),
     ...mapMutations('maps', ['setRealtimeCenterLat', 'setRealtimeCenterLng']),
     center_changed() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setRealtimeCenterLat(gMap.$mapObject.center.lat())
       this.setRealtimeCenterLng(gMap.$mapObject.center.lng())
     },
     zoom_changed() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setLastZoom(gMap.$mapObject.zoom)
     },
     dragend() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setLastCenterLat(gMap.$mapObject.center.lat())
       this.setLastCenterLng(gMap.$mapObject.center.lng())
     }

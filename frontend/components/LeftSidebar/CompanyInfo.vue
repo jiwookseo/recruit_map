@@ -6,12 +6,15 @@
       :key="item.id + item.avg_salary"
       :to="`/company/${item.id}/`"
     >
-      <article @mouseenter="handleMouseEnter(item)" @mouseleave="setShowInfoWindow(false)">
+      <article
+        @mouseenter="handleMouseEnter(item)"
+        @mouseleave="setShowInfoWindow(false)"
+      >
         <p>
           <span class="company-info-name">{{ item.name }}</span>
           <span class="company-info-salary">
             {{
-            item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
+              item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
             }}
           </span>
         </p>
