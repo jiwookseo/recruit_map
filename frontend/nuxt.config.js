@@ -34,6 +34,11 @@ export default {
         content: 'NoNameD'
       },
       {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: `길잡이`
+      },
+      {
         hid: 'og:title',
         name: 'og:title',
         content: '길잡이'
@@ -53,7 +58,7 @@ export default {
       {
         rel: 'icon',
         type: 'image/x-icon',
-        href: 'favicon.ico'
+        href: '/favicon.ico'
       },
       {
         rel: 'stylesheet',

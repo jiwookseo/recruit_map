@@ -103,7 +103,7 @@ export default {
     height: 90px;
     background-color: #fff;
     padding: 5px 15px 5px 15px;
-    border-bottom: 1px solid #aaa;
+    border-bottom: 1px solid #aaa !important;
     cursor: pointer;
     &:hover {
       background-color: #ddd;
