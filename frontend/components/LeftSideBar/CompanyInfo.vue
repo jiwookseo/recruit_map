@@ -13,10 +13,12 @@
         </nuxt-link>
         <span class="company-info-salary">
           {{
-          item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
+            item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
           }}
         </span>
-        <a target="_blank" class="company--info-link" :href="item.saramin_url">채용링크</a>
+        <a target="_blank" class="company--info-link" :href="item.saramin_url">
+          채용링크
+        </a>
       </p>
       <p class="company--info-sub">{{ item.address }}</p>
     </article>
@@ -81,7 +83,7 @@ export default {
 <style lang="scss" scoped>
 .company--info-div {
   position: absolute;
-  top: 70px;
+  top: 120px;
   width: 100%;
   border-radius: 2px;
   overflow: hidden;

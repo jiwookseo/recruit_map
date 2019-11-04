@@ -12,6 +12,7 @@ export default {
   },
   created() {
     this.$store.commit('leftSidebar/setShowDefaultMenu', false)
+    this.$store.commit('leftSidebar/setShowSearchbar', false)
   }
 }
 </script>

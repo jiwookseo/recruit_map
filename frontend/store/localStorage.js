@@ -12,9 +12,15 @@ export const state = () => ({
     // 초기 위도/경도 값은 멀티캠퍼스 위치임
   lastCenterLat: 37.5012,
   lastCenterLng: 127.0396,
-  lastZoom: 0
+  lastZoom: 0,
+  filteredCompanies: [],
+  filterList: {
+    time: '',
+    salary: '',
+    size: [],
+    recruiting: false
+  }
 })
-
 
 export const getters = {
   getDepartureStationID: (state) => state.departureStationID,
@@ -22,6 +28,8 @@ export const getters = {
   getLastCenterLat: (state) => state.lastCenterLat,
   getLastCenterLng: (state) => state.lastCenterLng,
   getLastZoom: (state) => state.lastZoom,
+  getFilterList: (state) => state.filterList,
+  getFilteredCompanies: (state) => state.filteredCompanies
 }
 
 export const mutations = {
@@ -40,4 +48,10 @@ export const mutations = {
   setLastZoom: (state, payload) => {
     state.lastZoom = payload
   },
+  setFilterList: (state, payload) => {
+    state.filterList = payload
+  },
+  setFilteredCompanies: (state, payload) => {
+    state.filteredCompanies = payload
+  }
 }

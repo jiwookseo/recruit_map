@@ -27,19 +27,21 @@
 <script>
 export default {
   props: {
-    data: {
-      type: Object,
-      required: true,
-      default: {}
+    data() {
+      return {
+        type: Object,
+        required: true,
+        default: {}
+      }
     }
   },
   computed: {
     workExperience() {
       if (this.data.exp_max !== 0 && this.data.exp_min !== 0) {
         return `${this.data.exp_min}년 ~ ${this.data.exp_max}년`
-      } else if (this.data.exp_min == 0 && this.data.exp_max) {
+      } else if (this.data.exp_min === 0 && this.data.exp_max) {
         return `~ ${this.data.exp_max}년`
-      } else if (this.data.exp_min && this.data.exp_max == 0) {
+      } else if (this.data.exp_min && this.data.exp_max === 0) {
         return `${this.data.exp_min}년 이상`
       } else {
         return '경력 무관'

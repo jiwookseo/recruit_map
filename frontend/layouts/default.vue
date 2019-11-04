@@ -59,6 +59,7 @@ export default {
       'getLastCenterLat',
       'getLastCenterLng',
       'getLastZoom',
+      'getFilteredCompanies'
     ]),
     ...mapGetters('station', [
       'getRoutesFromStation',
@@ -74,7 +75,21 @@ export default {
     ]),
     currentZoom() {
       return this.getLastZoom || 17
+    },
+    markerCompaniesData() {
+      let data = this.getFilteredCompanies ? this.getFilteredCompanies : this.getAllCompanies;
+      return data;
     }
+  },
+  created() {
+    const stationID = this.getDepartureStationID
+    this.setAsyncAllStations()
+    this.setAsyncRoutesFromStation({
+      v: stationID,
+      cb: this.setAsyncAllCompanies
+    })
+    this.setCenterLat(this.getLsMapCenterLat)
+    this.setCenterLng(this.getLsMapCenterLng)
   },
   methods: {
     ...mapActions('station', [

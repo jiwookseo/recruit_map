@@ -56,15 +56,13 @@ export default {
         } else {
           url = 'close.png'
         }
+      } else if (this.marker.avg_salary >= 5000) {
+        url = 'default_c2.png'
+      } else if (this.marker.avg_salary >= 4000) {
+        url = 'default_c1.png'
       } else {
-        if (this.marker.avg_salary >= 5000) {
-          url = 'default_c2.png'
-        } else if (this.marker.avg_salary >= 4000) {
-          url = 'default_c1.png'
-        } else {
-          url = 'default.png'
-        }
-      } 
+        url = 'default.png'
+      }
 
       return url
     },

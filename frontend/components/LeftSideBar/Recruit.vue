@@ -4,7 +4,7 @@
     Button Slider로 하면 좋을거 같음 + 구현 후 자동으로 슬라이딩 되는 것 까지-->
     <div class="ad" v-for="ad in ads" :key="ad.id">
       <a :href="ad.url" target="_blank">
-        <article :style="{backgroundImage: `url(${imgUrl(ad.img)})`}" />
+        <article :style="{ backgroundImage: `url(${imgUrl(ad.img)})` }" />
       </a>
     </div>
     <div class="btnContainer left">
