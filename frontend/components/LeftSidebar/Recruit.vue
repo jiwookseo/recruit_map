@@ -41,28 +41,28 @@ export default {
           type: 'link',
           name: 'SSAFY 3기 모집',
           url: 'https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp',
-          img: 's3.png'
+          img: 'ad-s3.png'
         },
         {
           id: 2,
           type: 'button',
-          name: 'add',
+          name: 'About Us',
           action: 'openAboutUs',
-          img: 'ad.png'
+          img: 'ad-aboutus.png'
         },
         {
           id: 3,
           type: 'link',
-          name: 'ssafy',
-          url: 'https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp',
-          img: 'closest_c2.png'
+          name: 'HogangNono',
+          url: 'https://hogangnono.com/',
+          img: 'ad-hogang.png'
         },
         {
           id: 4,
           type: 'button',
-          name: 'add',
-          action: 'jiwonjulietyoon@gmail.com',
-          img: 'close_c1.png'
+          name: '광고문의',
+          action: '',
+          img: 'ad.png'
         }
       ]
     }
@@ -125,11 +125,11 @@ export default {
           )
       }
       function right() {
-        adSlide(i % count, '100%', (i + 1) % count, '-100%')
+        adSlide(i % count, '-100%', (i + 1) % count, '100%')
         i++
       }
       function left() {
-        adSlide(i % count, '-100%', (i - 1) % count, '100%')
+        adSlide(i % count, '100%', (i - 1) % count, '-100%')
         i--
       }
       function start() {
@@ -178,6 +178,7 @@ export default {
     position: absolute;
     top: 0;
     left: -100%;
+    cursor: pointer;
   }
   a,
   article {
