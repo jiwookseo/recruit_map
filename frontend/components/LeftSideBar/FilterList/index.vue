@@ -10,36 +10,18 @@
         <span>{{ menuItem.name }}</span>
       </div>
     </div>
-    <div class="filter-detail">
+    <div class="filter-detail" v-show="menuController[3].active">
       <div v-show="menuController[0].active" class="filter-detail-salary">
-        <input
-          v-model="filterSalary"
-          type="range"
-          min="0"
-          max="6000"
-          value="0"
-          step="100"
-        />
-        <p>{{ filterSalary }}</p>
+        <input v-model="filterSalary" type="range" min="0" max="6000" value="0" step="100" />
+        <p>{{ filterSalary }} 만원</p>
       </div>
       <div v-show="menuController[1].active" class="filter-detail-time">
-        <input
-          v-model="filterTime"
-          type="range"
-          min="15"
-          max="90"
-          value="15"
-          step="15"
-        />
-        <p>{{ filterTime >= 90 ? '90분 이상' : filterTime }}</p>
+        <input v-model="filterTime" type="range" min="15" max="90" value="15" step="15" />
+        <p>{{ filterTime >= 90 ? '90분 이상' : filterTime + '분 이내' }}</p>
       </div>
       <div v-show="menuController[2].active" class="filter-detail-size">
         <!-- { major: '대기업', affiliate:'대기업 계열사·자회사', venture: '벤처기업', midSize: '중견기업', smallSize:'중소기업'}  -->
-        <div
-          v-for="(item, idx) in filterSize"
-          :key="item.id"
-          class="filter-detail-size-item"
-        >
+        <div v-for="(item, idx) in filterSize" :key="item.id" class="filter-detail-size-item">
           <input
             :id="item.size"
             v-model="filterSize[idx].active"
@@ -50,15 +32,17 @@
           <label :for="item.size">{{ item.name }}</label>
         </div>
       </div>
-      <div v-show="menuController[3].active">
-        <input
-        id="recruiting"
-        v-model="filterRecruiting"
-        type="checkbox"
-        value="recruiting"
-        :checked="filterRecruiting"
-      />
-        <label for="recruiting">현재 채용중인 공고만 보기</label>
+      <div v-show="menuController[3].active" class="filter-bottom">
+        <div class="filter-recruiting">
+          <input
+            id="recruiting"
+            v-model="filterRecruiting"
+            type="checkbox"
+            value="recruiting"
+            :checked="filterRecruiting"
+          />
+          <label for="recruiting">현재 채용중인 공고만 보기</label>
+        </div>
         <button @click="handleFilter">적용하기</button>
       </div>
     </div>
@@ -87,7 +71,7 @@ export default {
           name: '규모',
           active: false
         },
-        {active: false}
+        { active: false }
       ],
       filterSalary: 0,
       filterTime: 9999,
@@ -162,16 +146,18 @@ export default {
 
 <style lang="scss" scoped>
 .filter-list {
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  padding-top: 10px;
+  border-top: 1px solid #8774c1;
 }
 .filter-items {
   width: 100%;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1.5px solid #8774c1;
+  padding-top: 10px;
+  background-color: #fff;
 }
 
 .filter-item {
@@ -185,23 +171,152 @@ export default {
 }
 
 .filter-detail {
+  z-index: 18;
+  border-radius: 0 0 10px 10px;
+  padding-bottom: 10px;
+  background-color: #fff;
+  border-bottom: 1.5px solid #8774c1;
   div {
-    z-index: 10;
-    position: float;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 18;
+    background-color: #fff;
+    p {
+      min-width: 70px;
+      max-width: 70px;
+    }
   }
 }
 
 .filter-detail-size {
   display: flex;
-  height: 200px;
   flex-direction: column;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  padding: 10px;
+  div + div {
+    margin-top: 10px;
+  }
+  input + label {
+    margin-left: 10px;
+  }
+  input {
+    margin-top: 5px;
+  }
   input,
   label {
     display: inline-block;
   }
 }
 
-.filter-detail-salary {
-  height: 150px;
+.filter-recruiting {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.filter-bottom {
+  display: flex;
+  flex-direction: column;
+  button {
+    margin-top: 15px;
+    background-color: #8774c1;
+    border-radius: 5px;
+    padding: 8px 15px;
+    color: #fff;
+  }
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  margin: 18px;
+  width: 60%;
+}
+input[type='range']:focus {
+  outline: none;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  width: 60%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #8774c1;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type='range']::-webkit-slider-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -4px;
+}
+input[type='range']:focus::-webkit-slider-runnable-track {
+  background: #8774c1;
+}
+input[type='range']::-moz-range-track {
+  width: 60%;
+  height: 8.4px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #8774c1;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type='range']::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 3px;
+  margin-top: -4px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type='range']::-ms-track {
+  width: 60%;
+  height: 8.4px;
+  padding-top: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type='range']::-ms-fill-lower {
+  background: #8774c1;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type='range']::-ms-fill-upper {
+  background: #8774c1;
+  border: 0.2px solid #010101;
+  border-radius: 2.6px;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+}
+input[type='range']::-ms-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 16px;
+  width: 16px;
+  border-radius: 3px;
+  margin-top: -4px;
+  background: #ffffff;
+  cursor: pointer;
+}
+input[type='range']:focus::-ms-fill-lower {
+  background: #8774c1;
+}
+input[type='range']:focus::-ms-fill-upper {
+  background: #8774c1;
 }
 </style>
