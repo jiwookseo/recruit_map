@@ -111,14 +111,25 @@ export default {
       }
       this.setFilterList(filterData)
       const companyData = this.getAllCompanies
-      const data = companyData.filter((v) => {
-        return (
-          v.start_salary >= filterData.salary &&
-          v.transitTime <= filterData.time &&
-          filterData.size.includes(v.scale) &&
-          v.jobs_count >= 1
-        )
-      })
+      let data = []
+      if (filterData.recruiting) {
+        data = companyData.filter((v) => {
+          return (
+            v.start_salary >= filterData.salary &&
+            v.transitTime <= filterData.time &&
+            filterData.size.includes(v.scale) &&
+            v.jobs_count >= 1
+          )
+        })
+      } else {
+        data = companyData.filter((v) => {
+          return (
+            v.start_salary >= filterData.salary &&
+            v.transitTime <= filterData.time &&
+            filterData.size.includes(v.scale)
+          )
+        })
+      }
       console.log('data', data)
       this.setFilteredCompanies(data)
       for (let i = 0; i < 4; i++) {

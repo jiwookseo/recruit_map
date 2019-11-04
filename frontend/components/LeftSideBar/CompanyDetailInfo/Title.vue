@@ -23,14 +23,10 @@
     </p>
     <p class="c-di-t-jc">
       현재 진행중인 채용 공고 개수
-      <span>{{ company.jobs_count }}</span>
+      <span>{{ company.jobs_count }} 개</span>
     </p>
     <div v-if="company.jobs_count">
-      <Recruitment
-        v-for="(data, idx) in recruitments"
-        :key="data.open + idx"
-        :data="data"
-      />
+      <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
     </div>
     <p class="c-di-t-cp">
       <a target="_blank" :href="company.href">회사홈페이지 바로 가기</a>
@@ -53,7 +49,6 @@
         <i class="material-icons-round">arrow_left_alt</i>
       </nuxt-link>
     </div>
-    <!-- 추가적으로 해야 할 것 ! company/:pk/jobs -->
   </div>
 </template>
 
@@ -217,6 +212,7 @@ export default {
   padding: 10px;
   border-radius: 5px;
   text-align: center;
+  margin-top: 15px !important;
   a {
     color: #fff;
   }
@@ -233,14 +229,15 @@ export default {
 
 .c-di-t-jc {
   span {
+    margin-left: 10px;
+    font-size: 18px;
     color: #8774c1;
-    font-size: 20px;
-    font-weight: 550;
+    font-weight: 700;
   }
 }
 
 .saramin {
-  width: 35%;
+  width: 100%;
   color: #bbb;
   padding: 5px;
   text-align: center;
