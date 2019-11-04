@@ -3,16 +3,15 @@
     <div class="fixed">
       <h1 class="c-name">
         {{ company.name || '이름' }}
-        <span>{{ company.scale }}</span>
         <a target="_blank" :href="company.href">홈페이지</a>
       </h1>
       <p class="c-di-t-st">
         <span>{{ company.ind_name }}</span>
+        <span>{{ company.scale }}</span>
       </p>
+      <!-- @HOTFIX i  -->
       <div class="back">
-        <nuxt-link to="/">
-          <i class="material-icons-round">arrow_left_alt</i>
-        </nuxt-link>
+        <i class="material-icons-round" @click.stop="goBack">arrow_left_alt</i>
       </div>
     </div>
     <div class="scrollable">
@@ -24,13 +23,12 @@
         직원 평균
         <span>{{ as }}</span>
       </p>
+      <!-- @HOTFIX: line break -->
       <p class="c-di-t-time">
         <span class="span-station">{{ station }}역</span>
         에서
         <span class="span-name">{{ company.name }}</span>
-        까지 약
-        <span class="span-time">{{ transitTime }}</span>
-        분 예상
+        까지<br /> 약 <span class="span-time">{{ transitTime }}</span> 분 예상
         <a target="_blank" :href="googleRouteLink">
           <span class="route">길찾기</span>
         </a>
@@ -102,6 +100,11 @@ export default {
         : '회사내규에 따름'
     }
   },
+  methods: {
+    goBack(){
+      this.$router.push('/')
+    }
+  },
   head() {
     return {
       title: this.company.name,
@@ -157,16 +160,6 @@ export default {
     padding-left: 30px;
     font-weight: 700;
     display: inline-block;
-    span {
-      margin-left: 5px;
-      background-color: rebeccapurple;
-      color: #fff;
-      padding: 3px 5px 4px;
-      border-radius: 15px;
-      font-size: 10px;
-      position: relative;
-      top: -4px;
-    }
     a {
       background-color: #99abab;
       color: #fff;
@@ -184,6 +177,16 @@ export default {
     font-size: 12px;
     span {
       color: #aaa;
+      &:nth-child(2) {
+        margin-left: 5px;
+        background-color: rebeccapurple;
+        color: #fff;
+        padding: 3px 5px 4px;
+        border-radius: 15px;
+        font-size: 10px;
+        position: relative;
+        top: -4px;
+      }
     }
   }
   .back {
@@ -199,8 +202,11 @@ export default {
       display: inline-block;
     }
     i {
+      max-width: 50px;
+      max-height: 50px;
       font-size: 70px;
       color: #181818;
+      cursor: pointer;
     }
   }
 }
@@ -226,12 +232,11 @@ export default {
     background: #555;
   }
   p {
-    height: 25px;
+    min-height: 25px;
   }
 }
 .c-di-t-sp,
 .c-di-t-ap {
-  display: inline-block;
   span {
     margin-left: 10px;
     font-weight: 600;
@@ -251,13 +256,10 @@ p {
     font-weight: 700;
   }
 
-  .span-station, .span-name {
+  .span-station, .span-name, .span-time {
     color: #4876ef;
   }
 
-  .span-time {
-    color: #8774c1;
-  }
   a {
     display: inline-block;
   }
