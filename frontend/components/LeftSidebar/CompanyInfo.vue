@@ -6,15 +6,12 @@
       :key="item.id + item.avg_salary"
       :to="`/company/${item.id}/`"
     >
-      <article
-        @mouseenter="handleMouseEnter(item)"
-        @mouseleave="setShowInfoWindow(false)"
-      >
+      <article @mouseenter="handleMouseEnter(item)" @mouseleave="setShowInfoWindow(false)">
         <p>
           <span class="company-info-name">{{ item.name }}</span>
           <span class="company-info-salary">
             {{
-              item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
+            item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
             }}
           </span>
         </p>
@@ -39,12 +36,21 @@ export default {
       'getSelectedCompany',
       'getAllCompanies'
     ]),
+    ...mapGetters('localStorage', ['getFilteredCompanies']),
     ...mapGetters('maps', ['getLatLng']),
     companiesData() {
-      return this.getAllCompanies.slice(0, 5)
+      const data =
+        this.getFilteredCompanies.length >= 1
+          ? this.getFilteredCompanies
+          : this.getAllCompanies
+      return data.slice(0, 5)
     },
     calData() {
-      const companyArray = this.getAllCompanies.filter(
+      const data =
+        this.getFilteredCompanies.length >= 1
+          ? this.getFilteredCompanies
+          : this.getAllCompanies
+      const companyArray = data.filter(
         (v) =>
           v.lat >= this.getLatLng[0].lat &&
           v.lat <= this.getLatLng[1].lat &&
