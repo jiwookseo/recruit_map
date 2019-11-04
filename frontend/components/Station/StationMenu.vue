@@ -46,8 +46,6 @@ export default {
       'getDepartureStationName'
     ]),
     ...mapGetters('station', [
-      // 'getDepartureStationID',
-      // 'getDepartureStationName',
       'getRoutesFromStation',
       'getAllStations'
     ]),
@@ -77,8 +75,6 @@ export default {
       'setDepartureStationName'
     ]),
     ...mapMutations('station', [
-      // 'setDepartureStationID',
-      // 'setDepartureStationName',
       'setRoutesFromStation',
       'setShowStationMenu',
       'setShowStationAlert'
@@ -118,7 +114,6 @@ export default {
         v: this.currentStation.id,
         cb: this.setAsyncAllCompanies
       })
-      // Get all possible routes from newly set departure station
 
       // Update transit time for each company
       this.searchString = ''

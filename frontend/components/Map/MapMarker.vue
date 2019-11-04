@@ -70,7 +70,7 @@ export default {
     },
     markerOptions() {
       return {
-        url: require(`../static/${this.iconURL}`),
+        url: require(`~/static/${this.iconURL}`),
         size: { width: 58, height: 42, f: 'px', b: 'px' },
         scaledSize: { width: 58, height: 42, f: 'px', b: 'px' },
         labelOrigin: { x: 26, y: 27 }
@@ -79,24 +79,24 @@ export default {
   },
   methods: {
     ...mapMutations('infoWindow', [
-      'setPosition',
-      'setOptionsContent',
-      'setOpen'
+      'setInfoWindowPosition',
+      'setInfoWindowOptionsContent',
+      'setShowInfoWindow'
     ]),
     ...mapMutations('company', ['setHoveredCompany', 'setCompanyDetail']),
     enableInfoWindow(marker) {
-      this.setPosition({ lat: marker.lat, lng: marker.lng })
-      this.setOptionsContent({
+      this.setInfoWindowPosition({ lat: marker.lat, lng: marker.lng })
+      this.setInfoWindowOptionsContent({
         name: marker.name,
         time: marker.transitTime,
         salary: marker.avg_salary,
         jobs: marker.jobs_count
       })
-      this.setOpen(true)
+      this.setShowInfoWindow(true)
     },
     disableInfoWindow() {
       setTimeout(() => {
-        this.setOpen(false)
+        this.setShowInfoWindow(false)
       }, 4000)
     },
     infoDetail(marker) {

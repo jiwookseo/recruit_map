@@ -43,17 +43,17 @@ export default {
 .recruit--div {
   position: absolute;
   display: flex;
-  top: 540px;
+  top: 80vh;
   border-radius: 10px;
-  width: 100%;
+  width: 95%;
   height: 140px;
   overflow-x: hidden;
   a {
-    min-width: 380px;
+    min-width: 361px;
     min-height: 140px;
   }
   article {
-    min-width: 380px;
+    min-width: 361px;
     min-height: 140px;
     background-size: 380px 140px;
   }

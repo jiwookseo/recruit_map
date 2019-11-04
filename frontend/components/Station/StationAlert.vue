@@ -11,9 +11,6 @@ export default {
   name: "StationAlert",
   computed: {
     ...mapGetters('localStorage', ['getDepartureStationName']),
-    // ...mapGetters('station', [
-    //   'getDepartureStationName',
-    // ]),
   },
   methods: {
     ...mapMutations('station', [

@@ -5,7 +5,7 @@
       v-for="item in calData"
       :key="item.id + item.avg_salary"
       @mouseenter="handleMouseEnter(item)"
-      @mouseleave="setOpen(false)"
+      @mouseleave="setShowInfoWindow(false)"
     >
       <p>
         <nuxt-link :to="`/company/${item.id}/`">
@@ -59,20 +59,20 @@ export default {
   methods: {
     ...mapMutations('company', ['setHoveredCompany', 'setSelectedCompany']),
     ...mapMutations('infoWindow', [
-      'setPosition',
-      'setOptionsContent',
-      'setOpen'
+      'setInfoWindowPosition',
+      'setInfoWindowOptionsContent',
+      'setShowInfoWindow'
     ]),
     handleMouseEnter(payload) {
       this.setHoveredCompany(payload)
-      this.setPosition({ lat: payload.lat, lng: payload.lng })
-      this.setOptionsContent({
+      this.setInfoWindowPosition({ lat: payload.lat, lng: payload.lng })
+      this.setInfoWindowOptionsContent({
         name: payload.name,
         time: payload.transitTime,
         salary: payload.avg_salary,
         jobs: payload.jobs_count
       })
-      this.setOpen(true)
+      this.setShowInfoWindow(true)
     }
   }
 }
@@ -88,7 +88,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    width: 100%;
+    width: 95%;
     height: 90px;
     background-color: #fff;
     border-bottom: 2px solid #ddd;
