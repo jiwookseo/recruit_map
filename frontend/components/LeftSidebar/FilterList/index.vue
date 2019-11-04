@@ -29,6 +29,12 @@
             :value="item.size"
             :checked="item.active"
           />
+          <i
+            class="material-icons-round"
+            v-if="filterSize[idx].active"
+            @click="handleToggle(idx)"
+          >check_box</i>
+          <i class="material-icons-round" v-else @click="handleToggle(idx)">check_box_outline_blank</i>
           <label :for="item.size">{{ item.name }}</label>
         </div>
       </div>
@@ -41,6 +47,12 @@
             value="recruiting"
             :checked="filterRecruiting"
           />
+          <i
+            class="material-icons-round"
+            v-if="filterRecruiting"
+            @click="handleRecruiting"
+          >check_box</i>
+          <i class="material-icons-round" v-else @click="handleRecruiting">check_box_outline_blank</i>
           <label for="recruiting">현재 채용중인 공고만 보기</label>
         </div>
         <button @click="handleFilter">적용하기</button>
@@ -151,6 +163,12 @@ export default {
           }
         }
       }
+    },
+    handleToggle(idx) {
+      this.filterSize[idx].active = !this.filterSize[idx].active
+    },
+    handleRecruiting() {
+      this.filterRecruiting = !this.filterRecruiting
     }
   }
 }
@@ -217,11 +235,16 @@ export default {
   div + div {
     margin-top: 10px;
   }
-  input + label {
-    margin-left: 10px;
+  i,
+  label {
+    cursor: pointer;
+  }
+  i + label {
+    margin-left: 5px;
   }
   input {
     margin-top: 5px;
+    display: none !important;
   }
   input,
   label {
@@ -233,6 +256,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  input {
+    display: none;
+  }
+  i,
+  label {
+    cursor: pointer;
+  }
 }
 
 .filter-bottom {
