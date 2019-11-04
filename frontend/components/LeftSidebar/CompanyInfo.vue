@@ -11,7 +11,7 @@
           <span class="company-info-name">{{ item.name }}</span>
           <span class="company-info-salary">
             {{
-            item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
+            item.avg_salary ? item.avg_salary + '만원' : '회사내규에 따름'
             }}
           </span>
         </p>

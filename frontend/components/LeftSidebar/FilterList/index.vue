@@ -115,8 +115,8 @@ export default {
       if (filterData.recruiting) {
         data = companyData.filter((v) => {
           return (
-            v.start_salary !== '회사내규에 따름' &&
-            v.start_salary >= filterData.salary &&
+            v.avg_salary !== '회사내규에 따름' &&
+            v.avg_salary >= filterData.salary &&
             v.transitTime <= filterData.time &&
             filterData.size.includes(v.scale) &&
             v.jobs_count >= 1
@@ -125,8 +125,8 @@ export default {
       } else {
         data = companyData.filter((v) => {
           return (
-            v.start_salary !== '회사내규에 따름' &&
-            v.start_salary >= filterData.salary &&
+            v.avg_salary !== '회사내규에 따름' &&
+            v.avg_salary >= filterData.salary &&
             v.transitTime <= filterData.time &&
             filterData.size.includes(v.scale)
           )
