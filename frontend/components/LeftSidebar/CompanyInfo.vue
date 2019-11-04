@@ -1,27 +1,23 @@
 <template>
   <!-- 5개의 회사 정보를 보여주는 것에 최적화 되어 있읍니다. -->
   <section class="company--info-div">
-    <article
+    <nuxt-link
       v-for="item in calData"
       :key="item.id + item.avg_salary"
-      @mouseenter="handleMouseEnter(item)"
-      @mouseleave="setShowInfoWindow(false)"
+      :to="`/company/${item.id}/`"
     >
-      <p>
-        <nuxt-link :to="`/company/${item.id}/`">
+      <article @mouseenter="handleMouseEnter(item)" @mouseleave="setShowInfoWindow(false)">
+        <p>
           <span class="company-info-name">{{ item.name }}</span>
-        </nuxt-link>
-        <span class="company-info-salary">
-          {{
+          <span class="company-info-salary">
+            {{
             item.start_salary ? item.start_salary + '만원' : '회사내규에 따름'
-          }}
-        </span>
-        <a target="_blank" class="company--info-link" :href="item.saramin_url">
-          채용링크
-        </a>
-      </p>
-      <p class="company--info-sub">{{ item.address }}</p>
-    </article>
+            }}
+          </span>
+        </p>
+        <p class="company--info-sub">{{ item.address }}</p>
+      </article>
+    </nuxt-link>
   </section>
 </template>
 
@@ -40,12 +36,21 @@ export default {
       'getSelectedCompany',
       'getAllCompanies'
     ]),
+    ...mapGetters('localStorage', ['getFilteredCompanies']),
     ...mapGetters('maps', ['getLatLng']),
     companiesData() {
-      return this.getAllCompanies.slice(0, 5)
+      const data =
+        this.getFilteredCompanies.length >= 1
+          ? this.getFilteredCompanies
+          : this.getAllCompanies
+      return data.slice(0, 5)
     },
     calData() {
-      const companyArray = this.getAllCompanies.filter(
+      const data =
+        this.getFilteredCompanies.length >= 1
+          ? this.getFilteredCompanies
+          : this.getAllCompanies
+      const companyArray = data.filter(
         (v) =>
           v.lat >= this.getLatLng[0].lat &&
           v.lat <= this.getLatLng[1].lat &&
@@ -87,6 +92,9 @@ export default {
   width: 100%;
   border-radius: 2px;
   overflow: hidden;
+  a {
+    text-decoration: none;
+  }
   article {
     display: flex;
     flex-direction: column;
@@ -94,16 +102,14 @@ export default {
     box-sizing: border-box;
     height: 90px;
     background-color: #fff;
-    border-bottom: 1px solid #ddd;
     padding: 5px 15px 5px 15px;
+    border-bottom: 1px solid #aaa;
     cursor: pointer;
     &:hover {
       background-color: #ddd;
     }
     p {
-      a:first-child {
-        color: #181818;
-      }
+      color: #181818;
     }
     &:last-child {
       border: none;

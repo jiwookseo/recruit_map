@@ -1,23 +1,29 @@
 <template>
   <div id="Default">
-    <GmapMap
-      ref="map"
-      :center="{ lat: getTargetCenterLat || getLastCenterLat, lng: getTargetCenterLng || getLastCenterLng }"
-      :zoom="currentZoom"
-      map-type-id="roadmap"
-      style="width: 100%; height: 100vh;"
-      :options="{
-        streetViewControl: false,
-        fullscreenControl: false
-      }"
-      @center_changed="center_changed"
-      @zoom_changed="zoom_changed"
-      @dragend="dragend"
-    >
-      <!-- @bounds_changed="bounds_changed" -->
-      <MapMarker v-for="m in getAllCompanies" :key="m.id" :marker="m" />
-      <MapInfoWindow />
-    </GmapMap>
+    <client-only>
+      <GmapMap
+        ref="map"
+        :center="{
+          lat: getTargetCenterLat || getLastCenterLat,
+          lng: getTargetCenterLng || getLastCenterLng
+        }"
+        :zoom="currentZoom"
+        map-type-id="roadmap"
+        style="width: 100%; height: 100vh;"
+        :options="{
+          streetViewControl: false,
+          fullscreenControl: false
+        }"
+        @center_changed="center_changed"
+        @zoom_changed="zoom_changed"
+        @dragend="dragend"
+      >
+        <!-- @bounds_changed="bounds_changed" -->
+
+        <MapMarker v-for="m in markerCompaniesData" :key="m.id" :marker="m" />
+        <MapInfoWindow />
+      </GmapMap>
+    </client-only>
     <LeftSidebar />
     <StationButton />
     <transition name="stationMenu">
@@ -83,8 +89,11 @@ export default {
       return this.getLastZoom || 17
     },
     markerCompaniesData() {
-      let data = this.getFilteredCompanies ? this.getFilteredCompanies : this.getAllCompanies;
-      return data;
+      const data =
+        this.getFilteredCompanies.length >= 1
+          ? this.getFilteredCompanies
+          : this.getAllCompanies
+      return data
     }
   },
   created() {
@@ -94,8 +103,8 @@ export default {
       v: stationID,
       cb: this.setAsyncAllCompanies
     })
-    this.setCenterLat(this.getLsMapCenterLat)
-    this.setCenterLng(this.getLsMapCenterLng)
+    this.setRealtimeCenterLat(this.getLastCenterLat)
+    this.setRealtimeCenterLng(this.getLastCenterLng)
   },
   methods: {
     ...mapActions('station', [
@@ -108,7 +117,7 @@ export default {
       'setDepartureStationID',
       'setLastCenterLat',
       'setLastCenterLng',
-      'setLastZoom',
+      'setLastZoom'
     ]),
     ...mapMutations('station', [
       'setRoutesFromStation',
@@ -117,16 +126,16 @@ export default {
     ]),
     ...mapMutations('maps', ['setRealtimeCenterLat', 'setRealtimeCenterLng']),
     center_changed() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setRealtimeCenterLat(gMap.$mapObject.center.lat())
       this.setRealtimeCenterLng(gMap.$mapObject.center.lng())
     },
     zoom_changed() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setLastZoom(gMap.$mapObject.zoom)
     },
     dragend() {
-      let gMap = this.$refs.map
+      const gMap = this.$refs.map
       this.setLastCenterLat(gMap.$mapObject.center.lat())
       this.setLastCenterLng(gMap.$mapObject.center.lng())
     }
@@ -139,16 +148,6 @@ export default {
     //     console.log("lng: ", pos.coords.longitude);
     //   })
     // }
-  },
-  created() {
-    const stationID = this.getDepartureStationID
-    this.setAsyncAllStations()
-    this.setAsyncRoutesFromStation({
-      v: stationID,
-      cb: this.setAsyncAllCompanies
-    })
-    this.setRealtimeCenterLat(this.getLastCenterLat)
-    this.setRealtimeCenterLng(this.getLastCenterLng)
   }
 }
 </script>

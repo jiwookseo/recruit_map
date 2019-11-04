@@ -8,7 +8,7 @@
           <div class="map m3"></div>
           <i class="material-icons-round marker">room</i>
           <i class="material-icons-round marker marker2">room</i>
-          <div class="txt">{{error.statusCode}}</div>
+          <div class="txt">{{ error.statusCode }}</div>
         </div>
         <div class="errorMsg">
           잘못된 경로입니다 :( 메인페이지로 이동합니다.
@@ -18,7 +18,6 @@
       <h1 v-else>{{ otherError }}</h1>
       <NuxtLink to="/">Home page</NuxtLink> -->
     </div>
-    
   </v-app>
 </template>
 
@@ -47,8 +46,6 @@ export default {
 }
 </script>
 
-
-
 <style lang="scss" scoped>
 .app-error-page {
   position: absolute;
@@ -62,7 +59,7 @@ export default {
 .outer {
   width: 100%;
   height: 100%;
-  background: #DDD;
+  background: #ddd;
   position: relative;
   .inner {
     width: 90%;
@@ -70,7 +67,8 @@ export default {
     height: 500px;
     // border: 1px solid red;
     position: absolute;
-    top: 50%; left: 50%;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
   }
 }
@@ -86,8 +84,8 @@ export default {
     height: 90px;
     position: absolute;
     bottom: 50px;
-    background: #7BC449;
-    border: 10px solid #FFF;
+    background: #7bc449;
+    border: 10px solid #fff;
   }
   .m1 {
     transform: rotateX(20deg) skew(5deg, 15deg);
@@ -97,10 +95,10 @@ export default {
   .m2 {
     transform: rotateX(20deg) skew(5deg, -15deg);
     left: 130px;
-    background: #69A540;
+    background: #69a540;
     border-right: none;
     border-left: none;
-    border-color: #EEE;
+    border-color: #eee;
   }
   .m3 {
     transform: rotateX(20deg) skew(5deg, 15deg);
@@ -117,7 +115,7 @@ export default {
     &.marker2 {
       top: 88px;
       font-size: 160px;
-      color: #EFBE67;
+      color: #efbe67;
     }
   }
   .txt {
@@ -126,7 +124,7 @@ export default {
     line-height: 50px;
     text-align: center;
     position: absolute;
-    background: #EFBE67;
+    background: #efbe67;
     top: 120px;
     left: 50%;
     transform: translate(-50%);

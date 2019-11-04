@@ -51,7 +51,7 @@ export default {
     link: [{
         rel: 'icon',
         type: 'image/x-icon',
-        href: 'favicon.ico'
+        href: '/favicon.ico'
       },
       {
         rel: 'stylesheet',
@@ -63,8 +63,8 @@ export default {
       }
     ],
     script: [{
-      src: "https://code.jquery.com/jquery-1.12.4.min.js",
-      type: "text/javascript"
+      src: 'https://code.jquery.com/jquery-1.12.4.min.js',
+      type: 'text/javascript'
     }]
   },
   /*
