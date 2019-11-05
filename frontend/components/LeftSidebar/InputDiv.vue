@@ -26,6 +26,7 @@
 
 <script>
 import api from '../../api/company'
+import { mapMutations, mapGetters } from 'vuex'
 export default {
   name: 'InputDiv',
   data() {
@@ -36,6 +37,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('localStorage', [
+      'getLastZoom',
+    ]),
     computedCompanyList() {
       if (this.searchedCompanies.length > 4) {
         return this.searchedCompanies.slice(0, 5)
@@ -68,6 +72,27 @@ export default {
       this.$store.commit('leftSidebar/setShowSearchbar', false)
       this.$store.commit('maps/setTargetCenterLat', data.lat)
       this.$store.commit('maps/setTargetCenterLng', data.lng)
+      const zoomDiff = this.getLastZoom - 17;
+      if (zoomDiff > 0) {
+        let zoom = this.getLastZoom
+        let i = setInterval(() => {
+          zoom--
+          this.$store.commit('localStorage/setLastZoom', zoom)
+          if (zoom === 17) {
+            clearInterval(i)
+          }
+        }, 100);
+      }
+      else if (zoomDiff < 0) {
+        let zoom = this.getLastZoom
+        let i = setInterval(() => {
+          zoom++
+          this.$store.commit('localStorage/setLastZoom', zoom)
+          if (zoom === 17) {
+            clearInterval(i)
+          }
+        }, 100);
+      }
       this.$store.dispatch('company/setAsyncCompanyDetail', data.id)
       this.searchButton = false
       this.$router.push(`/company/${data.id}`)

@@ -67,7 +67,7 @@ export default {
       {
         rel: 'stylesheet',
         href:
-          'https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Sans+KR&display=swap'
+          'https://fonts.googleapis.com/css?family=Nanum+Gothic+Coding|Noto+Sans+KR|Yeon+Sung&display=swap'
       }
     ],
     script: [

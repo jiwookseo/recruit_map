@@ -9,7 +9,9 @@
       <div class="pageContainerInner">
         <div class="pageContainer">
           <Intro class="page" />
-          <Features class="page" />
+          <Feature1 class="page" />
+          <Feature2 class="page" />
+          <Feature3 class="page" />
           <TechStack class="page" />
           <Members class="page" />
         </div>
@@ -32,14 +34,18 @@
 <script>
 import { mapMutations } from 'vuex'
 import Intro from '~/components/AboutUs/Intro'
-import Features from '~/components/AboutUs/Features'
+import Feature1 from '~/components/AboutUs/Feature1'
+import Feature2 from '~/components/AboutUs/Feature2'
+import Feature3 from '~/components/AboutUs/Feature3'
 import TechStack from '~/components/AboutUs/TechStack'
 import Members from '~/components/AboutUs/Members'
 
 export default {
   components: {
     Intro,
-    Features,
+    Feature1,
+    Feature2,
+    Feature3,
     TechStack,
     Members
   },
@@ -171,19 +177,7 @@ export default {
       box-shadow: inset 0 0 3px rgba(0, 0, 0, 0.15);
     }
   }
-  &::-webkit-scrollbar-thumb:vertical {
-    border-radius: 50px;
-    -webkit-border-radius: 50px;
-    background-color: rgba(0, 0, 0, 0.4);
-    background-clip: padding-box;
-    border: 1px solid rgba(0, 0, 0, 0);
-    min-height: 10px;
-    &:active {
-      background-color: rgba(0, 0, 0, 0.6);
-      border-radius: 50px;
-      -webkit-border-radius: 50px;
-    }
-  }
+  &::-webkit-scrollbar-thumb:vertical, 
   &::-webkit-scrollbar-thumb:horizontal {
     border-radius: 50px;
     -webkit-border-radius: 50px;
