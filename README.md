@@ -1,4 +1,4 @@
-![logo image](asset/image/og_image.png)
+![logo image](assets/image/og_image.png)
 
 &nbsp;
 
@@ -46,7 +46,7 @@
 
 ## 2. Tech Stack
 
-![frontend stack image](asset/image/deploy_stack.png)
+![frontend stack image](assets/image/deploy_stack.png)
 
 #### Deploy
 
@@ -59,7 +59,7 @@ Deploying separated Server & Client & DB
 
 &nbsp;
 
-![frontend stack image](asset/image/fe_stack.png)
+![frontend stack image](assets/image/fe_stack.png)
 
 #### Frontend
 
@@ -73,7 +73,7 @@ Search engine optimized SSR / SPA with Nuxt.js
 
 &nbsp;
 
-![backend stack image](asset/image/be_stack.png)
+![backend stack image](assets/image/be_stack.png)
 
 #### Backend
 

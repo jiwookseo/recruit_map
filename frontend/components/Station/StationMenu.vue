@@ -2,14 +2,14 @@
   <div v-click-outside="closeMenu" class="outer">
     <div class="currentStation">
       [출발] {{ currentStation.name || getDepartureStationName }}역
-      <button class="btn" :disabled="!valid" @click="applyChanges">적용</button>
+      <button
+        class="btn"
+        :disabled="!valid"
+        @click="applyChanges"
+      >적용</button>
     </div>
     <div class="changeStation">
-      <input
-        v-model="searchString"
-        placeholder="지하철역을 검색하세요"
-        autofocus
-      />
+      <input v-model="searchString" placeholder="지하철역을 검색하세요" autofocus />
       <i class="material-icons-round">search</i>
       <ul v-if="filteredStations.length" class="scrollable">
         <li
@@ -24,9 +24,7 @@
             :key="line.id"
             class="line"
             :class="`L${line}`"
-          >
-            {{ lineName(line) }}
-          </div>
+          >{{ lineName(line) }}</div>
         </li>
       </ul>
       <div v-else class="noSearchResults">검색 결과가 없습니다.</div>
@@ -50,7 +48,8 @@ export default {
     ...mapGetters('company', ['getAllCompanies']),
     ...mapGetters('localStorage', [
       'getDepartureStationID',
-      'getDepartureStationName'
+      'getDepartureStationName',
+      'getFilterList'
     ]),
     ...mapGetters('station', ['getRoutesFromStation', 'getAllStations']),
     filteredStations() {
@@ -79,13 +78,15 @@ export default {
     ...mapMutations('company', ['setAllCompanies']),
     ...mapMutations('localStorage', [
       'setDepartureStationID',
-      'setDepartureStationName'
+      'setDepartureStationName',
+      'setFilteredCompanies'
     ]),
     ...mapMutations('station', [
       'setRoutesFromStation',
       'setShowStationMenu',
       'setShowStationAlert'
     ]),
+    ...mapMutations('leftSidebar', ['setNoDataAlert']),
     lineName(line) {
       if (line === 'A') {
         return '공항'
@@ -121,7 +122,33 @@ export default {
         v: this.currentStation.id,
         cb: this.setAsyncAllCompanies
       })
-
+      const filterData = this.getFilterList
+      const companyData = this.getAllCompanies
+      let data = []
+      if (filterData.recruiting) {
+        data = companyData.filter((v) => {
+          return (
+            v.avg_salary !== '회사내규에 따름' &&
+            v.avg_salary >= filterData.salary &&
+            v.transitTime <= filterData.time &&
+            filterData.size.includes(v.scale) &&
+            v.jobs_count >= 1
+          )
+        })
+      } else {
+        data = companyData.filter((v) => {
+          return (
+            v.avg_salary !== '회사내규에 따름' &&
+            v.avg_salary >= filterData.salary &&
+            v.transitTime <= filterData.time &&
+            filterData.size.includes(v.scale)
+          )
+        })
+      }
+      if (data.length === 0) {
+        this.setNoDataAlert(true)
+      }
+      this.setFilteredCompanies(data)
       // Update transit time for each company
       this.searchString = ''
       this.setShowStationMenu(false)
