@@ -4,6 +4,7 @@
     <CompanyInfo v-show="getShowDefaultMenu" />
     <FilterList v-show="getShowDefaultMenu" />
     <Recruit v-show="getShowDefaultMenu" />
+    <NoData v-if="getNoDataAlert" />
   </div>
 </template>
 
@@ -13,16 +14,22 @@ import FilterList from './FilterList'
 import InputDiv from './InputDiv'
 import CompanyInfo from './CompanyInfo'
 import Recruit from './Recruit'
+import NoData from './NoData'
 export default {
   name: 'LeftSidebar',
   components: {
     FilterList,
     InputDiv,
     CompanyInfo,
-    Recruit
+    Recruit,
+    NoData
   },
   computed: {
-    ...mapGetters('leftSidebar', ['getShowSearchbar', 'getShowDefaultMenu'])
+    ...mapGetters('leftSidebar', [
+      'getShowSearchbar',
+      'getShowDefaultMenu',
+      'getNoDataAlert'
+    ])
   }
 }
 </script>

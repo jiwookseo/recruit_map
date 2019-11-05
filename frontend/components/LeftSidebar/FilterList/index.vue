@@ -123,10 +123,11 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('company', ['getAllCompanies'])
+    ...mapGetters('company', ['getAllCompanies']),
   },
   methods: {
     ...mapMutations('localStorage', ['setFilterList', 'setFilteredCompanies']),
+    ...mapMutations('leftSidebar', ['setNoDataAlert']),
     handleFilter() {
       let filterData = {}
       filterData = {
@@ -157,6 +158,9 @@ export default {
             filterData.size.includes(v.scale)
           )
         })
+      }
+      if (data.length === 0){
+        this.setNoDataAlert(true)
       }
       this.setFilteredCompanies(data)
       for (let i = 0; i < 4; i++) {
