@@ -1,0 +1,11 @@
+.Title {
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+.Content {
+  height: calc(100% - 80px);
+  overflow-y: auto;
+}
