@@ -9,9 +9,8 @@
         <span>{{ company.ind_name }}</span>
         <span>{{ company.scale }}</span>
       </p>
-      <!-- @HOTFIX i  -->
-      <div class="back">
-        <i class="material-icons-round" @click.stop="goBack">arrow_left_alt</i>
+      <div class="back" @click.stop="goBack">
+        <i class="material-icons-round" >arrow_left_alt</i>
       </div>
     </div>
     <div class="scrollable">
@@ -181,11 +180,11 @@ export default {
         margin-left: 5px;
         background-color: rebeccapurple;
         color: #fff;
-        padding: 3px 5px 4px;
+        padding: 1px 5px 2px;
         border-radius: 15px;
         font-size: 10px;
         position: relative;
-        top: -4px;
+        top: -1px;
       }
     }
   }
@@ -196,6 +195,7 @@ export default {
     top: 0;
     left: -10px;
     font-weight: 700;
+    overflow: hidden;
     a, i {
       width: 100%;
       height: 100%;
