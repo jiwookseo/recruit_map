@@ -26,12 +26,24 @@ SECRET_KEY = os.getenv("DJANGO_SECRET_KEY",
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1", "52.78.29.170", "localhost"]
+ALLOWED_HOSTS = [
+    "localhost",
+    "127.0.0.1",
+    "52.78.29.170",
+    "54.180.119.208",
+    "ec2-54-180-119-208.ap-northeast-2.compute.amazonaws.com",
+    "recruitmap.ninja",
+]
 
 CORS_ALLOW_CREDENTIALS = True
-CORS_ORIGIN_WHITELIST = ['http://52.78.29.170',
-                         'http://localhost:3000',
-                         'http://127.0.0.1:3000', ]
+CORS_ORIGIN_WHITELIST = [
+    'http://52.78.29.170',
+    'http://54.180.119.208',
+    'http://ec2-54-180-119-208.ap-northeast-2.compute.amazonaws.com',
+    'http://recruitmap.ninja',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+]
 
 # Application definition
 
