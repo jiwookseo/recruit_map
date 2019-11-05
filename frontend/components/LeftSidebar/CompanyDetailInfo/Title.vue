@@ -28,7 +28,9 @@
         <span class="span-station">{{ station }}역</span>
         에서
         <span class="span-name">{{ company.name }}</span>
-        까지<br /> 약 <span class="span-time">{{ transitTime }}</span> 분 예상
+        까지
+        <br />약
+        <span class="span-time">{{ transitTime }}</span> 분 예상
         <a target="_blank" :href="googleRouteLink">
           <span class="route">길찾기</span>
         </a>
@@ -36,9 +38,7 @@
       <p class="c-di-t-jc">
         현재 진행중인 채용 공고 개수
         <span>{{ company.jobs_count }} 개</span>
-        <a target="_blank" :href="company.saramin_url">
-          공고 보기
-        </a>
+        <a target="_blank" :href="company.saramin_url">공고 보기</a>
       </p>
       <div v-if="company.jobs_count">
         <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
@@ -101,7 +101,7 @@ export default {
     }
   },
   methods: {
-    goBack(){
+    goBack() {
       this.$router.push('/')
     }
   },
@@ -131,7 +131,7 @@ export default {
         },
         {
           hid: 'og:description',
-          name: 'og:description',
+          property: 'og:description',
           content: `${this.company.name}에 대한 취업 정보 및 지도와 연봉 정보가 담겨져 있습니다.`
         }
       ]
@@ -152,7 +152,7 @@ export default {
   z-index: 9;
   .fixed {
     padding: 15px;
-    border-bottom: 1px solid #AAA;
+    border-bottom: 1px solid #aaa;
     box-sizing: border-box;
     position: relative;
   }
@@ -208,7 +208,8 @@ export default {
     left: -10px;
     font-weight: 700;
     overflow: hidden;
-    a, i {
+    a,
+    i {
       width: 100%;
       height: 100%;
       display: inline-block;
@@ -268,7 +269,9 @@ p {
     font-weight: 700;
   }
 
-  .span-station, .span-name, .span-time {
+  .span-station,
+  .span-name,
+  .span-time {
     color: #4876ef;
   }
 
@@ -278,7 +281,7 @@ p {
   .route {
     display: inline-block;
     padding: 3px 5px 4px;
-    color: #FFF;
+    color: #fff;
     background: #3766f3;
     font-size: 11px;
     border-radius: 5px;
@@ -302,7 +305,7 @@ p {
   a {
     display: inline-block;
     padding: 3px 5px 4px;
-    color: #FFF;
+    color: #fff;
     background: #806db8;
     font-size: 11px;
     border-radius: 5px;

@@ -38,15 +38,19 @@ export default {
         content: `길잡이`
       },
       {
-        name: 'og:title',
+        property: 'og:title',
         content: '길잡이'
       },
       {
-        name: 'og:site_name',
+        property: 'og:image',
+        content: '/og-image.png'
+      },
+      {
+        property: 'og:site_name',
         content: '길잡이'
       },
       {
-        name: 'og:description',
+        property: 'og:description',
         content: process.env.npm_package_description || ''
       }
     ],

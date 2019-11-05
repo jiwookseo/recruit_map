@@ -4,7 +4,9 @@
     <CompanyInfo v-show="getShowDefaultMenu" />
     <FilterList v-show="getShowDefaultMenu" />
     <Recruit v-show="getShowDefaultMenu" />
-    <NoData v-if="getNoDataAlert" />
+    <transition name="fade">
+      <NoData v-if="getNoDataAlert" />
+    </transition>
   </div>
 </template>
 
@@ -45,5 +47,13 @@ export default {
   left: 10px;
   z-index: 7;
   // overflow: hidden;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.7s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  opacity: 0;
 }
 </style>
