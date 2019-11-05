@@ -23,8 +23,10 @@ export default {
       let className = 'default'
       if (time <= 30) {
         className = 'closest'
-      } else if (time <= 60) {
+      } else if (time <= 45) {
         className = 'closer'
+      } else if (time <= 60) {
+        className = 'close'
       }
       return `<span class="${className}">
                 <i class="material-icons-round">departure_board</i>
@@ -45,7 +47,9 @@ export default {
                   <i class="material-icons-round">monetization_on</i>
                   연봉: 회사 내규에 따름
                 </div>`
-      } else if (salary > 5000) {
+      } else if (salary >= 5000) {
+        className = 'higher'
+      } else if (salary >= 4000) {
         className = 'high'
       }
       return `<div class="salaryInfo">
@@ -126,7 +130,7 @@ export default {
         width: 10px;
         height: 10px;
         margin-right: 8px;
-        color: gray;
+        color: rgb(80, 29, 67);
         display: inline-block;
         i {
           font-size: 1.1em;
@@ -134,10 +138,13 @@ export default {
           transform: translateY(2px);
         }
         &.closest {
-          color: #5e5187;
+          color: rgb(236, 99, 66);
         }
         &.closer {
-          color: #8774c1;
+          color: rgb(183, 38, 61);
+        }
+        &.close {
+          color: rgb(132, 30, 62);
         }
       }
     }
@@ -156,8 +163,11 @@ export default {
           position: relative;
           transform: translateY(2px);
           color: gray;
+          &.higher {
+            color: rgb(131, 191, 65);
+          }
           &.high {
-            color: gold;
+            color: rgb(248, 211, 71);
           }
         }
       }

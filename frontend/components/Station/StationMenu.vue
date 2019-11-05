@@ -102,6 +102,8 @@ export default {
         return '인천 2'
       } else if (line === 'K') {
         return '경의중앙'
+      } else if (line === 'S') {
+        return '신분당'
       } else if (line === 'SU') {
         return '수인'
       } else if (line === 'U') {
@@ -302,6 +304,9 @@ export default {
         }
         &.LK {
           background: #7cc4a5;
+        }
+        &.LS {
+          background: #AA2739;
         }
         &.LSU {
           background: #eba900;
