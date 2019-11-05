@@ -1,11 +1,13 @@
 export const state = () => ({
   showSearchbar: false,
-  showDefaultMenu: true
+  showDefaultMenu: true,
+  noDataAlert: false
 })
 
 export const getters = {
   getShowSearchbar: (state) => state.showSearchbar,
-  getShowDefaultMenu: (state) => state.showDefaultMenu
+  getShowDefaultMenu: (state) => state.showDefaultMenu,
+  getNoDataAlert: (state) => state.noDataAlert
 }
 
 export const mutations = {
@@ -14,5 +16,8 @@ export const mutations = {
   },
   setShowDefaultMenu: (state, payload) => {
     state.showDefaultMenu = payload
+  },
+  setNoDataAlert: (state, payload) => {
+    state.noDataAlert = payload
   }
 }
