@@ -1,16 +1,17 @@
 <template>
   <div class="c-di-t">
     <div class="fixed">
-      <h1 class="c-name">
-        {{ company.name || '이름' }}
-        <a target="_blank" :href="company.href">홈페이지</a>
-      </h1>
+      <div class="c-name-row">
+        <h1 class="c-name">
+          {{ company.name || '이름' }}<a target="_blank" :href="company.href" title="홈페이지 바로가기"><i class="material-icons-round">exit_to_app</i></a>
+        </h1>
+      </div>
       <p class="c-di-t-st">
         <span>{{ company.ind_name }}</span>
         <span>{{ company.scale }}</span>
       </p>
       <div class="back" @click.stop="goBack">
-        <i class="material-icons-round" >arrow_left_alt</i>
+        <i class="material-icons-round">arrow_left_alt</i>
       </div>
     </div>
     <div class="scrollable">
@@ -155,19 +156,29 @@ export default {
     box-sizing: border-box;
     position: relative;
   }
-  h1.c-name {
+  .c-name-row {
     padding-left: 30px;
-    font-weight: 700;
-    display: inline-block;
+    position: relative;
+    h1.c-name {
+      font-weight: 700;
+      display: inline-block;
+      vertical-align: top;
+    }
     a {
-      background-color: #99abab;
-      color: #fff;
-      padding: 3px 5px 4px;
-      border-radius: 15px;
-      font-size: 10px;
-      font-weight: 400;
+      display: inline-block;
+      vertical-align: top;
+      margin: 5px 0 0 5px;
+      width: 30px; height: 30px;
       position: relative;
-      top: -4px;
+      top: 0px;
+      overflow: hidden;
+    }
+    i {
+      font-size: 1.1em;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #181818;
     }
   }
   .c-di-t-st {
@@ -185,6 +196,7 @@ export default {
         font-size: 10px;
         position: relative;
         top: -1px;
+        user-select: none;
       }
     }
   }
