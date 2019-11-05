@@ -3,19 +3,27 @@
     <div class="outer">
       <div class="inner">
         <div class="mapIcon">
-          <div class="map m1"></div>
-          <div class="map m2"></div>
-          <div class="map m3"></div>
-          <i class="material-icons-round marker">room</i>
-          <i class="material-icons-round marker marker2">room</i>
-          <div class="txt">{{ error.statusCode }}</div>
+          <div class="map m1">
+            <div class="line"></div>
+            <div class="ex"></div>
+            <div class="ex e2"></div>
+          </div>
+          <div class="map m2">
+            <div class="line l2"></div>
+          </div>
+          <div class="map m3">
+            <div class="line l3"></div>
+            <div class="circle"></div>
+          </div>
+          <div class="markerBox">
+            <i class="material-icons-round marker">room</i>
+            <i class="material-icons-round marker marker2">room</i>
+            <div class="txt">{{ error.statusCode }}</div>
+          </div>
         </div>
         <div v-if="error.statusCode === 404" class="errorMsg">잘못된 경로입니다 :(<br>{{secondsLeft}}초 뒤에 메인페이지로 이동합니다.</div>
         <div v-else class="errorMsg">페이지를 표시할 수 없습니다.<br>관리자에게 문의해주세요.</div>
       </div>
-      <!-- <h1 v-if="error.statusCode === 404">{{ pageNotFound }}</h1>
-      <h1 v-else>{{ otherError }}</h1>
-      <NuxtLink to="/">Home page</NuxtLink> -->
     </div>
   </v-app>
 </template>
@@ -116,6 +124,55 @@ export default {
     left: 210px;
     border-left: none;
   }
+  .line {
+    width: 4px;
+    height: 90%;
+    background: repeating-linear-gradient(to top, crimson, crimson 7px, transparent 7px, transparent 12px);
+    position: absolute;
+    top: 5px;
+    left: 41px;
+    transform: rotate(60deg);
+    &.l2 {
+      height: 110%;
+      background: repeating-linear-gradient(to top, rgb(185, 18, 52), rgb(185, 18, 52) 7px, transparent 7px, transparent 12px);
+      transform: rotate(-70deg);
+      top: -2px;
+    }
+    &.l3 {
+      height: 60%;
+      transform: rotate(45deg);
+      top: 12px;
+      left: 12px;
+    }
+  }
+  .ex {
+    width: 4px;
+    height: 12px;
+    background: crimson;
+    position: absolute;
+    top: 51px;
+    left: 8px;
+    border-radius: 2px;
+    &.e2 {
+      transform: rotate(90deg);
+    }
+  }
+  .circle {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: crimson;
+    border: 2px solid rgb(185, 18, 52);
+    position: absolute;
+    top: 8px;
+    left: 29px;
+  }
+  .markerBox {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    animation: bobbing 1s ease-in-out infinite alternate;
+  }
   .marker {
     position: absolute;
     top: 80px;
@@ -144,6 +201,12 @@ export default {
     font-weight: bold;
   }
 }
+
+@keyframes bobbing {
+  0% {transform: translateY(0);}
+  100% {transform: translateY(-10px);}
+}
+
 .errorMsg {
   height: calc(100% - 350px);
   // border: 1px solid green;
