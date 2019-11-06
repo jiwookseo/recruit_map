@@ -11,6 +11,7 @@ class Parser:
     NODE_ENV = os.environ.get("NODE_ENV", "develop")
     API_URL = "http://www.recruitmap.ninja:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
     API = requests.get(API_URL).json()
+    BASE_DIR = os.getcwd()
 
     def __init__(self, data):
         self.data = data
@@ -130,7 +131,7 @@ class Parser:
             self.company = company
 
         # json data save
-        with open("companies/{}.json".format(name), 'w', encoding="UTF-8") as f:
+        with open(self.BASE_DIR + "/companies/{}.json".format(name), 'w', encoding="UTF-8") as f:
             json.dump(company, f, indent="  ", ensure_ascii=False)
         return True, company
 
@@ -171,7 +172,7 @@ class Parser:
             job = res
 
             # json data save
-            with open("jobs/{}_{}.json".format(title.replace("/", "+"), open_stamp), 'w', encoding="UTF-8") as f:
+            with open(self.BASE_DIR + "/jobs/{}_{}.json".format(title.replace("/", "+"), open_stamp), 'w', encoding="UTF-8") as f:
                 json.dump(job, f, indent="  ", ensure_ascii=False)
             return True, job
 

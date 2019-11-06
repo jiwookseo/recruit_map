@@ -5,11 +5,13 @@ from pprint import pprint as pp
 
 
 class Maps:
-    api_key = os.environ["GOOGLE_MAPS_KEY"]
+    API_KEY = os.environ["GOOGLE_MAPS_KEY"]
+    BASE_DIR = os.getcwd()
 
     @classmethod
     def directions(cls, origin, destination):
-        path = "directions/{}&{}.json".format(origin, destination)
+        path = cls.BASE_DIR + \
+            "/directions/{}&{}.json".format(origin, destination)
         if os.path.isfile(path + "-w"):  # 도보가 더 빠른 경로 이력
             with open(path + "-w", encoding='UTF8') as f:
                 res = json.load(f)
@@ -18,7 +20,7 @@ class Maps:
                 res = json.load(f)
         else:
             URL = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:{}&destination=place_id:{}&mode=transit&language=ko&key={}".format(
-                origin, destination, cls.api_key)
+                origin, destination, cls.API_KEY)
             res = requests.get(URL).json()
         # json data save
             if res["status"] == "OK":
@@ -27,7 +29,7 @@ class Maps:
                 if res["routes"][0]["legs"][0]["duration"]["value"] < 1200:  # 20분 이하 거리는 도보와 시간 비교
                     transit = res["routes"][0]["legs"][0]["duration"]["value"]
                     URL = "https://maps.googleapis.com/maps/api/directions/json?origin=place_id:{}&destination=place_id:{}&mode=walking&language=ko&key={}".format(
-                        origin, destination, cls.api_key)
+                        origin, destination, cls.API_KEY)
                     res2 = requests.get(URL).json()
                     if res2["status"] == "OK":
                         walking = res2["routes"][0]["legs"][0]["duration"]["value"]
@@ -46,13 +48,13 @@ class Maps:
 
     @classmethod
     def places(cls, place):
-        path = "places/{}.json".format(place)
+        path = cls.BASE_DIR + "/places/{}.json".format(place)
         if os.path.isfile(path):  # 기존에 검색한 이력이 있을 때
             with open(path, encoding='UTF8') as f:
                 res = json.load(f)
         else:
             URL = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input={}&inputtype=textquery&fields=formatted_address,name,geometry,place_id&key={}".format(
-                place, cls.api_key)
+                place, cls.API_KEY)
             res = requests.get(URL).json()
         # json data save
         if res["status"] == "OK":

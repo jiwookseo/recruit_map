@@ -7,9 +7,11 @@ from progress import progress_bar
 from datetime import datetime
 import json
 
+BASE_DIR = os.getcwd()
+
 
 def load_data(key, page):
-    path = "saramin/{}-{}.json".format(
+    path = BASE_DIR + "/saramin/{}-{}.json".format(
         datetime.now().strftime("%y%m%d%H"), page)
     if os.path.isfile(path):
         with open(path, encoding='UTF8') as f:
