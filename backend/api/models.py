@@ -46,7 +46,7 @@ class Job(models.Model):
         "company foreign key"), on_delete=models.CASCADE, related_name="jobs")
     title = models.CharField(_("title"), max_length=100)
     saramin_url = models.URLField(
-        _("saramin info url"), max_length=200, default="", blank=True, unique=True)
+        _("saramin info url"), max_length=200, default="", blank=True)
     job = models.CharField(
         _("job category"), max_length=100, default="", blank=True)
     exp_min = models.IntegerField(_("minimum experience"))

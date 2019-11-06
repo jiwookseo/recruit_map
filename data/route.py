@@ -54,7 +54,7 @@ class Route:
                    'Accept': 'application/json'}
         for j in range(len(stations)):  # len(stations) 까지 하면 월 사용량 이상으로 사용됨
             # progress bar
-            progress_bar(j, 2 * len(stations), 20)
+            progress_bar(j, len(stations), 20)
             station = stations[j]
             data = []
             res = requests.get(station["routes"])
@@ -73,11 +73,6 @@ class Route:
                              "station": station["id"], "time": time}
                     data.append(route)
             cls.create_route(data, headers)
-        for j in range(len(stations)):  # len(stations) 까지 하면 월 사용량 이상으로 사용됨
-            # progress bar
-            progress_bar(j + len(stations), 2 * len(stations), 20)
-            station = stations[j]
-            data = []
             res = requests.get(station["routes"])
             routes = res.json()["results"]
             count = len(routes)
