@@ -7,7 +7,7 @@ from progress import progress_bar
 from datetime import datetime
 import json
 
-BASE_DIR = os.getcwd()
+BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 def load_data(key, page):
