@@ -32,14 +32,14 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
     "54.180.119.208",
     "ec2-54-180-119-208.ap-northeast-2.compute.amazonaws.com",
-    "recruitmap.ninja",
+    "www.recruitmap.ninja",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
     'http://54.180.119.208',
     'http://ec2-54-180-119-208.ap-northeast-2.compute.amazonaws.com',
-    'http://recruitmap.ninja',
+    'http://www.recruitmap.ninja',
     'http://localhost',
     'http://localhost:3000',
     'http://127.0.0.1',
@@ -72,6 +72,24 @@ INSTALLED_APPS = [
     # cors
     "corsheaders"
 ]
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'filters': None,
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+        },
+    },
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -118,7 +136,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'nonamed',
         'USER': 'root',
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
+        'PASSWORD': os.getenv("MYSQL_PASSWORD"),
         'HOST': 'nonamed-final.chtmnbthcdiy.ap-northeast-2.rds.amazonaws.com',
         'PORT': '3306',
         'OPTIONS': {
