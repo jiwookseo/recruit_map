@@ -35,13 +35,16 @@
         <br />약
         <span class="span-time">{{ transitTime }}</span> 분 예상
         <a target="_blank" :href="googleRouteLink">
-          <span class="route">길찾기</span>
+          <!-- <span class="route">길찾기</span> -->
+          <i class="material-icons-round route" title="길찾기">directions</i>
         </a>
       </p>
       <p class="c-di-t-jc">
         현재 진행중인 채용 공고 개수
         <span>{{ company.jobs_count }} 개</span>
-        <a target="_blank" :href="company.saramin_url">공고 보기</a>
+        <a target="_blank" :href="company.saramin_url">
+          <i class="material-icons-round" title="공고 보기">assignment</i>
+        </a>
       </p>
       <div v-if="company.jobs_count">
         <Recruitment v-for="(data, idx) in recruitments" :key="data.open + idx" :data="data" />
@@ -277,23 +280,21 @@ p {
 
   a {
     display: inline-block;
+    width: 25px;
+    height: 20px;
+    // overflow: hidden;
   }
   .route {
+    width: 100%; height: 120%;
     display: inline-block;
-    padding: 3px 5px 4px;
-    color: #fff;
-    background: #3766f3;
-    font-size: 11px;
-    border-radius: 5px;
-    margin-left: 5px;
+    // padding: 3px 5px 4px;
+    color: #3766f3;
+    // background: #3766f3;
+    font-size: 23px;
+    margin-left: 3px;
     cursor: pointer;
     position: relative;
-    top: -2px;
-    letter-spacing: 1px;
-    font-weight: 400;
-    &:hover {
-      background: #2054f3;
-    }
+    top: 6px;
   }
 }
 .c-di-t-jc {
@@ -304,19 +305,18 @@ p {
   }
   a {
     display: inline-block;
-    padding: 3px 5px 4px;
-    color: #fff;
-    background: #806db8;
-    font-size: 11px;
-    border-radius: 5px;
-    margin-left: 5px;
-    cursor: pointer;
-    position: relative;
-    top: -2px;
-    letter-spacing: 1px;
-    font-weight: 400;
-    &:hover {
-      background: #6e5e9e;
+    width: 25px;
+    height: 20px;
+    // background: #806db8;
+    i {
+      width: 100%; height: 120%;
+      display: inline-block;
+      color: #806db8;
+      font-size: 23px;
+      margin-left: 5px;
+      cursor: pointer;
+      position: relative;
+      top: 6px;
     }
   }
 }
