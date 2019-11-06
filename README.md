@@ -4,7 +4,7 @@
 
 # 길잡이 / Gil-Job-E 
 
->  copywriting
+>  IT 관련 채용과 회사 정보를 지도에서 보여주자
 
 - feature 1
 
