@@ -15,12 +15,12 @@
       <div class="filter-top">
         <!-- 연봉 -->
         <div v-show="menuController[0].active" class="filter-detail-salary">
-          <input v-model="filterSalary" type="range" min="0" max="6000" value="0" step="100" />
+          <input v-model="filterSalary" type="range" min="0" max="6000" step="100" />
           <span>{{ filterSalary }} 만원</span>
         </div>
         <!-- 시간 -->
         <div v-show="menuController[1].active" class="filter-detail-time">
-          <input v-model="filterTime" type="range" min="15" max="90" value="15" step="15" />
+          <input v-model="filterTime" type="range" min="15" max="90" step="15" />
           <span>{{ filterTime >= 90 ? '90분 이상' : filterTime + '분 이내' }}</span>
         </div>
         <!-- 규모 -->
@@ -106,8 +106,6 @@ export default {
         },
         { active: false }
       ],
-      filterSalary: 0,
-      filterTime: 9999,
       filterName: ['large', 'affiliate', 'medium', 'venture', 'small'],
       filterRecruiting: true
     }
@@ -116,12 +114,28 @@ export default {
     ...mapGetters('company', ['getAllCompanies']),
     ...mapGetters('localStorage', ['getFilterList']),
     filterSize: {
-      get() {
+      get: function() {
         return this.getFilterList.size
       },
-      set(idx) {
+      set: function(idx) {
         this.setFilterList.size[idx].active = !this.getFilterList.size[idx]
           .active
+      }
+    },
+    filterSalary: {
+      get: function() {
+        return this.getFilterList.salary || 0
+      },
+      set: function(val) {
+        this.setFilterSalary(val)
+      }
+    },
+    filterTime: {
+      get: function() {
+        return this.getFilterList.time || 90
+      },
+      set: function(val) {
+        this.setFilterTime(val)
       }
     }
   },
@@ -129,7 +143,9 @@ export default {
     ...mapMutations('localStorage', [
       'setFilterList',
       'setFilteredCompanies',
-      'setFilterListSize'
+      'setFilterListSize',
+      'setFilterTime',
+      'setFilterSalary'
     ]),
     ...mapMutations('leftSidebar', ['setNoDataAlert']),
     handleFilter() {
@@ -164,9 +180,13 @@ export default {
           )
         })
       }
-      this.setFilteredCompanies(data)
-      for (let i = 0; i < 4; i++) {
-        this.menuController[i].active = false
+      if (data.length === 0) {
+        this.setNodataAlert(true)
+      } else {
+        this.setFilteredCompanies(data)
+        for (let i = 0; i < 4; i++) {
+          this.menuController[i].active = false
+        }
       }
     },
     handleMenu(idx) {

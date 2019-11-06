@@ -127,7 +127,12 @@ export default {
       })
       const filterData = this.getFilterList
       const companyData = this.getAllCompanies
-      let scaleData = filterCompanySize(this.filterData.size)
+      let scaleData = []
+      for (let i = 0; i < 5; i++) {
+        if (filterData.size[i].active) {
+          scaleData.push(filterData.size[i].name)
+        }
+      }
       let data = []
       if (filterData.recruiting) {
         data = companyData.filter((v) => {

@@ -67,6 +67,12 @@ export const mutations = {
   setFilterList: (state, payload) => {
     state.filterList = payload
   },
+  setFilterTime: (state, payload) => {
+    state.filterList.time = payload
+  },
+  setFilterSalary: (state, payload) => {
+    state.filterList.salary = payload
+  },
   setFilterListSize: (state, payload) => {
     state.filterList.size[payload].active = !state.filterList.size[payload]
       .active
