@@ -181,7 +181,7 @@ export default {
         })
       }
       if (data.length === 0) {
-        this.setNodataAlert(true)
+        this.setNoDataAlert(true)
       } else {
         this.setFilteredCompanies(data)
         for (let i = 0; i < 4; i++) {
