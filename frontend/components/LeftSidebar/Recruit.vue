@@ -91,7 +91,7 @@ export default {
       let i = 0
       const count = $('.ad').length
       const slidetime = 700
-      const intervaltime = 8000
+      const intervaltime = 10000
       let slideshow
 
       function btn_init() {
@@ -149,13 +149,13 @@ export default {
         btn_init()
         left()
       })
-      // $('.recruit--div').mouseenter(function(){
-      //   stop();
-      // });
-      // $('.recruit--div').mouseleave(function(){
-      //   start();
-      // });
-      // start();
+      $('.recruit--div').mouseenter(function(){
+        stop();
+      });
+      $('.recruit--div').mouseleave(function(){
+        start();
+      });
+      start();
     })
   },
 }
