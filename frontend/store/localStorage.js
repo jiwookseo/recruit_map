@@ -17,7 +17,23 @@ export const state = () => ({
   filterList: {
     time: '',
     salary: '',
-    size: [],
+    size: [
+      {
+        id: 1,
+        name: '대기업',
+        size: 'large',
+        active: true
+      },
+      {
+        id: 2,
+        name: '대기업 계열사·자회사',
+        size: 'affiliate',
+        active: true
+      },
+      { id: 3, name: '중견기업', size: 'medium', active: true },
+      { id: 4, name: '벤처기업', size: 'venture', active: true },
+      { id: 5, name: '중소기업', size: 'small', active: true }
+    ],
     recruiting: false
   }
 })
@@ -50,6 +66,10 @@ export const mutations = {
   },
   setFilterList: (state, payload) => {
     state.filterList = payload
+  },
+  setFilterListSize: (state, payload) => {
+    state.filterList.size[payload].active = !state.filterList.size[payload]
+      .active
   },
   setFilteredCompanies: (state, payload) => {
     state.filteredCompanies = payload

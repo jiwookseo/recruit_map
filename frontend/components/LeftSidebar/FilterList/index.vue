@@ -24,30 +24,36 @@
           <span>{{ filterTime >= 90 ? '90분 이상' : filterTime + '분 이내' }}</span>
         </div>
         <!-- 규모 -->
-        <div v-show="menuController[2].active" class="filter-detail-size">
-          <!-- { major: '대기업', affiliate:'대기업 계열사·자회사', venture: '벤처기업', midSize: '중견기업', smallSize:'중소기업'}  -->
-          <div
-            v-for="(item, idx) in filterSize"
-            :key="item.id"
-            class="filter-detail-size-item"
-            v-show="menuController[2].active"
-          >
-            <input
-              :id="item.size"
-              v-model="filterSize[idx].active"
-              type="checkbox"
-              :value="item.size"
-              :checked="item.active"
-            />
-            <i
-              class="material-icons-round"
-              v-if="filterSize[idx].active"
-              @click="handleToggle(idx)"
-            >check_box</i>
-            <i class="material-icons-round" v-else @click="handleToggle(idx)">check_box_outline_blank</i>
-            <label :for="item.size">{{ item.name }}</label>
+        <client-only>
+          <div v-show="menuController[2].active" class="filter-detail-size">
+            <!-- { major: '대기업', affiliate:'대기업 계열사·자회사', venture: '벤처기업', midSize: '중견기업', smallSize:'중소기업'}  -->
+            <div
+              v-for="(item, idx) in filterSize"
+              :key="item.id"
+              class="filter-detail-size-item"
+              v-show="menuController[2].active"
+            >
+              <input
+                :id="item.size"
+                v-model="filterSize[idx]"
+                type="checkbox"
+                :value="item.size"
+                :checked="item.active"
+              />
+              <i
+                class="material-icons-round"
+                v-if="filterSize[idx].active"
+                @click="handleToggle(idx)"
+              >check_box</i>
+              <i
+                class="material-icons-round"
+                v-else
+                @click="handleToggle(idx)"
+              >check_box_outline_blank</i>
+              <span @click="handleToggle(idx)">{{ item.name }}</span>
+            </div>
           </div>
-        </div>
+        </client-only>
       </div>
       <!-- 현재 채용 중인 공고만 보기 + 적용하기 버튼 -->
       <div v-show="menuController[3].active" class="filter-bottom">
@@ -77,6 +83,7 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
+import { filterCompanySize } from '../../../lib/filter'
 export default {
   name: 'FilterList',
   data() {
@@ -102,38 +109,36 @@ export default {
       filterSalary: 0,
       filterTime: 9999,
       filterName: ['large', 'affiliate', 'medium', 'venture', 'small'],
-      filterSize: [
-        {
-          id: 1,
-          name: '대기업',
-          size: 'large',
-          active: true
-        },
-        {
-          id: 2,
-          name: '대기업 계열사·자회사',
-          size: 'affiliate',
-          active: true
-        },
-        { id: 3, name: '중견기업', size: 'medium', active: true },
-        { id: 4, name: '벤처기업', size: 'venture', active: true },
-        { id: 5, name: '중소기업', size: 'small', active: true }
-      ],
       filterRecruiting: true
     }
   },
   computed: {
     ...mapGetters('company', ['getAllCompanies']),
+    ...mapGetters('localStorage', ['getFilterList']),
+    filterSize: {
+      get() {
+        return this.getFilterList.size
+      },
+      set(idx) {
+        this.setFilterList.size[idx].active = !this.getFilterList.size[idx]
+          .active
+      }
+    }
   },
   methods: {
-    ...mapMutations('localStorage', ['setFilterList', 'setFilteredCompanies']),
+    ...mapMutations('localStorage', [
+      'setFilterList',
+      'setFilteredCompanies',
+      'setFilterListSize'
+    ]),
     ...mapMutations('leftSidebar', ['setNoDataAlert']),
     handleFilter() {
+      let scaleData = filterCompanySize(this.filterSize)
       let filterData = {}
       filterData = {
         salary: this.filterSalary,
         time: this.filterTime >= 90 ? 9999 : this.filterTime,
-        size: this.filterSize.map((v) => v.name),
+        size: this.filterSize,
         recruiting: this.filterRecruiting
       }
       this.setFilterList(filterData)
@@ -145,7 +150,7 @@ export default {
             v.avg_salary !== '회사내규에 따름' &&
             v.avg_salary >= filterData.salary &&
             v.transitTime <= filterData.time &&
-            filterData.size.includes(v.scale) &&
+            scaleData.includes(v.scale) &&
             v.jobs_count >= 1
           )
         })
@@ -155,12 +160,9 @@ export default {
             v.avg_salary !== '회사내규에 따름' &&
             v.avg_salary >= filterData.salary &&
             v.transitTime <= filterData.time &&
-            filterData.size.includes(v.scale)
+            scaleData.includes(v.scale)
           )
         })
-      }
-      if (data.length === 0){
-        this.setNoDataAlert(true)
       }
       this.setFilteredCompanies(data)
       for (let i = 0; i < 4; i++) {
@@ -183,7 +185,7 @@ export default {
       }
     },
     handleToggle(idx) {
-      this.filterSize[idx].active = !this.filterSize[idx].active
+      this.setFilterListSize(idx)
     },
     handleRecruiting() {
       this.filterRecruiting = !this.filterRecruiting
@@ -236,9 +238,6 @@ export default {
   }
 }
 
-
-
-
 .filter-detail {
   z-index: 18;
   border-radius: 0 0 5px 5px;
@@ -259,9 +258,11 @@ export default {
   }
 }
 
-.filter-detail-salary, .filter-detail-time {
+.filter-detail-salary,
+.filter-detail-time {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   width: 100%;
   height: 50px;
@@ -292,7 +293,7 @@ export default {
       user-select: none;
       cursor: pointer;
     }
-    label {
+    span {
       position: relative;
       top: -5px;
     }
@@ -336,22 +337,21 @@ export default {
   }
 }
 
-
-  // div {
-  //   display: flex;
-  //   justify-content: center;
-  //   align-items: center;
-  //   z-index: 18;
-  //   background-color: #fff;
-  //   &:first-child,
-  //   &:nth-child(2) {
-  //     align-items: flex-end;
-  //   }
-  //   p {
-  //     min-width: 70px;
-  //     max-width: 70px;
-  //   }
-  // }
+// div {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   z-index: 18;
+//   background-color: #fff;
+//   &:first-child,
+//   &:nth-child(2) {
+//     align-items: flex-end;
+//   }
+//   p {
+//     min-width: 70px;
+//     max-width: 70px;
+//   }
+// }
 
 // .filter-detail-size {
 //   display: block !important;

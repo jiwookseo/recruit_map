@@ -3,7 +3,10 @@
     <div class="fixed">
       <div class="c-name-row">
         <h1 class="c-name">
-          {{ company.name || '이름' }}<a target="_blank" :href="company.href" title="홈페이지 바로가기"><i class="material-icons-round">exit_to_app</i></a>
+          {{ company.name || '이름' }}
+          <a target="_blank" :href="company.href" title="홈페이지 바로가기">
+            <i class="material-icons-round">exit_to_app</i>
+          </a>
         </h1>
       </div>
       <p class="c-di-t-st">
@@ -110,27 +113,22 @@ export default {
       title: this.company.name,
       meta: [
         {
-          hid: 'description',
           property: 'description',
           content: this.company.name
         },
         {
-          hid: 'keywords',
           name: 'keywords',
           content: `${this.company.name} ${this.company.name}채용 ${this.company.name}연봉 ${this.company.name}거리`
         },
         {
-          hid: 'og:site_name',
           property: 'og:site_name',
           content: `${this.company.name} - 길잡이`
         },
         {
-          hid: 'og:title',
           property: 'og:title',
           content: this.company.name
         },
         {
-          hid: 'og:description',
           property: 'og:description',
           content: `${this.company.name}에 대한 취업 정보 및 지도와 연봉 정보가 담겨져 있습니다.`
         }
@@ -168,7 +166,8 @@ export default {
       display: inline-block;
       vertical-align: top;
       margin: 5px 0 0 5px;
-      width: 30px; height: 30px;
+      width: 30px;
+      height: 30px;
       position: relative;
       top: 0px;
       overflow: hidden;
@@ -176,7 +175,8 @@ export default {
     i {
       font-size: 1.1em;
       position: absolute;
-      top: 50%; left: 50%;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
       color: #181818;
     }

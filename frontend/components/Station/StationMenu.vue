@@ -34,7 +34,7 @@
 
 <script>
 import { mapMutations, mapGetters, mapActions } from 'vuex'
-
+import { filterCompanySize } from '../../lib/filter'
 export default {
   name: 'StationMenu',
   data: () => ({
@@ -49,7 +49,8 @@ export default {
     ...mapGetters('localStorage', [
       'getDepartureStationID',
       'getDepartureStationName',
-      'getFilterList'
+      'getFilterList',
+      'getFilteredCompanies'
     ]),
     ...mapGetters('station', ['getRoutesFromStation', 'getAllStations']),
     filteredStations() {
@@ -126,6 +127,7 @@ export default {
       })
       const filterData = this.getFilterList
       const companyData = this.getAllCompanies
+      let scaleData = filterCompanySize(this.filterData.size)
       let data = []
       if (filterData.recruiting) {
         data = companyData.filter((v) => {
@@ -133,7 +135,7 @@ export default {
             v.avg_salary !== '회사내규에 따름' &&
             v.avg_salary >= filterData.salary &&
             v.transitTime <= filterData.time &&
-            filterData.size.includes(v.scale) &&
+            scaleData.includes(v.scale) &&
             v.jobs_count >= 1
           )
         })
@@ -143,12 +145,9 @@ export default {
             v.avg_salary !== '회사내규에 따름' &&
             v.avg_salary >= filterData.salary &&
             v.transitTime <= filterData.time &&
-            filterData.size.includes(v.scale)
+            scaleData.includes(v.scale)
           )
         })
-      }
-      if (data.length === 0) {
-        this.setNoDataAlert(true)
       }
       this.setFilteredCompanies(data)
       // Update transit time for each company
@@ -306,7 +305,7 @@ export default {
           background: #7cc4a5;
         }
         &.LS {
-          background: #AA2739;
+          background: #aa2739;
         }
         &.LSU {
           background: #eba900;
