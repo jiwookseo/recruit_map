@@ -84,9 +84,9 @@ export default {
     }
   }
   .nameBox {
-    width: 160px;
+    width: 140px;
     height: 50px;
-    margin-left: 20px;
+    margin-left: 30px;
     position: relative;
     font-size: 25px;
     font-weight: bold;
@@ -102,8 +102,8 @@ export default {
     }
   }
   .role {
-    width: 160px;
-    margin-left: 20px;
+    width: 140px;
+    margin-left: 30px;
   }
 }
 </style>

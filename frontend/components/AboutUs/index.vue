@@ -165,7 +165,7 @@ export default {
   width: 100%;
   height: calc(100% - 80px);
   overflow: auto;
-  border: 1px solid red;
+  // border: 1px solid red;
   position: relative;
   &::-webkit-scrollbar {
     display: initial;
@@ -197,7 +197,7 @@ export default {
     min-width: 400px;
     height: 90%;
     min-height: 500px;
-    border: 1px solid blue;
+    // border: 1px solid blue;
     position: absolute;
     top: 0; left: 50%;
     transform: translate(-50%);
@@ -207,7 +207,7 @@ export default {
       position: absolute;
       top: 0;
       left: 50px;
-      border: 1px solid cyan;
+      // border: 1px solid cyan;
       overflow: hidden;
       .page {
         width: 100%;
@@ -215,7 +215,9 @@ export default {
         position: absolute;
         top: 0;
         left: 100%;
-        background: #EEE;
+        background: #FEFEFE;
+        border-radius: 10px;
+        padding: 10px;
       }
     }
     .btnBox {
@@ -223,7 +225,7 @@ export default {
       height: 100%;
       position: absolute;
       top: 0;
-      border: 1px solid hotpink;
+      // border: 1px solid hotpink;
       &.prev {
         left: 0;
         &:hover {
