@@ -30,7 +30,6 @@ DEBUG = False if NODE_ENV == "production" else True
 ALLOWED_HOSTS = [
     "localhost",
     "127.0.0.1",
-    "52.78.29.170",
     "54.180.119.208",
     "ec2-54-180-119-208.ap-northeast-2.compute.amazonaws.com",
     "recruitmap.ninja",
@@ -38,11 +37,12 @@ ALLOWED_HOSTS = [
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ORIGIN_WHITELIST = [
-    'http://52.78.29.170',
     'http://54.180.119.208',
     'http://ec2-54-180-119-208.ap-northeast-2.compute.amazonaws.com',
     'http://recruitmap.ninja',
+    'http://localhost',
     'http://localhost:3000',
+    'http://127.0.0.1',
     'http://127.0.0.1:3000',
 ]
 

@@ -1,5 +1,5 @@
 import axios from 'axios'
-const BASE_URL = 'http://52.78.29.170:8000/api/'
+const BASE_URL = 'http://recruitmap.ninja:8000/api/'
 
 export default {
   getCompanyDataByName: (name) =>
