@@ -5,7 +5,7 @@ import requests
 from pprint import pprint as pp
 
 NODE_ENV = os.environ.get("NODE_ENV", "develop")
-API_URL = "http://52.78.29.170:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
+API_URL = "http://recruitmap.ninja:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
 
 with open("stations/data.json", encoding="UTF8") as f:
     raw = json.load(f)["DATA"]
