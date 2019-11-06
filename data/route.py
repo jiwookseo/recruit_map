@@ -8,7 +8,7 @@ from pprint import pprint as pp
 
 class Route:
     NODE_ENV = os.environ.get("NODE_ENV", "develop")
-    API_URL = "http://recruitmap.ninja:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
+    API_URL = "http://www.recruitmap.ninja:8000/api/" if NODE_ENV == "production" else "http://127.0.0.1:8000/api/"
     API = requests.get(API_URL).json()
 
     @classmethod
