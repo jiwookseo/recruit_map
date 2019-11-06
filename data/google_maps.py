@@ -6,7 +6,7 @@ from pprint import pprint as pp
 
 class Maps:
     API_KEY = os.environ["GOOGLE_MAPS_KEY"]
-    BASE_DIR = os.getcwd()
+    BASE_DIR = os.path.dirname(os.path.realpath(__file__))
 
     @classmethod
     def directions(cls, origin, destination):
