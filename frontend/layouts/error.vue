@@ -1,5 +1,5 @@
 <template>
-  <v-app dark class="app-error-page">
+  <div class="app-error-page">
     <div class="outer">
       <div class="inner">
         <div class="mapIcon">
@@ -21,11 +21,18 @@
             <div class="txt">{{ error.statusCode }}</div>
           </div>
         </div>
-        <div v-if="error.statusCode === 404" class="errorMsg">잘못된 경로입니다 :(<br>{{secondsLeft}}초 뒤에 메인페이지로 이동합니다.</div>
-        <div v-else class="errorMsg">페이지를 표시할 수 없습니다.<br>관리자에게 문의해주세요.</div>
+        <div v-if="error.statusCode === 404" class="errorMsg">
+          잘못된 경로입니다 :(
+          <br />
+          {{secondsLeft}}초 뒤에 메인페이지로 이동합니다.
+        </div>
+        <div v-else class="errorMsg">
+          페이지를 표시할 수 없습니다.
+          <br />관리자에게 문의해주세요.
+        </div>
       </div>
     </div>
-  </v-app>
+  </div>
 </template>
 
 <script>
@@ -54,8 +61,8 @@ export default {
       setTimeout(() => {
         setInterval(() => {
           this.secondsLeft--
-        }, 1000);
-      }, 100);
+        }, 1000)
+      }, 100)
       setTimeout(() => {
         this.$router.push('/')
       }, 5000)
@@ -127,14 +134,26 @@ export default {
   .line {
     width: 4px;
     height: 90%;
-    background: repeating-linear-gradient(to top, crimson, crimson 7px, transparent 7px, transparent 12px);
+    background: repeating-linear-gradient(
+      to top,
+      crimson,
+      crimson 7px,
+      transparent 7px,
+      transparent 12px
+    );
     position: absolute;
     top: 5px;
     left: 41px;
     transform: rotate(60deg);
     &.l2 {
       height: 110%;
-      background: repeating-linear-gradient(to top, rgb(185, 18, 52), rgb(185, 18, 52) 7px, transparent 7px, transparent 12px);
+      background: repeating-linear-gradient(
+        to top,
+        rgb(185, 18, 52),
+        rgb(185, 18, 52) 7px,
+        transparent 7px,
+        transparent 12px
+      );
       transform: rotate(-70deg);
       top: -2px;
     }
@@ -169,8 +188,10 @@ export default {
   }
   .markerBox {
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     animation: bobbing 1s ease-in-out infinite alternate;
   }
   .marker {
@@ -203,8 +224,12 @@ export default {
 }
 
 @keyframes bobbing {
-  0% {transform: translateY(0);}
-  100% {transform: translateY(-10px);}
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
 }
 
 .errorMsg {

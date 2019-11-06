@@ -34,7 +34,7 @@
               v-show="menuController[2].active"
             >
               <input
-                :id="item.size"
+                :id="item.size+[idx]"
                 v-model="filterSize[idx]"
                 type="checkbox"
                 :value="item.size"
@@ -348,94 +348,11 @@ export default {
     transform: translate(-50%);
     font-weight: 400;
     transition: all 0.2s;
-    &:focus {
-      outline: none;
-    }
     &:hover {
       background: rgb(81, 40, 122);
     }
   }
 }
-
-// div {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   z-index: 18;
-//   background-color: #fff;
-//   &:first-child,
-//   &:nth-child(2) {
-//     align-items: flex-end;
-//   }
-//   p {
-//     min-width: 70px;
-//     max-width: 70px;
-//   }
-// }
-
-// .filter-detail-size {
-//   display: block !important;
-//   padding: 10px;
-//   i,
-//   label {
-//     cursor: pointer;
-//   }
-//   i + label {
-//     margin-left: 5px;
-//   }
-//   input {
-//     margin-top: 5px;
-//     display: none !important;
-//   }
-//   input,
-//   label {
-//     display: inline-block;
-//   }
-// }
-
-// .filter-recruiting {
-//   display: flex;
-//   align-items: center;
-//   justify-content: flex-start;
-//   input {
-//     display: none;
-//   }
-//   i,
-//   label {
-//     cursor: pointer;
-//   }
-// }
-
-// .filter-bottom {
-//   clear: both;
-//   display: flex;
-//   flex-direction: column;
-//   padding-top: 21.7px;
-//   button {
-//     margin-top: 15px;
-//     background-color: #8774c1;
-//     border-radius: 5px;
-//     padding: 8px 15px;
-//     color: #fff;
-//   }
-// }
-
-// .filter-detail-size-item {
-//   float: left;
-//   &:nth-child(2) {
-//     margin-left: 17px;
-//     margin-bottom: 6.4px;
-//   }
-//   &:nth-child(3) {
-//     clear: both;
-//   }
-//   &:nth-child(4) {
-//     margin-left: 2px;
-//   }
-//   &:last-child {
-//     margin-left: 15px;
-//   }
-// }
 
 input[type='range'] {
   -webkit-appearance: none;

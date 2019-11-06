@@ -1,9 +1,101 @@
 html,
+body,
+div,
+span,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+del,
+em,
+img,
+ins,
+q,
+s,
+small,
+strike,
+strong,
+sub,
+sup,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+menu,
+nav,
+section,
+summary {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+a,
+a:hover {
+  color: initial;
+  text-decoration: none;
+}
+div:before,
+div:after,
+span:before,
+span:after {
+  content: '';
+}
+ol,
+ul {
+  list-style: none;
+}
+
+button {
+  outline: none;
+  border: none;
+}
+
+button:focus {
+  outline: none;
+}
+
+html,
 body {
   height: 100vh;
   overflow: hidden !important;
   font-family: 'Noto Sans KR', sans-serif;
+  margin: 0;
+  padding: 0;
 }
+
 .page-enter-active,
 .page-leave-active {
   transition: opacity 0.5s;

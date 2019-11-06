@@ -56,7 +56,6 @@
   </div>
 </template>
 
-//TODO og:image
 <script>
 import { mapGetters } from 'vuex'
 import Recruitment from './recruitment'
@@ -285,7 +284,8 @@ p {
     // overflow: hidden;
   }
   .route {
-    width: 100%; height: 120%;
+    width: 100%;
+    height: 120%;
     display: inline-block;
     // padding: 3px 5px 4px;
     color: #3766f3;
@@ -309,7 +309,8 @@ p {
     height: 20px;
     // background: #806db8;
     i {
-      width: 100%; height: 120%;
+      width: 100%;
+      height: 120%;
       display: inline-block;
       color: #806db8;
       font-size: 23px;
