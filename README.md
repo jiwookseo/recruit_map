@@ -16,7 +16,7 @@
 
 &nbsp;
 
-##### Use our service. [http://52.78.29.170/](http://52.78.29.170/)
+##### Use our service. [http://recruitmap.ninja/](http://recruitmap.ninja/)
 
 &nbsp;
 
@@ -93,7 +93,7 @@ Search engine optimized SSR / SPA with Nuxt.js
 
 [AWS](https://aws.amazon.com/) 을 이용해 배포했습니다.
 
-- [Go to Gil-Job-E](http://52.78.29.170/)
+- [Go to Gil-Job-E](http://recruitmap.ninja/)
 
 #### 2) Local Installation and Run Server
 
@@ -193,7 +193,7 @@ Search engine optimized SSR / SPA with Nuxt.js
        `api/company.js` ,  `api/station.js` 의 `BASE_URL`을 `localhost` 로 변경해줍니다.
 	    
 	    ```js
-	    const BASE_URL = 'http://52.78.29.170:8000/api/' // from
+	    const BASE_URL = 'http://recruitmap.ninja:8000/api/' // from
        const BASE_URL = 'http://localhost:8000/api/' // to
        ```
        
