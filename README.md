@@ -1,5 +1,6 @@
 ![logo image](assets/image/og_image.png)
 
+![service_gif](https://media.giphy.com/media/cm5DC2PAKRN6kaHKZh/giphy.gif)
 &nbsp;
 
 # 길잡이 / Gil-Job-E 
@@ -26,9 +27,14 @@
 
 - Marker를 Hover 하게 되면 자신이 정한 지하철 역에서 회사까지 걸리는 시간과 평균 연봉을 확인 할 수 있습니다.
 
+![hover_company](https://media.giphy.com/media/cnKe9HtfqAZRbEbXck/giphy.gif)
+
+
 #### 2) 원 터치로 구체적인 정보 확인 가능
 
 - 사람인 API를 활용하여 회사 정보 및 채용에 대한 정보를 제공 합니다. 마커 또는 왼쪽 메뉴바에 나오는 회사를 클릭하면 관련된 정보를 확인 할 수 있습니다.
+
+  ![click_company](https://media.giphy.com/media/joeAQy9poQoVJwE2kd/giphy.gif)
 
 #### 3) 매일 업데이트 되는 회사 정보
 
@@ -38,9 +44,13 @@
 
 - 자신이 지정한 역에서 회사까지 어떻게 가는지 GOOGLE MAP에 길찾기 URL을 활용하여 새 탭에서 구글맵을 통해 확인 할 수 있습니다.
 
+![route_find](https://media.giphy.com/media/SYF1DYl01qvUWSViMV/giphy.gif)
+
 #### 5) 지하철 역 기반
 
 - 대부분 통근을 지하철로 하게 됩니다. 그렇기에 우리는 지하철 역을 변경하게 되면 변경된 지하철역을 기준으로 회사까지 걸리는 시간을 보여줍니다.
+
+![change_subway](https://media.giphy.com/media/dxZYqrYQPWDBNUR4Mg/giphy.gif)
 
 &nbsp;
 
@@ -195,7 +205,7 @@ Search engine optimized SSR / SPA with Nuxt.js
 	    ```js
 	    const BASE_URL = 'http://recruitmap.ninja:8000/api/' // from
       const BASE_URL = 'http://localhost:8000/api/' // to
-       ```
+      ```
 
 		&nbsp;
 		`frontend` 디렉토리에서 `.env` 파일을 만들고, 구글맵에서 발급받은 API KEY를 입력 합니다.
@@ -206,11 +216,11 @@ Search engine optimized SSR / SPA with Nuxt.js
 		```
 
        `yarn` 명령어를 통해 의존성 패키지를 설치하고 Nuxt 서버를 실행합니다.
-       
+      
        ```bash
        yarn
        yarn dev
        ```
-       
+      
 
 
