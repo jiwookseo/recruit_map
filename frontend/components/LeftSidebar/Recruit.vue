@@ -45,17 +45,10 @@ export default {
         },
         {
           id: 2,
-          type: 'button',
-          name: 'About Us',
-          action: 'openAboutUs',
-          img: 'ad-aboutus.png'
-        },
-        {
-          id: 3,
           type: 'link',
-          name: 'HogangNono',
-          url: 'https://hogangnono.com/',
-          img: 'ad-hogang.png'
+          name: '갤럭시 노트 10',
+          url: 'https://www.samsung.com/sec/smartphones/galaxy-note10/',
+          img: 'ad-galaxy.jpg'
         },
         {
           id: 4,
@@ -63,7 +56,22 @@ export default {
           name: '광고문의',
           action: '',
           img: 'ad.png'
-        }
+        },
+        // {
+        //   id: 2,
+        //   type: 'button',
+        //   name: 'About Us',
+        //   action: 'openAboutUs',
+        //   img: 'ad-aboutus.png'
+        // },
+        {
+          id: 3,
+          type: 'link',
+          name: 'HogangNono',
+          url: 'https://hogangnono.com/',
+          img: 'ad-hogang.png'
+        },
+        
       ]
     }
   },

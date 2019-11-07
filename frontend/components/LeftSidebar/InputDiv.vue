@@ -117,6 +117,9 @@ export default {
     &::placeholder {
       font-size: 18px;
       font-weight: 400;
+      font-family: 'Noto Sans KR', sans-serif;
+      position: relative;
+      top: 3px;
     }
     &:focus {
       border-color: #755eb5;

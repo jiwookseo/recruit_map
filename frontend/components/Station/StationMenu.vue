@@ -188,6 +188,8 @@ export default {
   margin-bottom: 10px;
   position: relative;
   & > .btn {
+    cursor: pointer;
+    white-space: nowrap;
     width: 35px;
     height: 22px;
     border-radius: 2px;
@@ -206,18 +208,25 @@ export default {
     }
     &:disabled {
       background: #ccc;
+      cursor: initial;
     }
   }
 }
 .changeStation {
   position: relative;
   & > input {
-    width: 100%;
+    box-sizing: border-box;
+    width: 200px !important;
     height: 30px;
     border-radius: 2px 2px 0 0;
     border: 1px solid #ccc;
     font-size: 0.9em;
     padding: 1px 5px 1px 25px;
+    &::placeholder {
+      font-size: 0.95em;
+      font-weight: 400;
+      font-family: 'Noto Sans KR', sans-serif;
+    }
     &:focus {
       outline: none;
     }
@@ -254,7 +263,7 @@ export default {
         height: 16px;
         line-height: 16px;
         border-radius: 16px;
-        padding: 0 5px;
+        padding: 1px 5px 0;
         background: #3cb44a;
         color: white;
         font-size: 10px;
