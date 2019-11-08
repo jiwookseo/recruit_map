@@ -159,6 +159,7 @@ export default {
   padding: 4px 8px;
   border-radius: 2px;
   margin-left: 5px;
+  white-space: nowrap;
 }
 
 .company--info-link {

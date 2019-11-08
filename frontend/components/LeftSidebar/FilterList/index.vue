@@ -337,7 +337,7 @@ export default {
   position: relative;
   margin-top: 5px;
   .applyFilterBtn {
-    padding: 3px 10px;
+    padding: 3px 10px 4px;
     border-radius: 3px;
     background: rebeccapurple;
     color: white;
@@ -348,6 +348,8 @@ export default {
     transform: translate(-50%);
     font-weight: 400;
     transition: all 0.2s;
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
     &:hover {
       background: rgb(81, 40, 122);
     }

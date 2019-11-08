@@ -4,9 +4,7 @@
     <div class="Content">
       <p class="txt1">저희 서비스는 다음의 기술들로 완성되었어요:</p>
       <div class="imgBox">
-        <img src="~/static/aboutus-tech1.png" alt />
-        <img src="~/static/aboutus-tech2.png" alt />
-        <img src="~/static/aboutus-tech3.png" alt />
+        <img src="https://i.imgur.com/hIM4iNN.png" alt />
       </div>
     </div>
   </section>

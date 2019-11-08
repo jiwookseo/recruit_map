@@ -4,14 +4,12 @@
     @mouseenter="hoverAds = true"
     @mouseleave="hoverAds = false"
   >
-    <!-- for 문을 돌 때, Recommended Recruit의 length에 맞게 돌게하고,
-    Button Slider로 하면 좋을거 같음 + 구현 후 자동으로 슬라이딩 되는 것 까지-->
     <div class="ad" v-for="ad in ads" :key="ad.id">
       <a v-if="ad.type==='link'" :href="ad.url" target="_blank" :title="ad.name">
-        <article :style="{ backgroundImage: `url(${imgUrl(ad.img)})` }" />
+        <article :style="{ backgroundImage: `url(${ad.img})` }" />
       </a>
       <div v-if="ad.type==='button'" class="buttonType">
-        <img :src="imgUrl(ad.img)" :alt="ad.name" @click="clickHandler(ad.action)">
+        <img :src="ad.img" :alt="ad.name" @click="clickHandler(ad.action)">
       </div>
     </div>
     <div class="btnContainer left">
@@ -41,35 +39,35 @@ export default {
           type: 'link',
           name: 'SSAFY 3기 모집',
           url: 'https://www.ssafy.com/ksp/jsp/swp/swpMain.jsp',
-          img: 'ad-s3.png'
+          img: 'https://i.imgur.com/xs3Xd5D.png'
         },
         {
           id: 2,
           type: 'link',
           name: '갤럭시 노트 10',
           url: 'https://www.samsung.com/sec/smartphones/galaxy-note10/',
-          img: 'ad-galaxy.jpg'
+          img: 'https://i.imgur.com/VeocHHh.jpg'
         },
         {
           id: 4,
           type: 'button',
           name: '광고문의',
           action: '',
-          img: 'ad.png'
+          img: 'https://i.imgur.com/oa3SmRH.png'
         },
         // {
         //   id: 2,
         //   type: 'button',
         //   name: 'About Us',
         //   action: 'openAboutUs',
-        //   img: 'ad-aboutus.png'
+        //   img: 'https://i.imgur.com/21yAZ9a.png'
         // },
         {
           id: 3,
           type: 'link',
           name: 'HogangNono',
           url: 'https://hogangnono.com/',
-          img: 'ad-hogang.png'
+          img: 'https://i.imgur.com/ChzqUVn.png'
         },
         
       ]
@@ -79,9 +77,6 @@ export default {
     ...mapMutations('about', [
       'setShowAboutUs',
     ]),
-    imgUrl: (fn) => {
-      return require(`../../static/${fn}`)
-    },
     clickHandler(action) {
       if (action === "openAboutUs") {
         this.setShowAboutUs(true)

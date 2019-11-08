@@ -28,47 +28,45 @@ export default {
   computed: {
     // Control marker shape (according to marker values)
     iconURL() {
-      let url = 'default.png'
+      let url = 'https://i.imgur.com/8gUciAP.png' // default
       if (!this.marker.jobs_count) {
         // If no current job openings
-        url = 'disabled.png'
+        url = 'https://i.imgur.com/5VcItZX.png' // disabled
       } else if (this.marker.transitTime <= 30) {
         if (this.marker.avg_salary >= 5000) {
-          url = 'closest_c2.png'
+          url = 'https://i.imgur.com/lLtkKYO.png'  // closest_c2
         } else if (this.marker.avg_salary >= 4000) {
-          url = 'closest_c1.png'
+          url = 'https://i.imgur.com/z7VHxMT.png'  // closest_c1
         } else {
-          url = 'closest.png'
+          url = 'https://i.imgur.com/9EMDLEC.png'  // closest
         }
       } else if (this.marker.transitTime <= 45) {
         if (this.marker.avg_salary >= 5000) {
-          url = 'closer_c2.png'
+          url = 'https://i.imgur.com/itaypB7.png'  // closer_c2
         } else if (this.marker.avg_salary >= 4000) {
-          url = 'closer_c1.png'
+          url = 'https://i.imgur.com/3QLCNjI.png'  // closer_c1
         } else {
-          url = 'closer.png'
+          url = 'https://i.imgur.com/zEAWAej.png'  // closer
         }
       } else if (this.marker.transitTime <= 60) {
         if (this.marker.avg_salary >= 5000) {
-          url = 'close_c2.png'
+          url = 'https://i.imgur.com/xbe52sC.png'  // close_c2
         } else if (this.marker.avg_salary >= 4000) {
-          url = 'close_c1.png'
+          url = 'https://i.imgur.com/xSY9bWG.png'  // close_c1
         } else {
-          url = 'close.png'
+          url = 'https://i.imgur.com/YrEPYUO.png'  // close
         }
       } else if (this.marker.avg_salary >= 5000) {
-        url = 'default_c2.png'
+        url = 'https://i.imgur.com/UNqHYfQ.png'  // default_c2
       } else if (this.marker.avg_salary >= 4000) {
-        url = 'default_c1.png'
-      } else {
-        url = 'default.png'
+        url = 'https://i.imgur.com/MGIH1Pi.png'  // default_c1
       }
 
       return url
     },
     markerOptions() {
       return {
-        url: require(`~/static/${this.iconURL}`),
+        url: this.iconURL,
         size: { width: 68, height: 43, f: 'px', b: 'px' },
         scaledSize: { width: 68, height: 43, f: 'px', b: 'px' },
         labelOrigin: { x: 26, y: 27 }
