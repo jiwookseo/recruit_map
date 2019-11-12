@@ -30,7 +30,7 @@
 
 - 출발지로 지정한 지하철 역에서 부터 기업까지 걸리는 시간과 평균 연봉 등을 확인 할 수 있습니다.
 
-![hover_company](https://media.giphy.com/media/cnKe9HtfqAZRbEbXck/giphy.gif)
+  ![hover_company](https://media.giphy.com/media/cnKe9HtfqAZRbEbXck/giphy.gif)
 
 * 출발 지하철 역을 변경 시 변경된 지하철 역을 기준으로 기업까지 걸리는 시간을 실시간으로 변경됩니다.
 
