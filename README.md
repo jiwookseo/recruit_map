@@ -1,60 +1,64 @@
 ![logo image](assets/image/og_image.png)
 
+# 길잡이 <small>Recruit Map</small>
+
+### Service
+
+- Google Maps API 를 이용한 통근 시간 정보와 취업 컨텐츠를 지도에서 보여주는 통합 서비스
+
+#### Architecture
+
+- 검색엔진 최적화를 위한 Server-side rendering 클라이언트
+
+  Nuxt.js 를 이용한 SSR / SPA 클라이언트 구현
+
+- 서버와 클라이언트의 완전한 분리
+
+  DRF 를 이용해 HATEOAS 를 적용한 self-descriptive한 RESTful API 구현
+
+&nbsp;
+
+### Use our service. [http://recruitmap.ninja/](http://recruitmap.ninja/)
+
 ![service_gif](https://media.giphy.com/media/cm5DC2PAKRN6kaHKZh/giphy.gif)
-&nbsp;
-
-# 길잡이 / Gil-Job-E 
-
->  IT 관련 채용과 회사 정보를 지도에서 보여주자
-
-- Nuxt.js를 활용하여 SSR을 지원하자.
-
-  Nuxt.js에서 이미 built-in 된 기능이기에, nuxt.js를 build하고, build 된 디렉토리를 Nginx로 배포합니다.
-
-- 서버가 변경되어도 클라이언트는 별 문제없이 돌아가야 한다. 
-
-  HATEOAS를 활용한 self-descriptive한 RESTFUL API구현.
 
 &nbsp;
 
-##### Use our service. [http://recruitmap.ninja/](http://recruitmap.ninja/)
+## 1. Detail Feature
 
-&nbsp;
+#### 1) 지도를 통한 채용 진행 기업 시각화
 
-## 1. Service Feature
-
-#### 1) 지도에서 회사 위치 바로 확인
-
-- Marker를 Hover 하게 되면 자신이 정한 지하철 역에서 회사까지 걸리는 시간과 평균 연봉을 확인 할 수 있습니다.
+- 출발지로 지정한 지하철 역에서 부터 기업까지 걸리는 시간과 평균 연봉 등을 확인 할 수 있습니다.
 
 ![hover_company](https://media.giphy.com/media/cnKe9HtfqAZRbEbXck/giphy.gif)
 
+* 출발 지하철 역을 변경 시 변경된 지하철 역을 기준으로 기업까지 걸리는 시간을 실시간으로 변경됩니다.
 
-#### 2) 원 터치로 구체적인 정보 확인 가능
-
-- 사람인 API를 활용하여 회사 정보 및 채용에 대한 정보를 제공 합니다. 마커 또는 왼쪽 메뉴바에 나오는 회사를 클릭하면 관련된 정보를 확인 할 수 있습니다.
-
-  ![click_company](https://media.giphy.com/media/joeAQy9poQoVJwE2kd/giphy.gif)
-
-#### 3) 매일 업데이트 되는 회사 정보
-
-- VM을 활용하여 매일 정해진 시간에 API 요청을 보내고, 새로운 데이터가 있으면 데이터 베이스에 추가하여 새로운 회사 공고를 제공 합니다.
-
-#### 4) 길찾기
-
-- 자신이 지정한 역에서 회사까지 어떻게 가는지 GOOGLE MAP에 길찾기 URL을 활용하여 새 탭에서 구글맵을 통해 확인 할 수 있습니다.
-
-![route_find](https://media.giphy.com/media/SYF1DYl01qvUWSViMV/giphy.gif)
-
-#### 5) 지하철 역 기반
-
-- 대부분 통근을 지하철로 하게 됩니다. 그렇기에 우리는 지하철 역을 변경하게 되면 변경된 지하철역을 기준으로 회사까지 걸리는 시간을 보여줍니다.
-
-![change_subway](https://media.giphy.com/media/dxZYqrYQPWDBNUR4Mg/giphy.gif)
+  ![change_subway](https://media.giphy.com/media/dxZYqrYQPWDBNUR4Mg/giphy.gif)
 
 &nbsp;
 
-## 2. Tech Stack
+#### 2) 구체적인 정보와 채공 공고 제공
+
+- 사람인 API를 활용하여 회사 정보 및 채용에 대한 정보를 제공합니다.
+
+  마커 또는 왼쪽 사이드바에 보여지는 근처 회사를 클릭하면 관련된 정보를 확인 할 수 있습니다.
+  
+  ![click_company](https://media.giphy.com/media/joeAQy9poQoVJwE2kd/giphy.gif)
+  
+* 소요 시간 정보와 채용 공고에 대한 구체적인 정보는 Google Map 과 사람인 링크를 통해 제공합니다.
+
+  ![route_find](https://media.giphy.com/media/SYF1DYl01qvUWSViMV/giphy.gif)
+
+&nbsp;
+
+#### 3) 매일 업데이트 되는 채용 정보
+
+- 매일 2회의 스케쥴링된 API 요청과 크롤링을 통해 채용 정보를 업데이트 합니다.
+
+&nbsp;
+
+## 2. Built With
 
 ![frontend stack image](assets/image/deploy_stack.png)
 
@@ -215,6 +219,8 @@ Search engine optimized SSR / SPA with Nuxt.js
 		GOOGLE_MAP="YOUR_GOOGLE_MAP_KEY"
 		```
 
+      &nbsp;
+      
        `yarn` 명령어를 통해 의존성 패키지를 설치하고 Nuxt 서버를 실행합니다.
       
        ```bash
@@ -223,4 +229,13 @@ Search engine optimized SSR / SPA with Nuxt.js
        ```
       
 
+&nbsp;
 
+## 4. Authors
+
+* Frontend
+  * [Dowoo Kim](https://github.com/dowookims)
+  * [Jiwon Juliet Yoon](https://github.com/jiwonjulietyoon)
+
+* Backend and Deploy
+  * [Jiwook Seo](https://github.com/jiwookseo)
